@@ -7,7 +7,7 @@
                         <div class="col-lg-3 col-md-2">
                             <!-- Logo -->
                             <div class="logo">
-                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                <a href={{ url('/') }}><img src="assets/img/logo/logo.png" alt=""></a>
                             </div>  
                         </div>
                         <div class="col-lg-9 col-md-9">
@@ -16,18 +16,17 @@
                                 <div class="main-menu">
                                     <nav class="d-none d-lg-block">
                                         <ul id="navigation">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="job_listing.html">Find a Job </a></li>
-                                            <li><a href="about.html">About</a></li>
-                                          
-                                            <li><a href="contact.html">Contact</a></li>
+                                            <li><a href={{ route('index') }}>Home</a></li>
+                                            <li><a href={{ route('jobs') }}>Find a Job </a></li>
+                                            <li><a href={{ route('about') }}>About</a></li>                                       
+                                            <li><a href={{ route('contact') }}>Contact</a></li>
                                         </ul>
                                     </nav>
                                 </div>          
                                 <!-- Header-btn -->
                                 <div class="header-btn d-none f-right d-lg-block">
-                                    <a href="login.html" class="btn head-btn1">Register</a>
-                                    <a href="login.html" class="btn head-btn2">Login</a>
+                                    <a href={{ route('register') }} class="btn head-btn1">Register</a>
+                                    <a href={{ route('login') }} class="btn head-btn2">Login</a>
                                 </div>
                             </div>
                         </div>

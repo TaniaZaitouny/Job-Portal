@@ -16,10 +16,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
-Route::get('/about.html', function () {
+})->name('index');
+
+
+Route::get('/jobs', function () {
+    return view('joblisting');
+})->name('jobs');
+
+Route::get('/about', function () {
     return view('about');
-});
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
