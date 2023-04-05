@@ -13,14 +13,17 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('company');
-            $table->string('job_name');
-            $table->string('category');
-            $table->string('job_type');
-            $table->string('location');
+            $table->integer('company_id')->unsigned()->index();
+            $table->string('title');
+            $table->set('category', ['Healthcare', 'Commputer and Information Technology', 'Real Estate', 'Retail', 'Education', 'Entertaiment and Sports', 'Legal', 'Transportation', 'Social Services', 'Sales and Marketing', 'Management', 'Businness and Finance', 'Architecture and Engineering', 'Arts and Design', 'Construction']);
             $table->string('description');
-            $table->string('skills');
-            $table->float('salary');
+            $table->string('requirements');
+            $table->set('workspace', ['on-site', 'hybrid', 'remote']);
+            $table->set('employment', ['full-time', 'part-time', 'freelance']);
+            $table->string('location');
+            $table->float('salary')->nullable();
+            $table->float('bid')->nullable();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }
