@@ -13,6 +13,13 @@
                 </div>
             </div>
             <div class="col-md-7 mb-3">
+                <label for="location">Location</label>
+                <input type="text" class="form-control" id="location" name="location" required>
+                <div class="invalid-feedback">
+                  Please provide a location.
+                </div>
+            </div>
+            <div class="col-md-7 mb-3">
                 <label for="education">Description</label>
                 <textarea class="form-control" id="desc" name="description" required>
                 </textarea>
@@ -64,6 +71,13 @@
                     Please fill in your job category.
                 </div>
                 <br/>
+            </div>
+            <div class="col-md-7 mb-3">
+                <label for="salary">Salary</label>
+                <input type="text" class="form-control" id="salary" name="salary" required>
+                <div class="invalid-feedback">
+                  Please provide a salary.
+                </div>
             </div>
             <button class="btn btn-primary" type="submit">Submit form</button>
         </form>
