@@ -11,77 +11,82 @@
         @include('Partials.styles')
 </head>
 <body>
-    <header>
-        <!-- Header Start -->
-        <br><br>
-       <div class="header-area header-transparrent">
-           <div class="headder-top header-sticky">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-3 col-md-2">
-                            <!-- Logo -->
-                            <div class="logo">
-                                <a href={{ url('/') }}><img src="assets/img/logo/logo.png" alt=""></a>
-                            </div>  
-                        </div>
-                        <div class="col-lg-9 col-md-9">
-                            <div class="menu-wrapper">
-                                <!-- Main-menu -->
-                                <div class="main-menu">
-                                    <nav class="d-none d-lg-block">
-                                        <ul id="navigation">
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>                                       
-                                            <li></li>
-                                        </ul>
-                                    </nav>
-                                </div>          
-                                <!-- Header-btn -->
-                                <div class="header-btn d-none f-right d-lg-block">
-                                    <a href="/editProfile" class="btn head-btn1">Edit Profile</a>
-                                
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Mobile Menu -->
-                        <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"></div>
-                        </div>
-                    </div>
-                </div>
-           </div>
-       </div>
-        <!-- Header End -->
-    </header>
-<div class="whole-wrap">
-		<div class="container box_1170">
-			<div class="section-top-border">
-				<h3 class="mb-30">My Profile</h3>
-				<div class="row">
-					<div class="col-md-3">
-						<img src="assets/img/elements/d.jpg" alt="" class="img-fluid">
-					</div>
-					<div class="col-md-9 mt-sm-20">
-						<p>Recently, the US Federal government banned online casinos from operating in America by making
-							it illegal to
-							transfer money to them through any US bank or payment system. As a result of this law, most
-							of the popular
-							online casino networks such as Party Gaming and PlayTech left the United States. Overnight,
-							online casino
-							players found themselves being chased by the Federal government. But, after a fortnight, the
-							online casino
-							industry came up with a solution and new online casinos started taking root. These began to
-							operate under a
-							different business umbrella, and by doing that, rendered the transfer of money to and from
-							them legal. A major
-							part of this was enlisting electronic banking systems that would accept this new
-							clarification and start doing
-							business with me. Listed in this article are the electronic banking systems that accept
-							players from the United
-							States that wish to play in online casinos.</p>
-					</div>
-				</div>
-			</div>
+    @include('Partials.header')
+    
+<section style="background-color: #eee;">
+
+    <br><br>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">John Smith</h5>
+            <p class="text-muted mb-1">Full Stack Developer</p>
+            <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+            <div class="d-flex justify-content-center mb-2">
+            <div class="button-group-area">
+                <a href="#" class="genric-btn primary" style="background-color:#fb246a">Download CV</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Full Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">Johnatan Smith</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">example@example.com</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Phone</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">(097) 234-5678</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Mobile</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">(098) 765-4321</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Address</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+              </div>
+            </div>
+          </div>
+        </div>
+     
+</section>
+<div class="button-group-area">
+<a href="#" class="genric-btn primary">Primary</a>
+</div>
 </body>
 </html>

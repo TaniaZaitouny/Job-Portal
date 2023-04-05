@@ -28,7 +28,7 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('/contact', function () {
-    return view('contact');
+    return view('viewProfile');
 })->name('contact');
 
 Route::get('/dashboard', function () {
