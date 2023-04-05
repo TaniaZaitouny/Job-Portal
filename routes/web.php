@@ -18,6 +18,13 @@ Route::get('/', function () {
     return view('home');
 })->name('index');
 
+Route::get('/jobposting', function () {
+    return view('jobposting_form');
+});
+
+Route::get('/jobdetails', function () {
+    return view('jobdetails');
+});
 
 Route::get('/jobs', function () {
     return view('joblisting');
