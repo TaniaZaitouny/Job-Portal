@@ -37,7 +37,7 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('/contact', function () {
-    return view('companyProfile');
+    return view('userProfile');
 })->name('contact');
 
 Route::get('/dashboard', function () {
