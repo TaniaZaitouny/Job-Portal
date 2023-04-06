@@ -25,7 +25,9 @@ Route::get('/jobposting', function () {
 Route::get('/jobdetails', function () {
     return view('jobdetails');
 });
-
+Route::get('/addCv', function () {
+    return view('cv');
+});
 Route::get('/jobs', function () {
     return view('joblisting');
 })->name('jobs');
@@ -35,7 +37,7 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('/contact', function () {
-    return view('viewProfile');
+    return view('companyProfile');
 })->name('contact');
 
 Route::get('/dashboard', function () {
