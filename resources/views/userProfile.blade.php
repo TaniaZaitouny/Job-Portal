@@ -138,7 +138,11 @@
   <br>
   
   <div>
+<<<<<<< HEAD
       <h4 style="margin-left: 180px">Experience</h4>
+=======
+      <h4 class="contact">Experience</h4>
+>>>>>>> 710d2728bd78010a3f528152902c490dc3970bb3
         <ul class="list-group experience-card">
           <li>
             <h5>Job Title 1</h5>
@@ -156,7 +160,11 @@
     </div>
     
     <div>
+<<<<<<< HEAD
       <h4 style="margin-left: 180px">Skills</h4>
+=======
+      <h4 class="contact">Skills</h4>
+>>>>>>> 710d2728bd78010a3f528152902c490dc3970bb3
         <ul class="list-group experience-card">
           <li>
             <h5>Job Title 1</h5>
