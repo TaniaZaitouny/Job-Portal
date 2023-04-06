@@ -36,10 +36,6 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-<<<<<<< HEAD
-Route::get('/contact', function () {
-    return view('userProfile');
-=======
 Route::get('/companyProfile', function() {
     return view('companyProfile');
 });
@@ -50,7 +46,6 @@ Route::get('/userProfile', function() {
 
 Route::get('/contact', function () {
     return view('contact');
->>>>>>> 710d2728bd78010a3f528152902c490dc3970bb3
 })->name('contact');
 
 Route::get('/dashboard', function () {

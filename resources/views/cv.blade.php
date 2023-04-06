@@ -9,95 +9,94 @@
 
 </header>
 <body>
-    <script>
-        alert("hi");
-        document.getElementById("add_education").addEventListener("click", function add_education_row() {
-            var education_container = document.getElementById("education_container");
-            alert("hi");
-            alert("<div class=\"row\"\>
-                                <div class=\"col-md-6\"\>
-                                    <div class=\"form-group app-label\"\>
-                                        <label for=\"certificate\" class=\"text-muted\">Degree/Certificate</label\>
-                                        <input id=\"certificate\" type=\"text\" class=\"form-control resume\"\>
-                                    </div\>
-                                </div\>
+<script>
 
-                                <div class=\"col-md-6\"\>
-                                    <div class=\"form-group app-label\"\>
-                                        <label for=\"year\" class=\"text-muted\"\>Year</label\>
-                                        <input id=\"year\" type=\"text\" class=\"form-control resume\"\>
-                                    </div\>
-                                </div\>
-                            </div>");
-            var new_row = document.createElement("<div class=\"row\"\>
-                                <div class=\"col-md-6\"\>
-                                    <div class=\"form-group app-label\"\>
-                                        <label for=\"certificate\" class=\"text-muted\">Degree/Certificate</label\>
-                                        <input id=\"certificate\" type=\"text\" class=\"form-control resume\"\>
-                                    </div\>
-                                </div\>
+    function add_single_input()
+    {
+        const addButton = document.getElementById("addInput");
+const inputContainer = document.getElementById("inputContainer");
 
-                                <div class=\"col-md-6\"\>
-                                    <div class=\"form-group app-label\"\>
-                                        <label for=\"year\" class=\"text-muted\"\>Year</label\>
-                                        <input id=\"year\" type=\"text\" class=\"form-control resume\"\>
-                                    </div\>
-                                </div\>
-                            </div>");
-            education_container.appendChild("<div class=\"row\"\>
-                                <div class=\"col-md-6\"\>
-                                    <div class=\"form-group app-label\"\>
-                                        <label for=\"certificate\" class=\"text-muted\">Degree/Certificate</label\>
-                                        <input id=\"certificate\" type=\"text\" class=\"form-control resume\"\>
-                                    </div\>
-                                </div\>
+let counter = 0;
 
-                                <div class=\"col-md-6\"\>
-                                    <div class=\"form-group app-label\"\>
-                                        <label for=\"year\" class=\"text-muted\"\>Year</label\>
-                                        <input id=\"year\" type=\"text\" class=\"form-control resume\"\>
-                                    </div\>
-                                </div\>
-                            </div>");
-        });
+addButton.addEventListener("click", () => {
+  const input = document.createElement("input");
+  input.setAttribute("type", "text");
+  input.setAttribute("id", `input-${counter}`);
+  inputContainer.appendChild(input);
+  counter++;
+});
 
-        function add_work_row() {
-            var work_container = document.getElementById("work_container");
-            var new_row = document.createElement("<div class=\"row\"\>
-                                    <div class=\"col-md-6\"\>
-                                        <div class=\"form-group app-label\"\>
-                                            <label for=\"company-name\" class=\"text-muted\">Company Name</label\>
-                                            <input id=\"company-name\" type=\"text\" class=\"form-control resume\"\>
-                                        </div\>
-                                    </div\>
+    }
+    function add_education_row() {
+    var education_container = document.getElementById("education_container");
+    var new_row = document.createElement("div");
+    new_row.innerHTML = `<div class="row">
+        <div class="col-md-6">
+            <div class="form-group app-label">
+                <label for="certificate" class="text-muted">Degree/Certificate</label>
+                <input id="certificate" type="text" class="form-control resume">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group app-label">
+                <label for="year" class="text-muted">Year</label>
+                <input id="year" type="text" class="form-control resume">
+            </div>
+        </div>
+    </div>`;
+    education_container.appendChild(new_row);
+}
+function add_skill_row() {
+    var skill_container = document.getElementById("skill_container");
+    var new_row = document.createElement("div");
+    new_row.innerHTML = `<div class="row">
+        <div class="col-lg-12">
+            <div class="form-group app-label">
+                <label for="skill" class="text-muted">Skill</label>
+                <input id="add_skill" type="text" class="form-control resume">
+            </div>
+    </div>`;
+    skill_container.appendChild(new_row);
+}
+    function add_work_row() {
+        var work_container = document.getElementById("work_container");
+        var new_row = document.createElement("div");
+        new_row.innerHTML = `<div class="row">
+            <div class="col-md-6">
+                <div class="form-group app-label">
+                    <label for="company-name" class="text-muted">Company Name</label>
+                    <input id="company-name" type="text" class="form-control resume">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group app-label">
+                    <label for="job-position" class="text-muted">Job Position</label>
+                    <input id="job-position" type="text" class="form-control resume">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group app-label">
+                            <label for="date-from" class="text-muted">Year From</label>
+                            <input id="date-from" type="text" class="form-control resume">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group app-label">
+                            <label for="date-to" class="text-muted">Year To</label>
+                            <input id="date-to" type="text" class="form-control resume">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        work_container.appendChild(new_row);
+    }
 
-                                    <div class=\"col-md-6\"\>
-                                        <div class=\"form-group app-label\"\>
-                                            <label for=\"job-position\" class=\"text-muted\">Job Position</label\>
-                                            <input id=\"job-position\" type=\"text\" class=\"form-control resume\"\>
-                                        </div\>
-                                    </div\>
+    document.getElementById("add_education").addEventListener("click", add_education_row);
+</script>
 
-                                    <div class=\"col-lg-6\"\>
-                                        <div class=\"row\"\>
-                                            <div class=\"col-md-6\"\>
-                                                <div class=\"form-group app-label\"\>
-                                                    <label for=\"date-from\" class=\"text-muted\">Year From</label\>
-                                                    <input id=\"date-from\" type=\"text\" class=\"form-control resume\"\>
-                                                </div\>
-                                            </div\>
-
-                                            <div class=\"col-md-6\"\>
-                                                <div class=\"form-group app-label\"\>
-                                                    <label for=\"date-to\" class=\"text-muted\">Year To</label\>
-                                                    <input id=\"date-to\" type=\"text\" class=\"form-control resume\"\>
-                                                </div\>
-                                            </div\>
-                                        </div\>
-                                    </div\> </div>");
-            work_container.appendChild(new_row);
-        }
-    </script>
 
   @include('Partials.header')
 
@@ -249,7 +248,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="button" id="add_education" class="btn btn-light">Add Row</button>
+                                <button type="button" id="add_education" class="btn btn-light" onclick="add_education_row()">Add Row</button>
                             </div>
                         </div>
                     </form>
@@ -337,7 +336,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button type="button" id="add_skill" class="btn btn-light">Add Row</button>
+                                    <button type="button" id="add_skill" class="btn btn-light" onclick="add_skill_row()">Add Row</button>
                                 </div>
                             </div> 
                         </form>
