@@ -101,6 +101,39 @@
         max-width: 800px;
         border-top: 1px solid #ccc;
       }
+      .reviews {
+        margin: 20px auto;
+        max-width: 1000px;
+  margin-top: 50px;
+}
+
+.review-card {
+  display: inline-block;
+  width: 45%;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  vertical-align: top;
+  box-sizing: border-box;
+}
+
+.review-card img {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.review-card-content {
+  display: inline-block;
+  width: calc(100% - 60px);
+  vertical-align: top;
+}
+
     </style>
  
   <body>
@@ -119,7 +152,25 @@
       <p>Nunc pulvinar justo vitae neque porttitor, at volutpat lacus sollicitudin. Praesent elementum accumsan augue, in mollis
     </p>
     </div>
+    <div class="reviews ">
+  <h2>Reviews</h2>
+  <div class="review-card">
+    <img src="https://via.placeholder.com/100x100.png" alt="Reviewer Avatar" />
+    <div class="review-card-content">
+      <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+      <p>- John Doe</p>
+    </div>
+  </div>
+  <div class="review-card">
+    <img src="https://via.placeholder.com/100x100.png" alt="Reviewer Avatar" />
+    <div class="review-card-content">
+      <p>"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</p>
+      <p>- Jane Doe</p>
+    </div>
+  </div>
+</div>
     <div class="divider"></div>
+
 <div class="contact">
 <h2>Contact</h2>
 <ul>
