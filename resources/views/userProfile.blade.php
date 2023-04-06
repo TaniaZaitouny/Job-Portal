@@ -124,7 +124,7 @@
       <img class="logo" style="   position:absolute;top: 146px;" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="Company logo">
       <div class="cover" src="https://images.unsplash.com/photo-1557330803-dcf98fc9eac1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"></div>
       <div class="info">
-        <h1 class="company-name">User Name</h1>
+        <h1 class="company-name">{{Auth::user()->name}}</h1>
         <h2 class="sub-title">Sub Title</h2>
         <p class="description">A little description about the company goes here.</p>
       </div>
