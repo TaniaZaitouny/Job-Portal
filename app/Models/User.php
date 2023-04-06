@@ -45,4 +45,28 @@ class User extends Authenticatable
     public function reviews() {
         return $this->hasMany(Review::class);
     }
+
+    public function applications() {
+        return $this->hasMany(Application::class);
+    }
+
+    public function information() {
+        return $this->hasOne(Information::class);
+    }
+
+    public function contact() {
+        return $this->hasOne(Contact::class);
+    }
+
+    public function educations() {
+        return $this->hasMany(Education::class);
+    }
+
+    public function works() {
+        return $this->hasMany(Work::class);
+    }
+
+    public function skills() {
+        return $this->hasMany(Skill::class);
+    }
 }
