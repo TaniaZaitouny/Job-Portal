@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->integer('company_id')->unsigned()->index();
             $table->string('title');
-            $table->set('category', ['Healthcare', 'Commputer and Information Technology', 'Real Estate', 'Retail', 'Education', 'Entertaiment and Sports', 'Legal', 'Transportation', 'Social Services', 'Sales and Marketing', 'Management', 'Businness and Finance', 'Architecture and Engineering', 'Arts and Design', 'Construction']);
+            $table->string('category');
             $table->string('description');
             $table->string('requirements');
-            $table->set('workspace', ['on-site', 'hybrid', 'remote']);
-            $table->set('employment', ['full-time', 'part-time', 'freelance']);
+            $table->string('workspace');
+            $table->string('employment');
             $table->string('location');
             $table->float('salary')->nullable();
             $table->float('bid')->nullable();

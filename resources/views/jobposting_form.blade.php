@@ -4,7 +4,8 @@
         <br/>
         <h2 class="ml-5"> Upload A New Job Posting </h2>
         <br/>
-        <form class="needs-validation ml-5" novalidate method="POST" action="">
+        <form class="needs-validation ml-5" novalidate method="POST" action="/jobposting">
+         
             <div class="col-md-7 mb-3">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" name="title" required>
@@ -38,10 +39,10 @@
             <div class="col-md-7 mb-5">
                 <label for="workspace">Job Workspace</label>
                 <br/>
-                <select>
-                    <option value="on-site" name="workspace">On-site</option>
-                    <option value="hybrid" name="workspace">Hybrid</option>
-                    <option value="remote" name="workspace">Remote</option>
+                <select name="workspace">
+                    <option value="on-site" >On-site</option>
+                    <option value="hybrid" >Hybrid</option>
+                    <option value="remote" >Remote</option>
                 </select>
                 <div class="invalid-feedback">
                     Please fill in your job workspace type.
@@ -51,10 +52,10 @@
             <div class="col-md-7 mb-5">
                 <label for="employment">Employment</label>
                 <br/>
-                <select>
-                    <option value="full-time" name="employment">Full-time</option>
-                    <option value="part-time" name="employment">Part-time</option>
-                    <option value="freelance" name="employment">Freelance</option>
+                <select name="employment">
+                    <option value="full-time" >Full-time</option>
+                    <option value="part-time" >Part-time</option>
+                    <option value="freelance" >Freelance</option>
                 </select>
                 <div class="invalid-feedback">
                     Please fill in your employment type.
@@ -79,7 +80,9 @@
                   Please provide a salary.
                 </div>
             </div>
+            @csrf
             <button class="btn btn-primary" type="submit">Submit form</button>
+        
         </form>
         <br/>
         
