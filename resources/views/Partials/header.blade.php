@@ -17,7 +17,7 @@
                                     <nav class="d-none d-lg-block">
                                         <ul id="navigation">
                                             <li><a href={{ route('index') }}>Home</a></li>
-                                            <li><a href={{ route('jobs') }}>Find a Job </a></li>
+                                            <li><a href={{ route('jobs.index') }}>Find a Job </a></li>
                                             <li><a href={{ route('about') }}>About</a></li>                                       
                                             <li><a href={{ route('contact') }}>Contact</a></li>
                                         </ul>

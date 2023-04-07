@@ -20,20 +20,19 @@ Route::get('/', function () {
 })->name('index');
 
 
-Route::get('/jobposting', 'App\Http\Controllers\JobController@index');
-Route::post('/jobposting', 'App\Http\Controllers\JobController@store');
+Route::get('/jobposting', function () {
+    return view('jobposting_form');
+});
 
-Route::get('/jobs', [JobController::class, 'listjob'])->name('jobs');
-
-
+Route::resource('jobs', JobController::class)->except(['show', 'edit', 'update', 'destroy']);
 
 Route::get('/jobdetails', function () {
     return view('jobdetails');
 });
+
 Route::get('/addCv', function () {
     return view('cv');
 });
-
 
 Route::get('/about', function () {
     return view('about');
