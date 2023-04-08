@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Route::resource('jobs', JobController::class)->except(['edit', 'update', 'destroy']);
 
-
+Route::post('/jobs/search', [JobController::class, 'searchJob']);
 Route::get('/addCv', function () {
     return view('cv');
 });

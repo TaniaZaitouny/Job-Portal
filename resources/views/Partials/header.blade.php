@@ -7,7 +7,7 @@
                         <div class="col-lg-3 col-md-2">
                             <!-- Logo -->
                             <div class="logo">
-                                <img src="assets/img/logo/logo.png" alt="">
+                                <img src="{{asset('assets/img/logo/logo.png')}}" alt="">
                             </div>  
                         </div>
                         <div class="col-lg-9 col-md-9">

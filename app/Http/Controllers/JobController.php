@@ -50,9 +50,25 @@ class JobController extends Controller
     {
         //
         $job = Job::find($id);
+        if($job)
+        {
         return view("jobdetails",['job'=>$job]);
+        }
     }
-
+    /**search jobs according to input search key */
+    public function searchJob(Request $request)
+    {
+        
+        if ($search = $request->search) {
+            $jobs = Job::where('title', 'like', '%' . $search . '%')
+                        ->orWhere('description', 'like', '%' . $search . '%')
+                        ->orWhere('requirements', 'like', '%' . $search . '%')
+                        ->get();
+      
+        return view('joblisting',compact('jobs'));
+        
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      */
