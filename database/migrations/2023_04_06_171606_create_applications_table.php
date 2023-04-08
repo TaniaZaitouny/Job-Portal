@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->unsigned()->index();
-            $table->integer('job_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('job_id')->references('id')->on('jobs');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('job_id')->constrained('jobs');
             $table->timestamps();
         });
     }

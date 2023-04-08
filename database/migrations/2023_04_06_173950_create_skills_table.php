@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
             $table->string('skill');
-            $table->integer('user_id')->unsigned()->index();  
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@ class Job extends Model
     use HasFactory;
 
     public function company() {
-        return $this->belongsTo(Company::class, 'id');
+        return $this->belongsTo(User::class, 'id');
     }
 
     public function applications() {

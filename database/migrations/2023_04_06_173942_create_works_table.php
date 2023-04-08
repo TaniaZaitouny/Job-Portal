@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('position');
             $table->string('start_year');
             $table->string('end_year');
-            $table->integer('user_id')->unsigned()->index();  
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

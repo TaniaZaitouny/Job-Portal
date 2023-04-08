@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('certificate_name');
             $table->date('year');
-            $table->integer('user_id')->unsigned()->index();  
-            $table->foreign('user_id')->references('id')->on('users');  
+            $table->foreignId('user_id')->constrained('users');  
             $table->timestamps();
         });
     }

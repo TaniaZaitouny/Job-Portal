@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('location');
             $table->float('salary')->nullable();
             $table->float('bid')->nullable();
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

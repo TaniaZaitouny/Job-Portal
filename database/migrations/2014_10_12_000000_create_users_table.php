@@ -17,10 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('information_id')->unsigned()->index();  
-            $table->foreign('information_id')->references('id')->on('information');
-            $table->integer('contact_id')->unsigned()->index();  
-            $table->foreign('contact_id')->references('id')->on('contact');
+            $table->string('role');
             $table->rememberToken();
             $table->timestamps();
         });
