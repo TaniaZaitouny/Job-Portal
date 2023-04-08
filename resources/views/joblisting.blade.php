@@ -233,7 +233,7 @@
                                     </div>
 
                                     <div class="items-link items-link2 f-right">
-                                        <a href="job_details.html">{{$job->employment}}</a>
+                                        <a href="{{ route('jobs.show', ['job' => $job->id]) }}">{{$job->employment}}</a>
                                         <span>7 hours ago</span>
                                     </div>
                                 </div>

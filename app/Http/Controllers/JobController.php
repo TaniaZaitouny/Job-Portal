@@ -13,7 +13,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        return view('joblisting');
+        $jobs = \App\Models\Job::all();
+        return view('joblisting',compact('jobs'));
     }
 
     /**
@@ -30,6 +31,7 @@ class JobController extends Controller
     public function store(Request $request)
     {
         $job = new Job();
+        $job->company_id = "123";
         $job->title = $request->input('title');
         $job->location = $request->input('location');
         $job->description = $request->input('description');
@@ -40,13 +42,15 @@ class JobController extends Controller
         $job->salary = $request->input('salary');
         $job->save();
     }
-
+ 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
         //
+        $job = Job::find($id);
+        return view("jobdetails",['job'=>$job]);
     }
 
     /**
