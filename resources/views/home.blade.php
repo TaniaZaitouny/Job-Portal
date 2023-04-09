@@ -33,18 +33,18 @@
                         </div>
                         <!-- Search Box -->
                         <div class="row">
-                            <div class="col-xl-8">
+                            <div class="col-xl-5">
                                 <!-- form -->
                                 
                                 <form action="/jobs/search" method="POST" class="search-box">
                                     @csrf
-                                    <div class="input-form">
+                                    <div class="input-form" style="width:100%">
                                         <input type="text" placeholder="Job Tittle or keyword" name="search">
                                     </div>
                                     
                                     </div>
                                     <div class="search-form">
-                                    <input type="submit" class="btn btn-primary" />
+                                    <input type="submit" class="btn head-btn1" style="height:70px" value="Find a Job">
                                     </div>	
                                 </form>	
                             </div>
