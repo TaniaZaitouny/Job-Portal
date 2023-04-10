@@ -8,7 +8,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(Job::class, 'job');
+        $this->authorizeResource(User::class);
     }
 
     // public function showProfile()

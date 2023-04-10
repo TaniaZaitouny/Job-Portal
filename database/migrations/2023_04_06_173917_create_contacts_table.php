@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('country');
             $table->string('state')->nullable();
             $table->string('city');
-            $table->integer('phone');
+            $table->string('phone');
             $table->string('address');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
