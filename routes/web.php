@@ -15,13 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('index');
+// Route::get('/', function () {
+//     return view('home');
+// })->name('index');
 
 Route::get('/home', function () {
     return view('home');
 })->name('index');
+
+Route::get('/', [JobController::class, 'jobs_per_category'])->name('index');
 
 Route::get('/about', function () {
     return view('about');
