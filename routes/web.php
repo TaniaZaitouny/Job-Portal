@@ -19,11 +19,17 @@ Route::get('/', function () {
     return view('home');
 })->name('index');
 
+Route::get('/', [JobController::class, 'jobs_per_category'])->name('index');
+
+Route::resource('jobs', JobController::class)->except(['edit', 'update', 'destroy']) ;
+    
 
 
-Route::resource('jobs', JobController::class)->except(['edit', 'update', 'destroy']);
 
 Route::post('/jobs/search', [JobController::class, 'searchJob']);
+
+
+
 Route::get('/addCv', function () {
     return view('cv');
 });

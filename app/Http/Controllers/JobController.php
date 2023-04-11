@@ -10,10 +10,10 @@ use Illuminate\Validation\Rule;
 class JobController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->authorizeResource(Job::class, 'job');
-    }
+    // public function __construct()
+    // {
+    //     $this->authorizeResource(Job::class, 'job');
+    // }
 
 
     /**
@@ -48,6 +48,7 @@ class JobController extends Controller
         $job->employment = $request->input('employment');
         $job->category = $request->input('category');
         $job->salary = $request->input('salary');
+        $job->user_id = "1";
         $job->save();
     }
  
@@ -79,6 +80,7 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    
     public function edit(Job $job)
     {
         //
@@ -99,4 +101,23 @@ class JobController extends Controller
     {
         //
     }
+
+
+
+    /*function to calculate total number of jobs in a category */
+    public function jobs_per_category()
+    {
+       
+        $categories = Job::pluck('category')->toArray();
+        $arr = [];
+        if($categories)
+        {
+            $arr = array_count_values($categories);
+            arsort($arr);
+        }
+        return view('home', ['categories' => $arr]);
+    }
+
+
+    
 }
