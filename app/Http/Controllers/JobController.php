@@ -57,7 +57,6 @@ class JobController extends Controller
     public function show(string $id)
     {
         $job = Job::find($id);
-<<<<<<< HEAD
         if($job)
         {
         return view("jobdetails",['job'=>$job]);
@@ -76,9 +75,6 @@ class JobController extends Controller
         return view('joblisting',compact('jobs'));
         
         }
-=======
-        return view("jobdetails", ['job' => $job]);
->>>>>>> 72184f1383f406cb00785b61c573a55bb9b69466
     }
     /**
      * Show the form for editing the specified resource.
