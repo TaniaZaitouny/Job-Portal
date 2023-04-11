@@ -8,24 +8,12 @@ use Illuminate\Http\Request;
 class WorkController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->authorizeResource(Work::class, '');
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+        $this->authorize('create', Work::class);
         return view('cv');
     }
 
@@ -34,6 +22,7 @@ class WorkController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Work::class);
         $work = new Work();
         $work->company_name = $request->input('company_name');
         $work->position = $request->input('position');
@@ -44,19 +33,11 @@ class WorkController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Work $work)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Work $work)
     {
-        //
+        $this->authorize('update', $work);
     }
 
     /**
@@ -64,7 +45,7 @@ class WorkController extends Controller
      */
     public function update(Request $request, Work $work)
     {
-        //
+        $this->authorize('update', $work);
     }
 
     /**
@@ -72,6 +53,7 @@ class WorkController extends Controller
      */
     public function destroy(Work $work)
     {
+        $this->authorize('delete', $work);
         $work->delete();
     }
 }

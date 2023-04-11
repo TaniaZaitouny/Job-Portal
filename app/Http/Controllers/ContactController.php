@@ -8,24 +8,12 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->authorizeResource(Contact::class, '');
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+        $this->authorize('create', Contact::class);
         return view('cv');
     }
 
@@ -34,6 +22,7 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Contact::class);
         $contact = new Contact();
         $contact->country = $request->input('country');
         $contact->state = $request->input('state');
@@ -45,19 +34,11 @@ class ContactController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Contact $contact)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Contact $contact)
     {
-        //
+        $this->authorize('update', $contact);
     }
 
     /**
@@ -65,7 +46,7 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
-        //
+        $this->authorize('update', $contact);
     }
 
     /**
@@ -73,6 +54,7 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
+        $this->authorize('delete', $contact);
         $contact->delete();
     }
 }

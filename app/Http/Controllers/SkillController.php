@@ -8,24 +8,12 @@ use Illuminate\Http\Request;
 class SkillController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->authorizeResource(Skill::class, '');
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+        $this->authorize('create', Skill::class);
         return view('cv');
     }
 
@@ -34,6 +22,7 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Skill::class);
         $skill = new Skill();
         $skill->skill = $request->input('skill');
         $skill->user()->associate($request->user());
@@ -41,19 +30,11 @@ class SkillController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Skill $skill)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Skill $skill)
     {
-        //
+        $this->authorize('update', $skill);
     }
 
     /**
@@ -61,7 +42,7 @@ class SkillController extends Controller
      */
     public function update(Request $request, Skill $skill)
     {
-        //
+        $this->authorize('update', $skill);
     }
 
     /**
@@ -69,6 +50,7 @@ class SkillController extends Controller
      */
     public function destroy(Skill $skill)
     {
+        $this->authorize('delete', $skill);
         $skill->save();
     }
 }

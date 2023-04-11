@@ -13,17 +13,16 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->integer('company_id')->unsigned()->index();
             $table->string('title');
-            $table->string('category');
             $table->string('description');
             $table->string('requirements');
             $table->string('workspace');
             $table->string('employment');
             $table->string('location');
+            $table->string('category');
             $table->float('salary')->nullable();
             $table->float('bid')->nullable();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('company_id')->constrained('users', 'id');
             $table->timestamps();
         });
     }

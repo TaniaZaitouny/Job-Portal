@@ -19,35 +19,35 @@ Route::get('/', function () {
     return view('home');
 })->name('index');
 
-
-
-Route::resource('jobs', JobController::class)->except(['edit', 'update', 'destroy']);
-
-Route::post('/jobs/search', [JobController::class, 'searchJob']);
-Route::get('/addCv', function () {
-    return view('cv');
-});
+Route::get('/home', function () {
+    return view('home');
+})->name('index');
 
 Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-Route::get('/companyProfile', function() {
-    return view('companyProfile');
-});
-
-
-Route::get('/userProfile','App\Http\Controllers\UserController@showProfile');
-
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+Route::resource('jobs', JobController::class);
+
+Route::post('/jobs/search', [JobController::class, 'searchJob']);
+
+Route::get('/addCv', function () {
+    return view('cv');
+});
+
+Route::get('/companyProfile', function() {
+    return view('companyProfile');
+});
+
+Route::get('/userProfile','App\Http\Controllers\UserController@showProfile');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -57,4 +57,3 @@ Route::middleware('auth')->group(function () {
 
 
 require __DIR__.'/auth.php';
-

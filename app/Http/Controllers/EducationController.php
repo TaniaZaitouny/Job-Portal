@@ -8,24 +8,12 @@ use Illuminate\Http\Request;
 class EducationController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->authorizeResource(Education::class, '');
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+        $this->authorize('create', Education::class);
         return view('cv');
     }
 
@@ -34,6 +22,7 @@ class EducationController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Education::class);
         $education = new Education();
         $education->certificate_name = $request->input('certificate_name');
         $education->year = $request->input('year');
@@ -41,19 +30,11 @@ class EducationController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Education $education)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Education $education)
     {
-        //
+        $this->authorize('update', $education);
     }
 
     /**
@@ -61,7 +42,7 @@ class EducationController extends Controller
      */
     public function update(Request $request, Education $education)
     {
-        //
+        $this->authorize('update', $education);
     }
 
     /**
@@ -69,6 +50,7 @@ class EducationController extends Controller
      */
     public function destroy(Education $education)
     {
+        $this->authorize('delete', $education);
         $education->delete();
     }
 }

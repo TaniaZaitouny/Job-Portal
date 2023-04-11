@@ -4,34 +4,35 @@
         <br/>
         <h2 class="ml-5"> Upload A New Job Posting </h2>
         <br/>
-        <form class="needs-validation ml-5" novalidate method="POST" action="{{ route('jobs.store') }}">
+        <form class="needs-validation ml-5" novalidate method="POST" action="{{ isset($job) ? route('jobs.update', ['job' => $job->id]) : route('jobs.store') }}">
         @csrf
+        @if (isset($job))
+            @method('PUT')
+        @endif
             <div class="col-md-7 mb-3">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" required>
+                <input type="text" class="form-control" id="title" name="title" required value="{{ isset($job) ? $job->title : '' }}">
                 <div class="invalid-feedback">
                   Please provide a title.
                 </div>
             </div>
             <div class="col-md-7 mb-3">
                 <label for="location">Location</label>
-                <input type="text" class="form-control" id="location" name="location" required>
+                <input type="text" class="form-control" id="location" name="location" required value="{{ isset($job) ? $job->location : '' }}">
                 <div class="invalid-feedback">
                   Please provide a location.
                 </div>
             </div>
             <div class="col-md-7 mb-3">
                 <label for="education">Description</label>
-                <textarea class="form-control" id="desc" name="description" required>
-                </textarea>
+                <textarea class="form-control" id="desc" name="description" required>{{ isset($job) ? $job->description : '' }}</textarea>
                 <div class="invalid-feedback">
                     Please fill in a description.
                 </div>
             </div>
             <div class="col-md-7 mb-3">
                 <label for="work">Requirements</label>
-                <textarea class="form-control" id="req" name="requirements" required>
-                </textarea>
+                <textarea class="form-control" id="req" name="requirements" required>{{ isset($job) ? $job->requirements : '' }}</textarea>
                 <div class="invalid-feedback">
                     Please fill in your requirements.
                 </div>
@@ -40,9 +41,9 @@
                 <label for="workspace">Job Workspace</label>
                 <br/>
                 <select name="workspace">
-                    <option value="on-site">On-site</option>
-                    <option value="hybrid">Hybrid</option>
-                    <option value="remote">Remote</option>
+                    <option value="on-site" {{ isset($job) ? $job->workspace === "on-site" ? "selected" : '' : '' }}>On-site</option>
+                    <option value="hybrid" {{ isset($job) ? $job->workspace === "hybrid" ? "selected" : '' : '' }}>Hybrid</option>
+                    <option value="remote" {{ isset($job) ? $job->workspace === "remote" ? "selected" : '' : '' }}>Remote</option>
                 </select>
                 <div class="invalid-feedback">
                     Please fill in your job workspace type.
@@ -53,9 +54,9 @@
                 <label for="employment">Employment</label>
                 <br/>
                 <select name="employment">
-                    <option value="full-time">Full-time</option>
-                    <option value="part-time">Part-time</option>
-                    <option value="freelance">Freelance</option>
+                    <option value="full-time" {{ isset($job) ? $job->employment === "full-time" ? "selected" : '' : '' }}>Full-time</option>
+                    <option value="part-time" {{ isset($job) ? $job->employment === "part-time" ? "selected" : '' : '' }}>Part-time</option>
+                    <option value="freelance" {{ isset($job) ? $job->employment === "freelance" ? "selected" : '' : '' }}>Freelance</option>
                 </select>
                 <div class="invalid-feedback">
                     Please fill in your employment type.
@@ -67,9 +68,13 @@
                 <br/>
                 <select name="category">
                 @php
-                    $categories = ['Healthcare', 'Commputer and Information Technology', 'Real Estate', 'Retail', 'Education', 'Entertaiment and Sports', 'Legal', 'Transportation', 'Social Services', 'Sales and Marketing', 'Management', 'Businness and Finance', 'Architecture and Engineering', 'Arts and Design', 'Construction'];
+                    $categories = ['Healthcare', 'Computer and Information Technology', 'Real Estate', 'Retail', 'Education', 'Entertaiment and Sports', 'Legal', 'Transportation', 'Social Services', 'Sales and Marketing', 'Management', 'Businness and Finance', 'Architecture and Engineering', 'Arts and Design', 'Construction'];
                     foreach ($categories as $category) {
-                        print '<option value="'.$category.'">'.$category.'</option>';
+                        print '<option value="'.$category.'"';
+                        if(isset($job) && $job->category === $category) {
+                            print ' selected';
+                        }
+                        print '>'.$category.'</option>';
                     }
                 @endphp  
                 </select>
@@ -80,13 +85,13 @@
             </div>
             <div class="col-md-7 mb-3">
                 <label for="salary">Salary</label>
-                <input type="text" class="form-control" id="salary" name="salary" required>
+                <input type="text" class="form-control" id="salary" name="salary" required value="{{ isset($job) ? $job->salary : '' }}">
                 <div class="invalid-feedback">
-                  Please provide a salary.
+                    Please provide a salary.
                 </div>
             </div>
             @csrf
-            <button class="btn btn-primary" type="submit">Submit form</button>
+            <button class="btn btn-primary" type="submit">Submit</button>
         
         </form>
         <br/>

@@ -11,6 +11,10 @@
 <body>
 <script>
 
+    let education_index = 0;
+    let skill_index = 0;
+    let work_index = 0;
+
     function add_education_row() {
         var education_container = document.getElementById("education_container");
         var new_row = document.createElement("div");
@@ -18,30 +22,18 @@
             <div class="col-md-6">
                 <div class="form-group app-label">
                     <label for="certificate" class="text-muted">Degree/Certificate</label>
-                    <input id="certificate" type="text" class="form-control resume">
+                    <input id="certificate" type="text" name="education[${education_index}][certificate_name]" class="form-control resume">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group app-label">
                     <label for="year" class="text-muted">Year</label>
-                    <input id="year" type="text" class="form-control resume">
+                    <input id="year" type="text" name="education[${education_index}][year]" class="form-control resume">
                 </div>
             </div>
         </div>`;
         education_container.appendChild(new_row);
-    }
-
-    function add_skill_row() {
-        var skill_container = document.getElementById("skill_container");
-        var new_row = document.createElement("div");
-        new_row.innerHTML = `<div class="row">
-            <div class="col-lg-12">
-                <div class="form-group app-label">
-                    <label for="skill" class="text-muted">Skill</label>
-                    <input id="add_skill" type="text" class="form-control resume">
-                </div>
-        </div>`;
-        skill_container.appendChild(new_row);
+        education_index += 1;
     }
 
     function add_work_row() {
@@ -51,13 +43,13 @@
             <div class="col-md-6">
                 <div class="form-group app-label">
                     <label for="company-name" class="text-muted">Company Name</label>
-                    <input id="company-name" type="text" class="form-control resume">
+                    <input id="company-name" type="text" name="work[${work_index}][company_name]" class="form-control resume">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group app-label">
                     <label for="job-position" class="text-muted">Job Position</label>
-                    <input id="job-position" type="text" class="form-control resume">
+                    <input id="job-position" type="text" name="work[${work_index}][position]" class="form-control resume">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -65,19 +57,34 @@
                     <div class="col-md-6">
                         <div class="form-group app-label">
                             <label for="date-from" class="text-muted">Year From</label>
-                            <input id="date-from" type="text" class="form-control resume">
+                            <input id="date-from" type="text" name="work[${work_index}][start_year]" class="form-control resume">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group app-label">
                             <label for="date-to" class="text-muted">Year To</label>
-                            <input id="date-to" type="text" class="form-control resume">
+                            <input id="date-to" type="text" name="work[${work_index}][end_year]" class="form-control resume">
                         </div>
                     </div>
                 </div>
             </div>
         </div>`;
         work_container.appendChild(new_row);
+        work_index += 1;
+    }
+    
+    function add_skill_row() {
+        var skill_container = document.getElementById("skill_container");
+        var new_row = document.createElement("div");
+        new_row.innerHTML = `<div class="row">
+            <div class="col-lg-12">
+                <div class="form-group app-label">
+                    <label for="skill" class="text-muted">Skill</label>
+                    <input id="add_skill" type="text" name="skill[${skill_index}]" class="form-control resume">
+                </div>
+        </div>`;
+        skill_container.appendChild(new_row);
+        skill_index += 1;
     }
 </script>
 
@@ -85,8 +92,13 @@
   @include('Partials.header')
 
 <br> <br> 
-<form method="POST" action="">
+<form method="POST" action="{{ isset($profile) ?  '' : '' }}">
 @csrf
+
+@if(isset($cv))
+    @method('PUT')
+@endif
+
     <div class="row">           
         <div class="container">
             <div class="row">
@@ -99,51 +111,49 @@
                 <div class="col-lg-12">
                     <div class="job-detail mt-2 p-4">
                         <div class="custom-form">
-                            <form>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group app-label">
-                                            <label for="frist-name" class="text-muted">First Name</label>
-                                            <input id="frist-name" type="text" class="form-control resume">
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group app-label">
+                                        <label for="frist-name" class="text-muted">First Name</label>
+                                        <input id="frist-name" type="text" name="first_name" class="form-control resume" value="{{ isset($cv) ? $cv->first_name : '' }}">
                                     </div>
+                                </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group app-label">
-                                            <label for="middle-name" class="text-muted">Middle Name</label>
-                                            <input id="middle-name" type="text" class="form-control resume">
-                                        </div>
+                                <div class="col-md-4">
+                                    <div class="form-group app-label">
+                                        <label for="middle-name" class="text-muted">Middle Name</label>
+                                        <input id="middle-name" type="text" name="middle_name" class="form-control resume" value="{{ isset($cv) ? $cv->middle_name : '' }}">
                                     </div>
+                                </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group app-label">
-                                            <label for="surname-name" class="text-muted">Last Name</label>
-                                            <input id="surname-name" type="text" class="form-control resume">
-                                        </div>
+                                <div class="col-md-4">
+                                    <div class="form-group app-label">
+                                        <label for="surname-name" class="text-muted">Last Name</label>
+                                        <input id="surname-name" type="text" name="last_name" class="form-control resume" value="{{ isset($cv) ? $cv->last_name : '' }}">
                                     </div>
+                                </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group app-label">
-                                            <label for="date-of-birth" class="text-muted">Date Of Birth</label>
-                                            <input id="date-of-birth" type="text" class="form-control resume" placeholder="DD-MM-YYYY">
-                                        </div>
+                                <div class="col-md-4">
+                                    <div class="form-group app-label">
+                                        <label for="date-of-birth" class="text-muted">Date Of Birth</label>
+                                        <input id="date-of-birth" type="text" name="birthday" class="form-control resume" placeholder="DD-MM-YYYY" value="{{ isset($cv) ? $cv->birthday : '' }}">
                                     </div>
+                                </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group app-label">
-                                            <label for="General" class="text-muted" >Gender</label>
-                                            <div class="form-button">
-                                                <select class="nice-select">
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                    <option value="Other">Other</option>
-                                                    <option value="Prefer not to specify" selected>Prefer not to specify</option>
-                                                </select>
-                                            </div>
+                                <div class="col-md-4">
+                                    <div class="form-group app-label">
+                                        <label for="General" class="text-muted" >Gender</label>
+                                        <div class="form-button">
+                                            <select class="nice-select" name="gender">
+                                                <option value="male" {{ isset($cv) ? $cv->gender == "male" ? "selected" : '' : '' }}>Male</option>
+                                                <option value="female" {{ isset($cv) ? $cv->gender == "female" ? "selected" : '' : '' }}>Female</option>
+                                                <option value="other" {{ isset($cv) ? $cv->gender == "other" ? "selected" : '' : '' }}>Other</option>
+                                                <option value="prefer not to specify" {{ isset($cv) ? $cv->gender == "prefer not to specify" ? "selected" : '' : "selected" }}>Prefer not to specify</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -158,45 +168,43 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="job-detail mt-2 p-4">
-                        <div class="custom-form">
-                            <form>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group app-label">
-                                            <label for="country" class="text-muted">Country</label>
-                                            <input id="country" type="text" class="form-control resume">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group app-label">
-                                            <label for="state" class="text-muted">State</label>
-                                            <input id="state" type="text" class="form-control resume">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group app-label">
-                                            <label for="city" class="text-muted">City</label>
-                                            <input id="city" type="text" class="form-control resume">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group app-label">
-                                            <label for="phone" class="text-muted">Phone</label>
-                                            <input id="phone" type="text" class="form-control resume">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group app-label">
-                                            <label for="address" class="text-muted">Address</label>
-                                            <input id="address" type="text" class="form-control resume">
-                                        </div>
+                        <div class="custom-form">                         
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group app-label">
+                                        <label for="country" class="text-muted">Country</label>
+                                        <input id="country" type="text" name="country" class="form-control resume" value="{{ isset($cv) ? $cv->country : '' }}">
                                     </div>
                                 </div>
-                            </form>
+
+                                <div class="col-md-4">
+                                    <div class="form-group app-label">
+                                        <label for="state" class="text-muted">State</label>
+                                        <input id="state" type="text" name="state" class="form-control resume" value="{{ isset($cv) ? $cv->state : '' }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group app-label">
+                                        <label for="city" class="text-muted">City</label>
+                                        <input id="city" type="text" name="city" class="form-control resume" value="{{ isset($cv) ? $cv->city : '' }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group app-label">
+                                        <label for="phone" class="text-muted">Phone</label>
+                                        <input id="phone" type="text" name="phone" class="form-control resume" value="{{ isset($cv) ? $cv->phone : '' }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group app-label">
+                                        <label for="address" class="text-muted">Address</label>
+                                        <input id="address" type="text" name="address" class="form-control resume" value="{{ isset($cv) ? $cv->address : '' }}">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -212,30 +220,49 @@
                 <div class="col-lg-12">
                     <div class="job-detail mt-2 p-4">
                         <div class="custom-form">
-                            <form>
-                                <div id="education_container">
+                            <div id="education_container">
+                            @if (isset($cv))
+                                @foreach ($cv->education as $index => $education)
+                                    <script> education_index += 1; </script>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group app-label">
                                                 <label for="certificate" class="text-muted">Degree/Certificate</label>
-                                                <input id="certificate" type="text" class="form-control resume">
+                                                <input id="certificate" name="education[{{$index}}][certificate_name]" type="text" class="form-control resume" value="{{$education->certificate_name}}">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group app-label">
                                                 <label for="year" class="text-muted">Year</label>
-                                                <input id="year" type="text" class="form-control resume">
+                                                <input id="year" type="text" name="education[{{$index}}][year]" class="form-control resume" value="{{$education->year}}">
                                             </div>
+                                        </div>
+                                    </div>      
+                                @endforeach
+                            @else
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label">
+                                            <label for="certificate" class="text-muted">Degree/Certificate</label>
+                                            <input id="certificate" type="text" name="education[0][certificate_name]" class="form-control resume">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label">
+                                            <label for="year" class="text-muted">Year</label>
+                                            <input id="year" type="text" name="education[0][year]" class="form-control resume">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <button type="button" id="add_education" class="btn btn-light" onclick="add_education_row()">Add Row</button>
-                                    </div>
+                            @endif
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" id="add_education" class="btn btn-light" onclick="add_education_row()">Add Row</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -250,21 +277,58 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="job-detail mt-2 p-4">
-                            <div class="custom-form">
-                                <form>
-                                    <div id="work_container">
+                            <div class="custom-form"> 
+                                <div id="work_container">
+                                    @if (isset($cv))
+                                        @foreach ($cv->work as $index => $work)
+                                            <script> work_index += 1; </script>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group app-label">
+                                                        <label for="company-name" class="text-muted">Company Name</label>
+                                                        <input id="company-name" type="text" name="work[{{$index}}][company_name]" class="form-control resume" value="{{$work->company_name}}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group app-label">
+                                                        <label for="job-position" class="text-muted">Job Position</label>
+                                                        <input id="job-position" type="text" name="work[{{$index}}][position]" class="form-control resume" value="{{$work->position}}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group app-label">
+                                                                <label for="date-from" class="text-muted">Year From</label>
+                                                                <input id="date-from" type="text" name="work[{{$index}}][start_year]" class="form-control resume" value="{{$work->start_year}}">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group app-label">
+                                                                <label for="date-to" class="text-muted">Year To</label>
+                                                                <input id="date-to" type="text" name="work[{{$index}}][end_year]" class="form-control resume" value="{{$work->end_year}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        @endforeach
+                                    @else 
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group app-label">
                                                     <label for="company-name" class="text-muted">Company Name</label>
-                                                    <input id="company-name" type="text" class="form-control resume">
+                                                    <input id="company-name" type="text" name="work[0][company_name]" class="form-control resume">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group app-label">
                                                     <label for="job-position" class="text-muted">Job Position</label>
-                                                    <input id="job-position" type="text" class="form-control resume">
+                                                    <input id="job-position" type="text" name="work[0][position]" class="form-control resume">
                                                 </div>
                                             </div>
 
@@ -273,27 +337,26 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group app-label">
                                                             <label for="date-from" class="text-muted">Year From</label>
-                                                            <input id="date-from" type="text" class="form-control resume">
+                                                            <input id="date-from" type="text" name="work[0][start_year]" class="form-control resume">
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <div class="form-group app-label">
                                                             <label for="date-to" class="text-muted">Year To</label>
-                                                            <input id="date-to" type="text" class="form-control resume">
+                                                            <input id="date-to" type="text" name="work[0][end_year]" class="form-control resume">
                                                         </div>
                                                     </div>
-                                                    
                                                 </div>
                                             </div> 
                                         </div>
-                                    </div>  
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <button type="button" id="add_work" onclick="add_work_row()" class="btn btn-light">Add Row</button>
-                                        </div>
-                                    </div>                     
-                                </form>
+                                    @endif
+                                </div>  
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="button" id="add_work" onclick="add_work_row()" class="btn btn-light">Add Row</button>
+                                    </div>
+                                </div>                     
                             </div>
                         </div>
                     </div>
@@ -309,23 +372,35 @@
                 <div class="col-lg-12">
                     <div class="job-detail mt-2 p-4">
                         <div class="custom-form">
-                            <form>
-                                <div id="skill_container">
+                            <div id="skill_container">
+                                @if (isset($cv))
+                                    @foreach ($cv->skill as $index => $skill)
+                                        <script> skill_index += 1; </script>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group app-label">
+                                                    <label for="skill" class="text-muted">Skill</label>
+                                                    <input id="skill" type="text" name="skill[{{$index}}][skill]" class="form-control resume" value="{{$skill}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group app-label">
                                                 <label for="skill" class="text-muted">Skill</label>
-                                                <input id="skill" type="text" class="form-control resume">
+                                                <input id="skill" type="text" name="skill[0][skill]" class="form-control resume">
                                             </div>
                                         </div>
                                     </div>
+                                @endif  
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" id="add_skill" class="btn btn-light" onclick="add_skill_row()">Add Row</button>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <button type="button" id="add_skill" class="btn btn-light" onclick="add_skill_row()">Add Row</button>
-                                    </div>
-                                </div> 
-                            </form>
+                            </div> 
                         </div>
                     </div>
                 </div>
@@ -334,8 +409,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-center">
-                        <input type="submit" id="submit" name="send" class="submitBnt btn btn-custom mt-5" value="Submit Resume">
-                    
+                        <input type="submit" id="submit" name="send" class="submitBnt btn btn-custom mt-5" value="Submit">
                     </div>
                 </div>
             </div>

@@ -8,24 +8,12 @@ use Illuminate\Http\Request;
 class InformationController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->authorizeResource(Information::class, '');
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+        $this->authorize('create', Information::class);
         return view('cv');
     }
 
@@ -34,6 +22,7 @@ class InformationController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Information::class);
         $information = new Information();
         $information->first_name = $request->input('first_name');
         $information->middle_name = $request->input('middle_name');
@@ -44,20 +33,13 @@ class InformationController extends Controller
         $information->save();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Information $information)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Information $information)
     {
-        //
+        $this->authorize('update', $information);
     }
 
     /**
@@ -65,7 +47,7 @@ class InformationController extends Controller
      */
     public function update(Request $request, Information $information)
     {
-        //
+        $this->authorize('update', $information);
     }
 
     /**
@@ -73,6 +55,7 @@ class InformationController extends Controller
      */
     public function destroy(Information $information)
     {
+        $this->authorize('delete', $information);
         $information->delete();
     }
 }

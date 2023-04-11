@@ -9,25 +9,12 @@ use Illuminate\Http\Request;
 class ReviewController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->authorizeResource(Review::class, 'reviews');
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $this->authorize('create', Review::class);
     }
 
     /**
@@ -35,42 +22,20 @@ class ReviewController extends Controller
      */
     public function store(Request $request, User $company)
     {
+        $this->authorize('create', Review::class);
         $review= new Review();
         $review->content = $request->input('content');
         $review->company()->associate($company);
         $review->user()->associate($request->user());
         $review->save();
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Review $review)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Review $review)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Review $review)
-    {
-        //
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Review $review)
     {
+        $this->authorize('delete', $review);
         $review->delete();
     }
 }

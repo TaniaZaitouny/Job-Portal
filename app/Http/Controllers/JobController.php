@@ -3,19 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\User;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class JobController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->authorizeResource(Job::class, 'job');
-    }
-
-
     /**
      * Display a listing of the resource.
      */
@@ -30,6 +25,7 @@ class JobController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Job::class);
         return view('jobposting_form');
     }
 
@@ -38,8 +34,9 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Job::class);
         $job = new Job();
-        $job->company_id = "123";
+        $job->company_id = Auth::user()->id;
         $job->title = $request->input('title');
         $job->location = $request->input('location');
         $job->description = $request->input('description');
@@ -54,26 +51,21 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Job $job)
     {
-        $job = Job::find($id);
-        if($job)
-        {
-        return view("jobdetails",['job'=>$job]);
-        }
+        return view("jobdetails", ['job' => $job]);
     }
+
     /**search jobs according to input search key */
     public function searchJob(Request $request)
-    {
-        
+    { 
         if ($search = $request->search) {
             $jobs = Job::where('title', 'like', '%' . $search . '%')
                         ->orWhere('description', 'like', '%' . $search . '%')
                         ->orWhere('requirements', 'like', '%' . $search . '%')
                         ->get();
       
-        return view('joblisting',compact('jobs'));
-        
+            return view('joblisting',compact('jobs'));
         }
     }
     /**
@@ -81,7 +73,8 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-        //
+        $this->authorize('update', $job);
+        return view('jobposting_form', compact('job'));
     }
 
     /**
@@ -89,7 +82,16 @@ class JobController extends Controller
      */
     public function update(Request $request, Job $job)
     {
-        //
+        $this->authorize('update', $job);
+        $job->title = $request->input('title');
+        $job->location = $request->input('location');
+        $job->description = $request->input('description');
+        $job->requirements = $request->input('requirements');
+        $job->workspace = $request->input('workspace');
+        $job->employment = $request->input('employment');
+        $job->category = $request->input('category');
+        $job->salary = $request->input('salary');
+        $job->save();
     }
 
     /**
@@ -97,6 +99,6 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
-        //
+        $this->authorize('delete', $job);
     }
 }
