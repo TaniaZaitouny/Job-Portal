@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('education', function (Blueprint $table) {
             $table->id();
             $table->string('certificate_name');
-            $table->date('year');
-            $table->integer('user_id')->unsigned()->index();  
-            $table->foreign('user_id')->references('id')->on('users');  
+            $table->string('year');
+            $table->foreignId('user_id')->constrained('users');  
             $table->timestamps();
         });
     }

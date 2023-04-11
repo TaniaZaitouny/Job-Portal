@@ -23,7 +23,15 @@ Route::get('/', function () {
 
 Route::resource('jobs', JobController::class)->except(['edit', 'update', 'destroy']);
 
+<<<<<<< HEAD
 Route::post('/jobs/search', [JobController::class, 'searchJob']);
+=======
+Route::get('/jobposting', function () {
+    return view('jobposting_form');
+});
+
+
+>>>>>>> 72184f1383f406cb00785b61c573a55bb9b69466
 Route::get('/addCv', function () {
     return view('cv');
 });

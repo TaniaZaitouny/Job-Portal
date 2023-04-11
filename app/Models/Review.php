@@ -14,6 +14,6 @@ class Review extends Model
     }
 
     public function company() {
-        return $this->belongsTo(Company::class, 'id');
+        return $this->belongsTo(User::class, 'id');
     }
 }

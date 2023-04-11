@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->string('content');
-            $table->integer('user_id')->unsigned()->index();
-            $table->integer('company_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('company_id')->constrained('users', 'id');
             $table->timestamps();
         });
     }

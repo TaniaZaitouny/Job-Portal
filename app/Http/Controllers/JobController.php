@@ -3,18 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class JobController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Job::class, 'job');
+    }
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $jobs = \App\Models\Job::all();
-        return view('joblisting',compact('jobs'));
+        $jobs = Job::all();
+        return view('joblisting', compact('jobs'));
     }
 
     /**
@@ -48,8 +56,8 @@ class JobController extends Controller
      */
     public function show(string $id)
     {
-        //
         $job = Job::find($id);
+<<<<<<< HEAD
         if($job)
         {
         return view("jobdetails",['job'=>$job]);
@@ -68,11 +76,14 @@ class JobController extends Controller
         return view('joblisting',compact('jobs'));
         
         }
+=======
+        return view("jobdetails", ['job' => $job]);
+>>>>>>> 72184f1383f406cb00785b61c573a55bb9b69466
     }
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Job $job)
     {
         //
     }
@@ -80,7 +91,7 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Job $job)
     {
         //
     }
@@ -88,7 +99,7 @@ class JobController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Job $job)
     {
         //
     }
