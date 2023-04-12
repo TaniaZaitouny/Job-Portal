@@ -22,6 +22,25 @@
                   Please provide a title.
                 </div>
             </div>
+            <div class="col-md-7 mb-5">
+                <label for="country">Country</label>
+                <br/>
+                <select name="country">
+                @php
+                    foreach ($countries as $country) {
+                        print '<option value="'.$country->country.'"';
+                        if(isset($job) && $job->country === $country->country) {
+                            print ' selected';
+                        }
+                        print '>'.$country->country.'</option>';
+                    }
+                @endphp  
+                </select>
+                <div class="invalid-feedback">
+                    Please fill in the country your company is in.
+                </div>
+                <br/>
+            </div>
             <div class="col-md-7 mb-3">
                 <label for="location">Location</label>
                 <input type="text" class="form-control" id="location" name="location" required value="{{ isset($job) ? $job->location : '' }}">
@@ -74,13 +93,12 @@
                 <br/>
                 <select name="category" style="height:100px; overflow-y:scroll !important;">
                 @php
-                    $categories = ['Healthcare', 'IT', 'Real Estate', 'Retail', 'Education', 'Entertaiment and Sports', 'Legal', 'Transportation', 'Social Services', 'Sales and Marketing', 'Management', 'Businness and Finance', 'Architecture and Engineering', 'Arts and Design', 'Construction'];
                     foreach ($categories as $category) {
-                        print '<option value="'.$category.'"';
-                        if(isset($job) && $job->category === $category) {
+                        print '<option value="'.$category->category.'"';
+                        if(isset($job) && $job->category === $category->category) {
                             print ' selected';
                         }
-                        print '>'.$category.'</option>';
+                        print '>'.$category->category.'</option>';
                     }
                 @endphp  
                 </select>

@@ -15,10 +15,9 @@ use App\Http\Controllers\ReviewController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('index');
-
+// Route::get('/', function () {
+//     return view('home');
+// })->name('index');
 
 Route::get('/', [JobController::class, 'jobs_per_category'])->name('index');
 
@@ -31,9 +30,15 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::resource('jobs', JobController::class);
+
 Route::get('jobs/category/{name}',[JobController::class, 'display_category'])->name('jobs.category');
+
 Route::post('/jobs/search', [JobController::class, 'searchJob']);
+
+Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save');
+
 Route::post('jobs/filter', [JobController::class, 'filter'])->name('jobs.filter');
+
 Route::get('/addCv', function () {
     return view('cv');
 });

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('requirements');
             $table->string('workspace');
             $table->string('employment');
+            $table->string('country');
             $table->string('location');
             $table->string('category');
             $table->float('salary')->nullable();
