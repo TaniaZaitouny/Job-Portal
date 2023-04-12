@@ -57,6 +57,7 @@ class JobController extends Controller
         $job->category = $request->input('category');
         $job->salary = $request->input('salary');
         $job->save();
+        return redirect()->route('jobs.index');
     }
  
     /**
