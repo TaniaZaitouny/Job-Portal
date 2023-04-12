@@ -68,7 +68,7 @@
                 <br/>
                 <select name="category">
                 @php
-                    $categories = ['Healthcare', 'Computer and Information Technology', 'Real Estate', 'Retail', 'Education', 'Entertaiment and Sports', 'Legal', 'Transportation', 'Social Services', 'Sales and Marketing', 'Management', 'Businness and Finance', 'Architecture and Engineering', 'Arts and Design', 'Construction'];
+                    $categories = ['Healthcare', 'IT', 'Real Estate', 'Retail', 'Education', 'Entertaiment and Sports', 'Legal', 'Transportation', 'Social Services', 'Sales and Marketing', 'Management', 'Businness and Finance', 'Architecture and Engineering', 'Arts and Design', 'Construction'];
                     foreach ($categories as $category) {
                         print '<option value="'.$category.'"';
                         if(isset($job) && $job->category === $category) {
