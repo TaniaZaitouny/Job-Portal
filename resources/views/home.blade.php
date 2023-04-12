@@ -68,11 +68,14 @@
                 </div>
                 
                 <div class="row d-flex justify-contnet-center">
+                  @php
+                  $categories = array_slice($categories, 0, 6);
+                  @endphp
                   @forelse($categories as $category=>$value)
                     <div class="col-md-4 mb-4">
                         <div class="single-services text-center mb-30">
                             <div class="services-ion">
-                                <span class="flaticon-tour"></span>
+                            <img src="{{ asset('assets/img/category_icons/'.$category.'.png') }}" alt="Icon">
                             </div>
                             <div class="services-cap">
                                <h5><a href="{{route('jobs.category',['name' => $category])}}">{{$category}}</a></h5>
