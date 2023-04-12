@@ -30,11 +30,15 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::resource('jobs', JobController::class);
-
+Route::get('jobs/category/{name}',[JobController::class, 'display_category'])->name('jobs.category');
 Route::post('/jobs/search', [JobController::class, 'searchJob']);
+<<<<<<< HEAD
 
 Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save');
 
+=======
+Route::post('jobs/filter', [JobController::class, 'filter'])->name('jobs.filter');
+>>>>>>> c0fa5285ccbb5080df8b7c16fc68631b25a5c586
 Route::get('/addCv', function () {
     return view('cv');
 });

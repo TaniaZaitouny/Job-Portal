@@ -20,7 +20,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::all();
+        $jobs = Job::paginate(5);
         return view('joblisting', compact('jobs'));
     }
 
@@ -108,8 +108,8 @@ class JobController extends Controller
             $jobs = Job::where('title', 'like', '%' . $search . '%')
                         ->orWhere('description', 'like', '%' . $search . '%')
                         ->orWhere('requirements', 'like', '%' . $search . '%')
-                        ->get();
-      
+                        ->paginate(5);
+            
             return view('joblisting',compact('jobs'));
         }
     }
@@ -128,6 +128,15 @@ class JobController extends Controller
             arsort($arr);
         }
         return view('home', ['categories' => $arr]);
+    }
+
+    /** 
+     * Display categories
+     */
+    public function display_category($name)
+    {
+        $jobs = Job::where('category',$name)->paginate(5);
+        return view('joblisting', compact('jobs'));
     }
 
     /** 
@@ -151,6 +160,31 @@ class JobController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    /** 
+     * Filter jobs
+     */
+    public function filter(Request $request)
+    {
+     
+        $category = $request->input('select_category');
+        $type = $request->input('employement_type');
+
+        $jobs = Job::query();
+        if(!is_null($category))
+        {
+            $jobs->where('category', $category);
+        }
+        if(!is_null($type))
+        {
+            $jobs->where('employment', $type);
+        }
+        $jobs = $jobs->paginate(5);
+      
+        
+        return view('joblisting', compact('jobs'));
+        
     }
     
 }
