@@ -122,7 +122,7 @@ class JobController extends Controller
     }
     public function display_category($name)
     {
-        $jobs = Job::where('category',$name)->get();
+        $jobs = Job::where('category',$name)->paginate(5);
         return view('joblisting', compact('jobs'));
     }
 
