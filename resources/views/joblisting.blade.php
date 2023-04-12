@@ -42,8 +42,9 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="/jobs/filter" method="POST">
+                        <form action="{{route('jobs.search')}}" method="POST">
                             @csrf
+                        <input type="hidden" name="search" value="{{isset($search) ? $search : ''}}">
                         <!-- Job Category Listing start -->
                         <div class="job-category-listing mb-50">
                             <!-- single one -->
@@ -53,12 +54,11 @@
                                </div>
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
-                                    <select name="select_category" >
+                                    <select name="category" >
                                         <option value="">All Categories</option>
-                                        <?php  $categories = ['Healthcare', 'IT', 'Real Estate', 'Retail', 'Education', 'Entertaiment and Sports', 'Legal', 'Transportation', 'Social Services', 'Sales and Marketing', 'Management', 'Businness and Finance', 'Architecture and Engineering', 'Arts and Design', 'Construction'];
-                                        ?>
+                                       
                                         @foreach($categories as $category)
-                                        <option value="{{$category}}" >{{$category}}</option>
+                                            <option value="{{$category->category}}" >{{$category->category}}</option>
                                         @endforeach
                                        
                                     </select>
@@ -74,7 +74,7 @@
                                     ?>
                                     @foreach($types as $type )
                                     <label class="container" >{{$type}}
-                                        <input type="checkbox" name="employement_type" value={{$type}} >
+                                        <input type="checkbox" name="employment[]" value={{$type}} >
                                         <span class="checkmark"></span>
                                     </label>
                                     @endforeach
@@ -89,12 +89,11 @@
                                </div>
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
-                                    <select name="select">
-                                        <option value="">Anywhere</option>
-                                        <option value="">Category 1</option>
-                                        <option value="">Category 2</option>
-                                        <option value="">Category 3</option>
-                                        <option value="">Category 4</option>
+                                    <select name="country">
+                                       <option value="">Anywhere</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{$country->country}}">{{$country->country}}</option>
+                                       @endforeach
                                     </select>
                                 </div>
                                 <br><br>

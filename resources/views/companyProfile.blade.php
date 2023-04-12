@@ -137,10 +137,10 @@
     </style>
  
   <body>
-    <div class="card">
-      <img class="logo" style="   position:absolute;top: 146px;" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="Company logo">
-      <div class="cover" src="https://images.unsplash.com/photo-1557330803-dcf98fc9eac1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"></div>
-      <div class="info">
+    
+     
+      
+      <div class="about-us" style=" max-width: 1000px;">
         <h1 class="company-name">Company Name</h1>
         <h2 class="sub-title">Sub Title</h2>
         <p class="description">A little description about the company goes here.</p>
@@ -154,23 +154,28 @@
     </div>
     <div class="reviews ">
   <h2>Reviews</h2>
+  
   <div class="review-card">
-    <img src="https://via.placeholder.com/100x100.png" alt="Reviewer Avatar" />
     <div class="review-card-content">
       <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
       <p>- John Doe</p>
     </div>
   </div>
-  <div class="review-card">
-    <img src="https://via.placeholder.com/100x100.png" alt="Reviewer Avatar" />
-    <div class="review-card-content">
-      <p>"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</p>
-      <p>- Jane Doe</p>
-    </div>
-  </div>
-</div>
-    <div class="divider"></div>
+ 
 
+
+    <div class="divider"></div>
+      <form action="/companyProfile" method="POST">
+        @csrf
+            <div class="col-md-3 mb-3 align-center">
+                <label for="text"><h4>Review</h4></label>
+                <textarea class="form-control"  name="review" hint="Enter Your Review" style="width:500px;height:100px;"> </textarea>
+                <br>
+                <input type="submit" value="Add Review" style="background: #fb246a; border:none;color:white;height:45px;width:150px"/>
+            </div>
+            </div>
+
+</form><br>
 <div class="contact">
 <h2>Contact</h2>
 <ul>

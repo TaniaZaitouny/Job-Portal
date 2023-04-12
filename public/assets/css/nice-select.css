@@ -1,5 +1,6 @@
 .nice-select {
   -webkit-tap-highlight-color: transparent;
+  
   background-color: #fff;
   border-radius: 5px;
   border: solid 1px #e8e8e8;
@@ -57,6 +58,8 @@
   .nice-select.open .list {
     opacity: 1;
     pointer-events: auto;
+    height: 130px;
+    overflow-y: scroll;
     -webkit-transform: scale(1) translateY(0);
         -ms-transform: scale(1) translateY(0);
             transform: scale(1) translateY(0); }

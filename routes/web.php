@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ReviewController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,17 +33,15 @@ Route::resource('jobs', JobController::class);
 
 Route::get('jobs/category/{name}',[JobController::class, 'display_category'])->name('jobs.category');
 
-Route::post('/jobs/search', [JobController::class, 'searchJob']);
+Route::post('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
 
 Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save');
-
-Route::post('jobs/filter', [JobController::class, 'filter'])->name('jobs.filter');
 
 Route::get('/addCv', function () {
     return view('cv');
 });
 
-Route::get('/companyProfile', function() {
+Route::get('/company', function() {
     return view('companyProfile');
 });
 
