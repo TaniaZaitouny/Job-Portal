@@ -96,6 +96,13 @@
                  <div class="apply-btn2">
                     <a href="#" class="btn">Apply Now</a>
                  </div>
+                 <br/>
+                 <div class="apply-btn2">
+                    <form method="POST" action="{{ route('jobs.save', ['job' => $job->id]) }}">
+                        @csrf
+                        <button type="submit" class="btn">{{$job->isSaved() ? 'Unsave Job' : 'Save Job'}}</button>
+                    </form>
+                 </div>
                </div>
                
             </div>

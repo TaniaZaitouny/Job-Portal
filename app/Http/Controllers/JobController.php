@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Country;
 use App\Models\Job;
 use App\Models\User;
+use App\Models\SavedJob;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use PHPUnit\Framework\Constraint\Count;
 
 class JobController extends Controller
 {
@@ -26,7 +30,9 @@ class JobController extends Controller
     public function create()
     {
         $this->authorize('create', Job::class);
-        return view('jobposting_form');
+        $categories = Category::all();
+        $countries = Country::all();
+        return view('jobposting_form', compact('categories', 'countries'));
     }
 
     /**
@@ -45,7 +51,6 @@ class JobController extends Controller
         $job->employment = $request->input('employment');
         $job->category = $request->input('category');
         $job->salary = $request->input('salary');
-        $job->user_id = "1";
         $job->save();
     }
  
@@ -57,18 +62,6 @@ class JobController extends Controller
         return view("jobdetails", ['job' => $job]);
     }
 
-    /**search jobs according to input search key */
-    public function searchJob(Request $request)
-    { 
-        if ($search = $request->search) {
-            $jobs = Job::where('title', 'like', '%' . $search . '%')
-                        ->orWhere('description', 'like', '%' . $search . '%')
-                        ->orWhere('requirements', 'like', '%' . $search . '%')
-                        ->get();
-      
-            return view('joblisting',compact('jobs'));
-        }
-    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -76,7 +69,9 @@ class JobController extends Controller
     public function edit(Job $job)
     {
         $this->authorize('update', $job);
-        return view('jobposting_form', compact('job'));
+        $categories = Category::all();
+        $countries = Country::all();
+        return view('jobposting_form', compact('job', 'categories', 'countries'));
     }
 
     /**
@@ -104,9 +99,24 @@ class JobController extends Controller
         $this->authorize('delete', $job);
     }
 
+    /**
+     * Search for jobs according to input search key 
+     */
+    public function searchJob(Request $request)
+    { 
+        if ($search = $request->search) {
+            $jobs = Job::where('title', 'like', '%' . $search . '%')
+                        ->orWhere('description', 'like', '%' . $search . '%')
+                        ->orWhere('requirements', 'like', '%' . $search . '%')
+                        ->get();
+      
+            return view('joblisting',compact('jobs'));
+        }
+    }
 
-
-    /*function to calculate total number of jobs in a category */
+    /** 
+     * Calculate total number of jobs in a category 
+     */
     public function jobs_per_category()
     {
        
@@ -120,6 +130,27 @@ class JobController extends Controller
         return view('home', ['categories' => $arr]);
     }
 
+    /** 
+     * Add a job to the saved jobs table
+     */
+    public function save(Request $request, Job $job)    
+    {
+        $user = Auth::user();
+        $savedJob = SavedJob::where('user_id', $user->id)->where('job_id', $job->id)->first();
 
+        if (!$savedJob) {
+            // the job is not already saved, so add it to the user's saved jobs
+            $savedJob = new SavedJob();
+            $savedJob->user_id = $user->id;
+            $savedJob->job_id = $job->id;
+            $savedJob->save();
+        }
+        else {
+            // the job is already saved, so delete it from the user's saved jobs
+            $savedJob->delete();
+        }
+
+        return redirect()->back();
+    }
     
 }

@@ -19,10 +19,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // })->name('index');
 
-Route::get('/home', function () {
-    return view('home');
-})->name('index');
-
 Route::get('/', [JobController::class, 'jobs_per_category'])->name('index');
 
 Route::get('/about', function () {
@@ -36,6 +32,8 @@ Route::get('/contact', function () {
 Route::resource('jobs', JobController::class);
 
 Route::post('/jobs/search', [JobController::class, 'searchJob']);
+
+Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save');
 
 Route::get('/addCv', function () {
     return view('cv');

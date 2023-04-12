@@ -54,6 +54,10 @@ class User extends Authenticatable
         return $this->hasMany(Application::class);
     }
 
+    public function savedJobs() {
+        return $this->hasMany(SavedJob::class);
+    }
+
     public function information() {
         return $this->hasOne(Information::class);
     }
