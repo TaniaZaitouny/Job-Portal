@@ -24,9 +24,9 @@ class ReviewController extends Controller
     {
         $this->authorize('create', Review::class);
         $review= new Review();
-        $review->content = $request->input('content');
-        $review->company()->associate($company);
-        $review->user()->associate($request->user());
+        $review->content = $request->input('review');
+        $review->company_id = "123";
+        $review->user_id =$request->user()->id;
         $review->save();
     }
     
@@ -38,4 +38,10 @@ class ReviewController extends Controller
         $this->authorize('delete', $review);
         $review->delete();
     }
+    
+    // public function get_review(Request $request)
+    // {
+    //     $review = $request->input('review');
+        
+    // }
 }

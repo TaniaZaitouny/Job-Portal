@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ReviewController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,7 +38,10 @@ Route::get('/addCv', function () {
     return view('cv');
 });
 
-Route::get('/companyProfile', function() {
+Route::post('/company',[ReviewController::class, 'store']);
+
+
+Route::get('/company', function() {
     return view('companyProfile');
 });
 

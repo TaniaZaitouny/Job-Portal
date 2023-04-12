@@ -147,5 +147,6 @@ class JobController extends Controller
         return view('joblisting', compact('jobs'));
         
     }
+
     
 }

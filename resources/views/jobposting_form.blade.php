@@ -1,6 +1,12 @@
 @extends('layouts.index')
 
 @section('content')
+
+<!-- <style>
+    ul{
+        height:100px; overflow-y:scroll !important;
+    }
+    </style> -->
         <br/>
         <h2 class="ml-5"> Upload A New Job Posting </h2>
         <br/>
@@ -66,7 +72,7 @@
             <div class="col-md-7 mb-5">
                 <label for="category">Category</label>
                 <br/>
-                <select name="category">
+                <select name="category" style="height:100px; overflow-y:scroll !important;">
                 @php
                     $categories = ['Healthcare', 'IT', 'Real Estate', 'Retail', 'Education', 'Entertaiment and Sports', 'Legal', 'Transportation', 'Social Services', 'Sales and Marketing', 'Management', 'Businness and Finance', 'Architecture and Engineering', 'Arts and Design', 'Construction'];
                     foreach ($categories as $category) {
