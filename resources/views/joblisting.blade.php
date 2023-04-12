@@ -55,10 +55,9 @@
                                 <div class="select-job-items2">
                                     <select name="select_category" >
                                         <option value="">All Categories</option>
-                                        <?php  $categories = ['Healthcare', 'IT', 'Real Estate', 'Retail', 'Education', 'Entertaiment and Sports', 'Legal', 'Transportation', 'Social Services', 'Sales and Marketing', 'Management', 'Businness and Finance', 'Architecture and Engineering', 'Arts and Design', 'Construction'];
-                                        ?>
+                                       
                                         @foreach($categories as $category)
-                                        <option value="{{$category}}" >{{$category}}</option>
+                                        <option value="{{$category->category}}" >{{$category->category}}</option>
                                         @endforeach
                                        
                                     </select>
@@ -89,12 +88,12 @@
                                </div>
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
-                                    <select name="select">
-                                        <option value="">Anywhere</option>
-                                        <option value="">Category 1</option>
-                                        <option value="">Category 2</option>
-                                        <option value="">Category 3</option>
-                                        <option value="">Category 4</option>
+                                    <select name="select_country">
+                                       <option value="">Anywhere</option>
+                                        @foreach($countries as $country)
+                                        
+                                        <option value="{{$country->country}}">{{$country->country}}</option>
+                                       @endforeach
                                     </select>
                                 </div>
                                 <br><br>

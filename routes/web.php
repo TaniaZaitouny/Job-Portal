@@ -43,7 +43,7 @@ Route::get('/addCv', function () {
     return view('cv');
 });
 
-Route::post('/company',[ReviewController::class, 'store']);
+
 
 
 Route::get('/company', function() {

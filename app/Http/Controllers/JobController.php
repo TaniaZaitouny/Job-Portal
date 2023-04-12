@@ -19,9 +19,12 @@ class JobController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {  
+        
+         $categories = Category::all();
+         $countries = Country::all();
         $jobs = Job::paginate(5);
-        return view('joblisting', compact('jobs'));
+        return view('joblisting', compact('jobs', 'categories', 'countries'));
     }
 
     /**
@@ -33,6 +36,7 @@ class JobController extends Controller
         $categories = Category::all();
         $countries = Country::all();
         return view('jobposting_form', compact('categories', 'countries'));
+        
     }
 
     /**
@@ -44,6 +48,7 @@ class JobController extends Controller
         $job = new Job();
         $job->company_id = Auth::user()->id;
         $job->title = $request->input('title');
+        $job->country=$request->input('country');
         $job->location = $request->input('location');
         $job->description = $request->input('description');
         $job->requirements = $request->input('requirements');
@@ -104,13 +109,16 @@ class JobController extends Controller
      */
     public function searchJob(Request $request)
     { 
+        $categories = Category::all();
+        $countries = Country::all();
+        
         if ($search = $request->search) {
             $jobs = Job::where('title', 'like', '%' . $search . '%')
                         ->orWhere('description', 'like', '%' . $search . '%')
                         ->orWhere('requirements', 'like', '%' . $search . '%')
                         ->paginate(5);
             
-            return view('joblisting',compact('jobs'));
+         return view('joblisting', compact('jobs', 'categories', 'countries'));
         }
     }
 
@@ -135,8 +143,10 @@ class JobController extends Controller
      */
     public function display_category($name)
     {
+        $categories = Category::all();
+        $countries = Country::all();
         $jobs = Job::where('category',$name)->paginate(5);
-        return view('joblisting', compact('jobs'));
+        return view('joblisting', compact('jobs', 'categories', 'countries'));
     }
 
     /** 
@@ -168,9 +178,11 @@ class JobController extends Controller
     public function filter(Request $request)
     {
      
+        $categories = Category::all();
+        $countries = Country::all();
         $category = $request->input('select_category');
         $type = $request->input('employement_type');
-
+        $country = $request->input('select_country');
         $jobs = Job::query();
         if(!is_null($category))
         {
@@ -180,10 +192,13 @@ class JobController extends Controller
         {
             $jobs->where('employment', $type);
         }
+        if(!is_null($country))
+        {
+            $jobs->where('country', $country);
+        }
         $jobs = $jobs->paginate(5);
-      
-        
-        return view('joblisting', compact('jobs'));
+       
+        return view('joblisting', compact('jobs', 'categories', 'countries'));
         
     }
 
