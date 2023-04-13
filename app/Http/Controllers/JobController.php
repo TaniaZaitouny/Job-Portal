@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\SavedJob;
 use App\Models\Search;
 use Illuminate\Auth\Access\Gate;
-use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;

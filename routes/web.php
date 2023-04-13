@@ -43,18 +43,21 @@ Route::post('/jobs/search', [JobController::class, 'search'])->name('jobs.search
 
 Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save');
 
-Route::post('/addCv', [CvController::class, 'store']);
-Route::get('/Cv', function () {
-  return view('cv');});
+Route::post('/addCv', [CvController::class, 'store'])->name('cv.add');
+
+Route::get('/cv', function () {
+  return view('cv');
+});
+
 Route::post('jobs/search/save', [SearchController::class, 'store'])->name('search.save');
 
-
 Route::post('/company/review/{id}', [ReviewController::class, 'store'])->name('review.add');
+
 Route::get('/company', function() {
     return view('companyProfile');
 });
 
-Route::get('/Profile',[ProfileController::class,'showProfile']);
+Route::get('/profile',[ProfileController::class,'showProfile']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

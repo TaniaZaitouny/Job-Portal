@@ -80,7 +80,7 @@
             <div class="col-lg-12">
                 <div class="form-group app-label">
                     <label for="skill" class="text-muted">Skill</label>
-                    <input id="add_skill" type="text" name="skill[${skill_index}]" class="form-control resume">
+                    <input id="add_skill" type="text" name="skill[${skill_index}][skill]" class="form-control resume">
                 </div>
         </div>`;
         skill_container.appendChild(new_row);
@@ -92,7 +92,7 @@
   @include('Partials.header')
 
 <br> <br> 
-<form method="POST" action="/addCv">
+<form method="POST" action="{{route('cv.add')}}">
 @csrf
 
 @if(isset($cv))
@@ -241,6 +241,7 @@
                                     </div>      
                                 @endforeach
                             @else
+                                <script> education_index += 1; </script>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group app-label">
@@ -317,6 +318,7 @@
                                             </div>
                                         @endforeach
                                     @else 
+                                        <script> work_index += 1; </script>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group app-label">
@@ -386,6 +388,7 @@
                                         </div>
                                     @endforeach
                                 @else
+                                    <script> skill_index += 1; </script>
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group app-label">
