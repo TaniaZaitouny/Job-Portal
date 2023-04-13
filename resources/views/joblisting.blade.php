@@ -171,11 +171,11 @@
                                     <div class="job-items">
             
                                         <div class="job-tittle job-tittle2">
-                                            <a href="#">
+                                            <a href="{{ route('jobs.show', ['job' => $job->id]) }}">
                                                 <h4>{{$job->title }}</h4>
                                             </a>
                                             <ul>
-                                            <a href="{{route('view.company',['id'=>$job->company_id])}}"    <li>{{$job->company_id}}-comapny name</li></a>
+                                                <li><a style="color:#808080" href="{{route('view.company',['id'=>$job->company_id])}}">Company Name</a></li>
                                                 <li><i class="fas fa-map-marker-alt"></i>{{$job->location}}</li>
                                                 <li>{{$job->salary}}</li>
                                             </ul>
