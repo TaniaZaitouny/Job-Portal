@@ -35,14 +35,15 @@
                                 @auth
                                 <div class = "row">
                                 
-                                    <a class="nav-link" href="{{ url('/Profile') }}">
+                                    <a class="nav-link" href="{{ route('profile.view') }}">
                                     <span id="boot-icon" class="bi bi-person-circle" 
                                     style="font-size: 2rem; color: rgb(40, 57, 90);padding:0px;"></span>
                                   
                                     </a>
                                     <a  style="padding-top:18px;font-size:19px;color:rgb(40, 57, 90);" href="{{url('/signOut')}}">Sign out </a>
 
-                                    </div>   @endauth
+                                    </div> 
+                                      @endauth
                             </div>
                         </div>
                         <!-- Mobile Menu -->

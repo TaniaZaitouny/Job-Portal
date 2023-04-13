@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Information;
 use App\Models\Skill;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Validator;
 use App\Models\Contact;
 use App\Models\Education;
 use App\Models\Work;
@@ -22,6 +22,30 @@ class CvController extends Controller
     public function store(Request $request)
     {
         $userId = Auth::user()->id;
+        // $validator = Validator::make($request->all(), [
+        //     'first_name' => 'required|string|max:255',
+        //     'middle_name' => 'nullable|string|max:255',
+        //     'last_name' => 'required|string|max:255',
+        //     'birthday' => 'required|string',
+        //     'gender' => 'required|in:male,female',
+        //     'experience' => 'nullable|integer',
+        //     'country' => 'required|string|max:255',
+        //     'state' => 'nullable|string|max:255',
+        //     'city' => 'required|string|max:255',
+        //     'phone' => 'required|string|max:255',
+        //     'address' => 'required|string|max:255',
+        //     'education.*.certificate_name' => 'required|string|max:255',
+        //     'education.*.year' => 'required|integer|min:1900|max:' . date('Y'),
+        //     'work.*.company_name' => 'required|string|max:255',
+        //     'work.*.position' => 'required|string|max:255',
+        //     'work.*.start_year' => 'required|integer|min:1900|max:' . date('Y'),
+        //     'work.*.end_year' => 'nullable|integer|min:1900|max:' . date('Y'),
+        //     'skill.*.skill' => 'required|string|max:255',
+        // ]);
+    
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator);
+        // }
         
         $this->authorize('create', Information::class);
         $information = new Information();
@@ -78,7 +102,7 @@ class CvController extends Controller
             $newskill->user_id = $userId;
             $newskill->save();
         }
-        
+
     }
 
     public function edit(Request $request) 

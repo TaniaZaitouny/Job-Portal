@@ -6,6 +6,7 @@ use App\Models\Skill;
 use App\Models\Contact;
 use App\Models\Education;
 use App\Models\User;
+use App\Models\Work;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,27 +23,35 @@ class ProfileController extends Controller
     {
         
             $user = Auth::user();
-           
+            $userId = Auth::user()->id;
             if($user->role == 'company')
             {
                 return view('companyProfile');
             }
-            else
-            { $information = Information::find($user->Id);
-            $skill = Skill::find($user->Id);
-            $education = Education::find($user->Id);
-            $contact = Contact::find($user->Id);
-          
-            return view('userProfile',compact('information','skill','education','contact'));
-            }
+           else{
+            
+                $information = Information::where('user_id', $userId)->first();
+                $contact = Contact::where('user_id', $userId)->first();
+                $education = Education::where('user_id', $userId)->get();
+                $skill = Skill::where('user_id', $userId)->get();
+                $work = Work::where('user_id', $userId)->get();
+               
+                return view('userProfile',compact('information','contact','education','skill','work'));
+           }
        
     }
-    public function edit(Request $request): View
-    {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
-    }
+
+        public function viewCompanyofId($id)
+        {
+            //get company information of this $id
+
+        }
+        public function edit(Request $request): View
+        {
+             return view('profile.edit', [
+                 'user' => $request->user(),
+             ]);
+        }
 
     /**
      * Update the user's profile information.

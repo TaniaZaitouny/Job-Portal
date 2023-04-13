@@ -99,53 +99,59 @@
    <br>
     
     <div class="about-us">
-    <h2>name</h2>
+    <h2>
+  {{ $information->first_name }} 
+  {{$information->last_name}}
+ </h2>
     </div>
   <br>
   
   <div>
-      <h4 class="contact">Experience</h4>
+      <h4 class="contact">Education</h4>
         <ul class="list-group experience-card">
+         
+        @foreach($education as $certificate)
+      
           <li>
-            <h5>Job Title 1</h5>
-            <p>Description of Job 1</p>
+            
+            <h6>{{$certificate->certificate_name}}   -{{$certificate->year}}</h6>
+         
           </li>
-          <li>
-            <h5>Job Title 1</h5>
-            <p>Description of Job 1</p>
-          </li>
-          <li>
-            <h5>Job Title 1</h5>
-            <p>Description of Job 1</p>
-          </li>
+          @endforeach
+         
         </ul>
     </div>
     
     <div>
-      <h4 class="contact">Skills</h4>
+      <h4 class="contact">Experience</h4>
         <ul class="list-group experience-card">
           <li>
-            <h5>Job Title 1</h5>
-            <p>Description of Job 1</p>
+            @foreach($work as $experience)
+            <h5>{{$experience->position}}</h5>
+            <p>at {{$experience->company_name}} </p>
           </li>
-          <li>
-            <h5>Job Title 1</h5>
-            <p>Description of Job 1</p>
-          </li>
-          <li>
-            <h5>Job Title 1</h5>
-            <p>Description of Job 1</p>
-          </li>
+            @endforeach
         </ul>
+    </div><br>
+    <div>
+      <h4 class="contact">Skills</h4>
+        <ol class="list-group experience-card">
+          <li>
+            @foreach($skill as $skill)
+            <h5>{{$skill->skill}}</h5>
+          
+          </li>
+            @endforeach
+        </ol>
     </div><br>
     <div class="divider"></div>
       <div class="contact">
         <h2>Contact</h2>
-          <ul>
-            <li><span>Website:</span> www.example.com</li>
-            <li><span>Email:</span> info@example.com</li>
-            <li><span>Phone:</span> (123) 456-7890</li>
-          </ul>
+          <ol>
+           
+            <li><span>Email:</span> {{Auth::user()->email}}</li>
+            <li><span>Phone:</span> {{$contact->phone}}</li>
+          </ol>
       </div>
    
   </body>

@@ -49,14 +49,11 @@ Route::get('/cv', [CvController::class, 'create'])->name('cv.index');
 Route::get('/cv/edit', [CvController::class, 'edit'])->name('cv.edit');
 Route::put('/cv/update', [CvController::class, 'update'])->name('cv.update');
 
-Route::get('/company', function() {
-    return view('companyProfile');
-});
 Route::post('/company/review/{id}', [ReviewController::class, 'store'])->name('review.add');
 
 Route::get('/signOut',[ProfileController::class,'signOut']);
-
-Route::get('/profile',[ProfileController::class,'showProfile']);
+Route::get('/viewprofile/company/{id}',[ProfileController::class, 'viewCompanyofId'])->name('view.company');
+Route::get('/viewprofile',[ProfileController::class,'showProfile'])->name('profile.view');
 
 Route::get('/posts', [JobController::class, 'companyPosts'])->name('posts.show');
 Route::get('/posts/{post}', [ApplicationController::class, 'postApplicants'])->name('applicants.show');

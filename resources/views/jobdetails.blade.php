@@ -40,11 +40,11 @@
                     <div class="job-items">
                 
                         <div class="job-tittle">
-                            <a href="#">
+                         
                                 <h4>{{$job->title}}</h4>
-                            </a>
+                          
                             <ul>
-                                <li>Company Name</li>
+                                <li><a style="color:#808080" href="{{route('view.company',['id'=>$job->company_id])}}">Company Name</a></li>
                                 <li><i class="fas fa-map-marker-alt"></i>{{$job->location}}</li>
                                 <li>{{$job->salary}}$</li>
                             </ul>
@@ -84,8 +84,11 @@
             <div class="col-xl-4 col-lg-4">
                 <div class="post-details3  mb-50">
                     <!-- Small Section Tittle -->
-                    <div class="small-section-tittle">
-                       <h4>Job Overview</h4>
+                
+              
+                 <br/>
+                 <div class="apply-btn2">
+                    <form method="POST" action="{{ route('jobs.save', ['job' => $job->id]) }}">
                     </div>
                     <ul>
                         <li>Posted date : <span>{{$date}}</span></li>
@@ -104,6 +107,7 @@
                               </div>
                             <br/>
                         @endif
+                        <div class="row">
                         <div class="apply-btn2">
                             <button type="submit" class="btn">Apply Now</a>
                         </div>
@@ -115,6 +119,7 @@
                             <button type="submit" class="btn">{{$job->isSaved() ? 'Unsave Job' : 'Save Job'}}</button>
                         </form>
                     </div>
+                       </div>
                </div>
                
             </div>
