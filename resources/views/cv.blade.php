@@ -92,7 +92,7 @@
   @include('Partials.header')
 
 <br> <br> 
-<form method="POST" action="{{ isset($profile) ?  '' : '' }}">
+<form method="POST" action="/addCv">
 @csrf
 
 @if(isset($cv))
@@ -136,7 +136,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="date-of-birth" class="text-muted">Date Of Birth</label>
-                                        <input id="date-of-birth" type="text" name="birthday" class="form-control resume" placeholder="DD-MM-YYYY" value="{{ isset($cv) ? $cv->birthday : '' }}">
+                                        <input id="date-of-birth" type="text" name="birthday" class="form-control resume" value="{{ isset($cv) ? $cv->birthday : '' }}">
                                     </div>
                                 </div>
 

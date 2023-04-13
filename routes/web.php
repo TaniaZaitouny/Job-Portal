@@ -38,7 +38,9 @@ Route::post('/jobs/search', [JobController::class, 'search'])->name('jobs.search
 Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save');
 
 Route::post('/addCv', [CvController::class, 'store']);
-
+Route::get('/Cv', function () {
+  return view('cv');
+});
 Route::post('/company/review/{id}', [ReviewController::class, 'store'])->name('review.add');
 Route::get('/company', function() {
     return view('companyProfile');

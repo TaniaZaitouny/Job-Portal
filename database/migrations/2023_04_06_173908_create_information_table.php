@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
-            $table->date('birthday');
+            $table->string('birthday');
             $table->string('gender');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
