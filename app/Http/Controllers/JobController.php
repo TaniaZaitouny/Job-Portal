@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Session;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Job;
@@ -110,42 +110,50 @@ class JobController extends Controller
      */
     public function search(Request $request)
     { 
+      
         $category = $request->input('category');
-        $employment = $request->input('employement');
+        $employment = $request->input('employment');
         $country = $request->input('country');
         $search = $request->input('search');
-
+        
+        Session::put('category',$category);
+        Session::put('employment',$employment);
+        Session::put('country',$country);
         $query = Job::query();
 
         if($category) {
             $query->where('category', $category);
         }
+     
 
         if($employment) {
-            foreach($employment as $type) {
-                $query->where('employment', $type);
+            {
+                $query->whereIn('employment', $employment);
             } 
         }
 
         if($country) {
             $query->where('country', $country);
         }
+      
 
-        if ($search) {
+        if ($search) { $query->where(function($query) use ($search) {
             $query->where('title', 'like', '%' . $search . '%')
                     ->orWhere('description', 'like', '%' . $search . '%')
                     ->orWhere('requirements', 'like', '%' . $search . '%');
-        }
-        
+        });
+    }
+      
         $jobs = $query->paginate(5);
 
         $categories = Category::all();
         $countries = Country::all();
-
+      
         if($search) {
+           
             return view('joblisting', compact('search', 'jobs', 'categories', 'countries'));
         }
-
+      
         return view('joblisting', compact('jobs', 'categories', 'countries'));
     }
 
@@ -198,5 +206,5 @@ class JobController extends Controller
 
         return redirect()->back();
     }
-
+   
 }

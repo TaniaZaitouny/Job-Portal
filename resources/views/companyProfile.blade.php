@@ -165,10 +165,10 @@
 
 
     <div class="divider"></div>
-      <form action="/companyProfile" method="POST">
+      <form action="{{route('review.add',['id' => $user->id])}}" method="POST">
         @csrf
             <div class="col-md-3 mb-3 align-center">
-                <label for="text"><h4>Review</h4></label>
+                <label for="text"><h5>Leave a review</h5></label>
                 <textarea class="form-control"  name="review" hint="Enter Your Review" style="width:500px;height:100px;"> </textarea>
                 <br>
                 <input type="submit" value="Add Review" style="background: #fb246a; border:none;color:white;height:45px;width:150px"/>

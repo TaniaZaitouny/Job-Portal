@@ -1,4 +1,5 @@
 <header>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> 
         <!-- Header Start -->
        <div class="header-area header-transparrent">
            <div class="headder-top header-sticky">
@@ -25,9 +26,23 @@
                                 </div>          
                                 <!-- Header-btn -->
                                 <div class="header-btn d-none f-right d-lg-block">
+                                    @guest
                                     <a href={{ route('register') }} class="btn head-btn1">Register</a>
                                     <a href={{ route('login') }} class="btn head-btn2">Login</a>
+                                    @endguest
+                                    
                                 </div>
+                                @auth
+                                <div class = "row">
+                                
+                                    <a class="nav-link" href="{{ url('/Profile') }}">
+                                    <span id="boot-icon" class="bi bi-person-circle" 
+                                    style="font-size: 2rem; color: rgb(40, 57, 90);padding:0px;"></span>
+                                  
+                                    </a>
+                                    <a  style="padding-top:18px;font-size:19px;color:rgb(40, 57, 90);" href="">Sign out </a>
+
+                                    </div>   @endauth
                             </div>
                         </div>
                         <!-- Mobile Menu -->

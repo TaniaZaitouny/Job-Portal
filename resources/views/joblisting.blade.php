@@ -58,7 +58,7 @@
                                         <option value="">All Categories</option>
                                        
                                         @foreach($categories as $category)
-                                            <option value="{{$category->category}}" >{{$category->category}}</option>
+                                            <option value="{{$category->category}}" @if(session('category')==$category->category)selected @endif>{{$category->category}}</option>
                                         @endforeach
                                        
                                     </select>
@@ -72,9 +72,9 @@
                                     </div>
                                     <?php $types = ['full-time','part-time','freelance'];
                                     ?>
-                                    @foreach($types as $type )
+                                    @foreach($types as $type)
                                     <label class="container" >{{$type}}
-                                        <input type="checkbox" name="employment[]" value={{$type}} >
+                                        <input type="checkbox" name="employment[]" @if(is_array(session('employment'))&& in_array($type, session('employment'))) checked @endif value={{$type}} >
                                         <span class="checkmark"></span>
                                     </label>
                                     @endforeach
@@ -92,7 +92,7 @@
                                     <select name="country">
                                        <option value="">Anywhere</option>
                                         @foreach($countries as $country)
-                                            <option value="{{$country->country}}">{{$country->country}}</option>
+                                            <option value="{{$country->country}}" @if(session('country')==$country->country)selected @endif>{{$country->country}}</option>
                                        @endforeach
                                     </select>
                                 </div>
@@ -100,12 +100,14 @@
                         </div>
                      
                             
-                            <div class="single-listing">
+                            <div >
                                 
                             <br>
-                             <input type ="submit" name="filter" value="filter" class="btn center" >
+                             <input type ="submit" name="action" value="Filter">
+                             <button type="submit" name="action" value="Clear">Clear</button>
                             </div>
                         </div>
+                  
                     </form>
                         <!-- Job Category Listing End -->
                     </div>

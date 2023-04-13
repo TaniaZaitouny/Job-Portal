@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CvController;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReviewController;
@@ -37,15 +37,14 @@ Route::post('/jobs/search', [JobController::class, 'search'])->name('jobs.search
 
 Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save');
 
-Route::get('/addCv', function () {
-    return view('cv');
-});
+Route::post('/addCv', [CvController::class, 'store']);
 
+Route::post('/company/review/{id}', [ReviewController::class, 'store'])->name('review.add');
 Route::get('/company', function() {
     return view('companyProfile');
 });
 
-Route::get('/userProfile','App\Http\Controllers\UserController@showProfile');
+Route::get('/Profile',[ProfileController::class,'showProfile']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

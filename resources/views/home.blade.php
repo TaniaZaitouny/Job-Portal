@@ -36,8 +36,8 @@
                             <div class="col-xl-5">
                                 <!-- form -->
                                 
-                                <form action="{{route('jobs.search')}}" method="POST" class="search-box">
-                                    @csrf
+                                <form action="{{route('jobs.search')}}" method="post" class="search-box">
+                               @csrf
                                     <div class="input-form" style="width:100%">
                                         <input type="text" placeholder="Job Tittle or keyword" name="search">
                                     </div>

@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Information;
+use App\Models\Skill;
+use App\Models\Contact;
+use App\Models\Education;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,6 +17,17 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
+    public function showProfile()
+    {
+            $userId = Auth::id();
+            $info = Information::find($userId);
+            $skill = Skill::find($userId);
+            $education = Education::find($userId);
+            $contact = Contact::find($userId);
+            dd($info,$skill,$education);
+            // return view('userProfile',compact('user'));
+       
+    }
     public function edit(Request $request): View
     {
         return view('profile.edit', [
