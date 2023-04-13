@@ -8,6 +8,7 @@ use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReviewController;
 use App\Mail\NewJobNotification;
+use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -45,6 +46,8 @@ Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name(
 
 Route::post('/addCv', [CvController::class, 'store'])->name('cv.add');
 Route::get('/cv', [CvController::class, 'create'])->name('cv.index');
+Route::get('/cv/edit', [CvController::class, 'edit'])->name('cv.edit');
+Route::put('/cv/update', [CvController::class, 'update'])->name('cv.update');
 
 Route::get('/company', function() {
     return view('companyProfile');
@@ -54,6 +57,9 @@ Route::post('/company/review/{id}', [ReviewController::class, 'store'])->name('r
 Route::get('/signOut',[ProfileController::class,'signOut']);
 
 Route::get('/profile',[ProfileController::class,'showProfile']);
+
+Route::get('/posts', [JobController::class, 'companyPosts'])->name('posts.show');
+Route::get('/posts/{post}', [ApplicationController::class, 'postApplicants'])->name('applicants.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -113,7 +113,7 @@
   @include('Partials.header')
 
 <br> <br> 
-<form method="POST" action="{{route('cv.add')}}" class="needs-validation" novalidate>
+<form method="POST" action="{{isset($cv) ? route('cv.update') : route('cv.add')}}" class="needs-validation" novalidate>
 @csrf
 
 @if(isset($cv))
@@ -136,7 +136,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="frist-name" class="text-muted">First Name</label>
-                                        <input id="frist-name" type="text" name="first_name" class="form-control resume" value="{{ isset($cv) ? $cv->first_name : '' }}" required>
+                                        <input id="frist-name" type="text" name="first_name" class="form-control resume" value="{{ isset($cv) ? $cv['first_name'] : '' }}" required>
                                         <div class="invalid-feedback">
                                             Please provide a title.
                                         </div>
@@ -146,14 +146,14 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="middle-name" class="text-muted">Middle Name</label>
-                                        <input id="middle-name" type="text" name="middle_name" class="form-control resume" value="{{ isset($cv) ? $cv->middle_name : '' }}">
+                                        <input id="middle-name" type="text" name="middle_name" class="form-control resume" value="{{ isset($cv) ? $cv['middle_name'] : '' }}">
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="surname-name" class="text-muted">Last Name</label>
-                                        <input id="surname-name" type="text" name="last_name" class="form-control resume" value="{{ isset($cv) ? $cv->last_name : '' }}" required>
+                                        <input id="surname-name" type="text" name="last_name" class="form-control resume" value="{{ isset($cv) ? $cv['last_name'] : '' }}" required>
                                         <div class="invalid-feedback">
                                             Please provide a title.
                                         </div>
@@ -163,7 +163,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="date-of-birth" class="text-muted">Date Of Birth</label>
-                                        <input id="date-of-birth" type="text" name="birthday" class="form-control resume" value="{{ isset($cv) ? $cv->birthday : '' }}" required>
+                                        <input id="date-of-birth" type="text" name="birthday" class="form-control resume" value="{{ isset($cv) ? $cv['birthday'] : '' }}" required>
                                         <div class="invalid-feedback">
                                             Please provide a title.
                                         </div>
@@ -175,10 +175,10 @@
                                         <label for="General" class="text-muted" >Gender</label>
                                         <div class="form-button">
                                             <select class="nice-select" name="gender">
-                                                <option value="male" {{ isset($cv) ? $cv->gender == "male" ? "selected" : '' : '' }}>Male</option>
-                                                <option value="female" {{ isset($cv) ? $cv->gender == "female" ? "selected" : '' : '' }}>Female</option>
-                                                <option value="other" {{ isset($cv) ? $cv->gender == "other" ? "selected" : '' : '' }}>Other</option>
-                                                <option value="prefer not to specify" {{ isset($cv) ? $cv->gender == "prefer not to specify" ? "selected" : '' : "selected" }}>Prefer not to specify</option>
+                                                <option value="male" {{ isset($cv) ? $cv['gender'] == "male" ? "selected" : '' : '' }}>Male</option>
+                                                <option value="female" {{ isset($cv) ? $cv['gender'] == "female" ? "selected" : '' : '' }}>Female</option>
+                                                <option value="other" {{ isset($cv) ? $cv['gender'] == "other" ? "selected" : '' : '' }}>Other</option>
+                                                <option value="prefer not to specify" {{ isset($cv) ? $cv['gender'] == "prefer not to specify" ? "selected" : '' : "selected" }}>Prefer not to specify</option>
                                             </select>
                                         </div>
                                     </div>
@@ -187,7 +187,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="years-of-experience" class="text-muted">Years of Experience</label>
-                                        <input id="years-of-experience" type="text" name="experience" class="form-control resume" value="{{ isset($cv) ? $cv->experience : '' }}" required>
+                                        <input id="years-of-experience" type="text" name="experience" class="form-control resume" value="{{ isset($cv) ? $cv['experience'] : '' }}" required>
                                         <div class="invalid-feedback">
                                             Please provide a title.
                                         </div>
@@ -213,7 +213,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="country" class="text-muted">Country</label>
-                                        <input id="country" type="text" name="country" class="form-control resume" value="{{ isset($cv) ? $cv->country : '' }}" required>
+                                        <input id="country" type="text" name="country" class="form-control resume" value="{{ isset($cv) ? $cv['country'] : '' }}" required>
                                         <div class="invalid-feedback">
                                             Please provide a title.
                                         </div>
@@ -223,14 +223,14 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="state" class="text-muted">State</label>
-                                        <input id="state" type="text" name="state" class="form-control resume" value="{{ isset($cv) ? $cv->state : '' }}">
+                                        <input id="state" type="text" name="state" class="form-control resume" value="{{ isset($cv) ? $cv['state'] : '' }}">
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="city" class="text-muted">City</label>
-                                        <input id="city" type="text" name="city" class="form-control resume" value="{{ isset($cv) ? $cv->city : '' }}" required>
+                                        <input id="city" type="text" name="city" class="form-control resume" value="{{ isset($cv) ? $cv['city'] : '' }}" required>
                                         <div class="invalid-feedback">
                                             Please provide a title.
                                         </div>
@@ -240,7 +240,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="phone" class="text-muted">Phone</label>
-                                        <input id="phone" type="text" name="phone" class="form-control resume" value="{{ isset($cv) ? $cv->phone : '' }}" required>
+                                        <input id="phone" type="text" name="phone" class="form-control resume" value="{{ isset($cv) ? $cv['phone'] : '' }}" required>
                                         <div class="invalid-feedback">
                                             Please provide a title.
                                         </div>
@@ -250,7 +250,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group app-label">
                                         <label for="address" class="text-muted">Address</label>
-                                        <input id="address" type="text" name="address" class="form-control resume" value="{{ isset($cv) ? $cv->address : '' }}" required>
+                                        <input id="address" type="text" name="address" class="form-control resume" value="{{ isset($cv) ? $cv['address'] : '' }}" required>
                                         <div class="invalid-feedback">
                                             Please provide a title.
                                         </div>
@@ -274,11 +274,12 @@
                         <div class="custom-form">
                             <div id="education_container">
                             @if (isset($cv))
-                                @foreach ($cv->education as $index => $education)
+                                @foreach ($cv['education'] as $index => $education)
                                     <script> education_index += 1; </script>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group app-label">
+                                                <input type="hidden" value="{{ $education->id }}" name=education[{{$index}}][id]>
                                                 <label for="certificate" class="text-muted">Degree/Certificate</label>
                                                 <input id="certificate" name="education[{{$index}}][certificate_name]" type="text" class="form-control resume" value="{{$education->certificate_name}}" required>
                                                 <div class="invalid-feedback">
@@ -345,11 +346,12 @@
                             <div class="custom-form"> 
                                 <div id="work_container">
                                     @if (isset($cv))
-                                        @foreach ($cv->work as $index => $work)
+                                        @foreach ($cv['work'] as $index => $work)
                                             <script> work_index += 1; </script>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group app-label">
+                                                        <input type="hidden" value="{{ $work->id }}" name=work[{{$index}}][id]>
                                                         <label for="company-name" class="text-muted">Company Name</label>
                                                         <input id="company-name" type="text" name="work[{{$index}}][company_name]" class="form-control resume" value="{{$work->company_name}}" required>
                                                         <div class="invalid-feedback">
@@ -464,13 +466,14 @@
                         <div class="custom-form">
                             <div id="skill_container">
                                 @if (isset($cv))
-                                    @foreach ($cv->skill as $index => $skill)
+                                    @foreach ($cv['skill'] as $index => $skill)
                                         <script> skill_index += 1; </script>
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-group app-label">
+                                                    <input type="hidden" value="{{ $skill->id }}" name=skill[{{$index}}][id]>
                                                     <label for="skill" class="text-muted">Skill</label>
-                                                    <input id="skill" type="text" name="skill[{{$index}}][skill]" class="form-control resume" value="{{$skill}}" required>
+                                                    <input id="skill" type="text" name="skill[{{$index}}][skill]" class="form-control resume" value="{{ $skill->skill }}" required>
                                                     <div class="invalid-feedback">
                                                         Please provide a title.
                                                     </div>

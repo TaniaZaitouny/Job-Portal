@@ -9,6 +9,8 @@ class Education extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['id', 'certificate_name', 'year'];
+
     public function user() {
         return $this->belongsTo(User::class, 'id');
     }

@@ -22,7 +22,6 @@ class CvController extends Controller
     public function store(Request $request)
     {
         $userId = Auth::user()->id;
-
         
         $this->authorize('create', Information::class);
         $information = new Information();
@@ -80,6 +79,131 @@ class CvController extends Controller
             $newskill->save();
         }
         
+    }
+
+    public function edit(Request $request) 
+    {
+        $user = Auth::user();
+
+        $cv = array();
+
+        $information = Information::where('user_id', $user->id)->first();
+        $cv['id'] = $information->user_id;
+        $cv['first_name'] = $information->first_name;
+        if($information->middle_name) {
+            $cv['middle_name'] = $information->middle_name;
+        }
+        $cv['last_name'] = $information->last_name;
+        $cv['birthday'] = $information->birthday;
+        $cv['gender'] = $information->gender;
+        $cv['experience'] = $information->experience;
+
+        $contact = Contact::where('user_id', $user->id)->first();
+        $cv['country'] = $contact->country;
+        if($contact->state) {
+            $cv['state'] = $contact->state;
+        }
+        $cv['city'] = $contact->city;
+        $cv['phone'] = $contact->phone;
+        $cv['address'] = $contact->address;
+
+        $educations = Education::where('user_id', $user->id)->get();
+        $cv['education'] = $educations;
+
+        $works = Work::where('user_id', $user->id)->get();
+        $cv['work'] = $works;
+
+        $skills = Skill::where('user_id', $user->id)->get();
+        $cv['skill'] = $skills;
+
+        return view('cv', compact('cv'));
+    }
+
+    public function update(Request $request)
+    {
+        $userId = Auth::user()->id;
+        
+        $information = array();
+        $information['last_name'] = $request->input('last_name');
+        $information['birthday'] = $request->input('birthday');
+        $information['gender'] = $request->input('gender');
+        $information['experience'] = $request->input('experience');
+        $information['user_id'] = $userId;
+        $oldinformation = Information::where('user_id', $userId)->first();
+        $oldinformation->update($information);
+
+        //$this->authorize('update', Contact::class);
+        $contact = array();
+        $contact['country'] = $request->input('country');
+        if($request->input('state')) {
+            $contact['state'] = $request->input('state');
+        }
+        $contact['city'] = $request->input('city');
+        $contact['phone'] = $request->input('phone');
+        $contact['address'] = $request->input('address');
+        $contact['user_id'] = $userId;
+        $oldcontact= Contact::where('user_id', $userId)->first();
+        $oldcontact->update($contact);
+
+        $educationData = $request->input('education');
+        if ($educationData) {
+            $educationIds = collect($educationData)->pluck('id')->toArray();
+            Education::where('user_id', $userId)
+                ->whereNotIn('id', $educationIds)
+                ->delete();
+
+            foreach ($educationData as $data) {
+                if (isset($data['id'])) {
+                    $education = Education::where('user_id', $userId)
+                        ->findOrFail($data['id']);
+                    $education->update($data);
+                } else {
+                    $education = new Education($data);
+                    $education->user_id = $userId;
+                    $education->save();
+                }
+            }
+        }
+
+        $workData = $request->input('work');
+        if ($workData) {
+            $workIds = collect($workData)->pluck('id')->toArray();
+            Work::where('user_id', $userId)
+                ->whereNotIn('id', $workIds)
+                ->delete();
+
+            foreach ($workData as $data) {
+                if (isset($data['id'])) {
+                    $work = Work::where('user_id', $userId)
+                        ->findOrFail($data['id']);
+                    $work->update($data);
+                } else {
+                    $work = new Work($data);
+                    $work->user_id = $userId;
+                    $work->save();
+                }
+            }
+        }
+
+        $skillData = $request->input('skill');
+        if ($skillData) {
+            $skillIds = collect($skillData)->pluck('id')->toArray();
+            Skill::where('user_id', $userId)
+                ->whereNotIn('id', $skillIds)
+                ->delete();
+
+            foreach ($skillData as $data) {
+                if (isset($data['id'])) {
+                    $skill = Skill::where('user_id', $userId)
+                        ->findOrFail($data['id']);
+                    $skill->update($data);
+                } else {
+                    $skill = new Skill($data);
+                    $skill->user_id = $userId;
+                    $skill->save();
+                }
+            }
+        }
     }
 
 }
