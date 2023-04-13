@@ -40,12 +40,18 @@ class ProfileController extends Controller
            }
        
     }
-    public function edit(Request $request): View
-    {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
-    }
+
+        public function viewCompanyofId($id)
+        {
+            //get company information of this $id
+
+        }
+        public function edit(Request $request): View
+        {
+             return view('profile.edit', [
+                 'user' => $request->user(),
+             ]);
+        }
 
     /**
      * Update the user's profile information.

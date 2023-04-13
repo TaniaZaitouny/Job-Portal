@@ -175,7 +175,7 @@
                                                 <h4>{{$job->title }}</h4>
                                             </a>
                                             <ul>
-                                                <li>Creative Agency</li>
+                                            <a href="{{route('view.company',['id'=>$job->company_id])}}"    <li>{{$job->company_id}}-comapny name</li></a>
                                                 <li><i class="fas fa-map-marker-alt"></i>{{$job->location}}</li>
                                                 <li>{{$job->salary}}</li>
                                             </ul>

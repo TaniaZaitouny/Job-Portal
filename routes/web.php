@@ -46,11 +46,10 @@ Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name(
 Route::post('/addCv', [CvController::class, 'store'])->name('cv.add');
 Route::get('/cv', [CvController::class, 'create'])->name('cv.index');
 
-
 Route::post('/company/review/{id}', [ReviewController::class, 'store'])->name('review.add');
 
 Route::get('/signOut',[ProfileController::class,'signOut']);
-
+Route::get('/viewprofile/company/{id}',[ProfileController::class, 'viewCompanyofId'])->name('view.company');
 Route::get('/viewprofile',[ProfileController::class,'showProfile'])->name('profile.view');
 
 Route::get('/dashboard', function () {
