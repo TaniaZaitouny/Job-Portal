@@ -5,6 +5,7 @@ use App\Models\Information;
 use App\Models\Skill;
 use App\Models\Contact;
 use App\Models\Education;
+use App\Models\User;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,13 +20,21 @@ class ProfileController extends Controller
      */
     public function showProfile()
     {
-            $userId = Auth::id();
-            $info = Information::find($userId);
+        
+            $user = Auth::user();
+           
+            if($user->role == 'company')
+            {
+                return view('companyProfile');
+            }
+            else
+            { $information = Information::find($userId);
             $skill = Skill::find($userId);
             $education = Education::find($userId);
             $contact = Contact::find($userId);
-            dd($info,$skill,$education);
-            // return view('userProfile',compact('user'));
+          
+            return view('userProfile',compact('info','skill','education','contact'));
+            }
        
     }
     public function edit(Request $request): View
@@ -71,4 +80,13 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    public function signOut(Request $request)
+    {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+  
+    return redirect('/')->with('success', 'You have been signed out.');
+    }
+
 }

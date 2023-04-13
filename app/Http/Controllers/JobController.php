@@ -145,23 +145,11 @@ class JobController extends Controller
      */
     public function search(Request $request)
     { 
-<<<<<<< HEAD
-      
-        $category = $request->input('category');
-        $employment = $request->input('employment');
-        $country = $request->input('country');
-        $search = $request->input('search');
-        
-        Session::put('category',$category);
-        Session::put('employment',$employment);
-        Session::put('country',$country);
-=======
         $search = $request->input('search');
         $category = $request->input('category');
         $employment = $request->input('employment');
         $country = $request->input('country');
 
->>>>>>> 4edfcbd61a4cff873533e7bbafef73f4ddaedbad
         $query = Job::query();
 
         if ($search) {
@@ -175,18 +163,9 @@ class JobController extends Controller
         if($category) {
             $query->where('category', $category);
         }
-<<<<<<< HEAD
-     
-
-        if($employment) {
-            {
-                $query->whereIn('employment', $employment);
-            } 
-=======
         
         if($employment) {
             $query->whereIn('employment', $employment);
->>>>>>> 4edfcbd61a4cff873533e7bbafef73f4ddaedbad
         }
 
         if($country) {
@@ -194,16 +173,6 @@ class JobController extends Controller
         }
       
 
-<<<<<<< HEAD
-        if ($search) { $query->where(function($query) use ($search) {
-            $query->where('title', 'like', '%' . $search . '%')
-                    ->orWhere('description', 'like', '%' . $search . '%')
-                    ->orWhere('requirements', 'like', '%' . $search . '%');
-        });
-    }
-      
-=======
->>>>>>> 4edfcbd61a4cff873533e7bbafef73f4ddaedbad
         $jobs = $query->paginate(5);
 
         $categories = Category::all();

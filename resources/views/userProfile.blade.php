@@ -99,11 +99,7 @@
    <br>
     
     <div class="about-us">
-    <h2>{{$user->name}}</h2>
-      <h2>About Me</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat faucibus purus, ac ultrices diam lacinia sit amet. Nam eu lorem nec sapien dignissim malesuada in quis felis. Maecenas vel vestibulum risus. Quisque non leo a quam consequat scelerisque. Nulla facilisi. Nulla ac sollicitudin elit. Vestibulum eu ultricies tellus. Fusce blandit volutpat dolor, eu venenatis libero tempor id. Sed at velit malesuada, aliquam tellus vel, scelerisque lorem.</p>
-      <p>Nunc pulvinar justo vitae neque porttitor, at volutpat lacus sollicitudin. Praesent elementum accumsan augue, in mollis
-    </p>
+    <h2>name</h2>
     </div>
   <br>
   
