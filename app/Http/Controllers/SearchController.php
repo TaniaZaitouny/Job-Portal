@@ -29,10 +29,13 @@ class SearchController extends Controller
      */
     public function store(Request $request)
     {
+        
         $search = new Search();
         $search->keyword = $request->input('keyword');
         $search->email = Auth::user()->email;
+      
         $search->save();
+        return back();
     }
 
     /**

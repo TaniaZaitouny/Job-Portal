@@ -151,9 +151,9 @@ class JobController extends Controller
         $employment = $request->input('employment');
         $country = $request->input('country');
         
-        Session::put('category',$category);
-        Session::put('employment',$employment);
-        Session::put('country',$country);
+        Session::put('category', $category);
+        Session::put('employment', $employment);
+        Session::put('country', $country);
 
         $query = Job::query();
 
@@ -168,7 +168,7 @@ class JobController extends Controller
         if($category) {
             $query->where('category', $category);
         }
-     
+        
         if($employment) {
             $query->whereIn('employment', $employment);
         }
@@ -177,6 +177,7 @@ class JobController extends Controller
             $query->where('country', $country);
         }
       
+
         $jobs = $query->paginate(5);
 
         $categories = Category::all();

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('keyword');
             $table->string('email');
             $table->timestamps();
+            redirect('jobs.')
         });
     }
 

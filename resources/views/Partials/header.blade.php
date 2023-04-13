@@ -40,7 +40,7 @@
                                     style="font-size: 2rem; color: rgb(40, 57, 90);padding:0px;"></span>
                                   
                                     </a>
-                                    <a  style="padding-top:18px;font-size:19px;color:rgb(40, 57, 90);" href="">Sign out </a>
+                                    <a  style="padding-top:18px;font-size:19px;color:rgb(40, 57, 90);" href="{{url('/signOut')}}">Sign out </a>
 
                                     </div>   @endauth
                             </div>

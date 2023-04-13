@@ -101,6 +101,7 @@
         </div>
         <!-- Our Services End -->
         <!-- Online CV Area Start -->
+        
          <div class="online-cv cv-bg section-overly pt-90 pb-120"  data-background="assets/img/gallery/cv_bg.jpg">
             <div class="container">
                 <div class="row justify-content-center">

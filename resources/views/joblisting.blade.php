@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <br/> <br/>
-                <div class="row">
+                <div class="row" style="margin:5px">
                     <!-- Left content -->
                     <div class="col-xl-3 col-lg-3 col-md-4">
                         <div class="row">
@@ -132,12 +132,7 @@
                             <div >
                                 
                             <br>
-<<<<<<< HEAD
-                             <input type ="submit" name="action" value="Filter">
-                             <button type="submit" name="action" value="Clear">Clear</button>
-=======
                              <input type ="submit" name="filter" value="filter" class="btn">
->>>>>>> 4edfcbd61a4cff873533e7bbafef73f4ddaedbad
                             </div>
                         </div>
                   
