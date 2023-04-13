@@ -95,7 +95,7 @@
                   </ul>
                 @if(Auth::user()->role == 'person')
                  <div class="apply-btn2">
-                    <a href="#" class="btn">Apply Now</a>
+                    <a href="" class="btn">Apply Now</a>
                  </div>
                  @endif
                  <br/>

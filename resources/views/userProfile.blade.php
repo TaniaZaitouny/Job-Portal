@@ -99,25 +99,25 @@
    <br>
     
     <div class="about-us">
-    <h2>name</h2>
+    <h2>
+  {{ $information->first_name }} 
+  {{$information->last_name}}
+ </h2>
     </div>
   <br>
   
   <div>
-      <h4 class="contact">Experience</h4>
+      <h4 class="contact">Education</h4>
         <ul class="list-group experience-card">
+         
+        @foreach($education as $certificate)
+      
           <li>
-            <h5>Job Title 1</h5>
-            <p>Description of Job 1</p>
+            
+            <h5>{{$certificate->certificate_name}}</h5>
           </li>
-          <li>
-            <h5>Job Title 1</h5>
-            <p>Description of Job 1</p>
-          </li>
-          <li>
-            <h5>Job Title 1</h5>
-            <p>Description of Job 1</p>
-          </li>
+          @endforeach
+         
         </ul>
     </div>
     
@@ -125,17 +125,11 @@
       <h4 class="contact">Skills</h4>
         <ul class="list-group experience-card">
           <li>
-            <h5>Job Title 1</h5>
-            <p>Description of Job 1</p>
+            @foreach($work as $experience)
+            <h5>{{$experience->position}}</h5>
+            <p>at {{$experience->company_name}} years:</p>
           </li>
-          <li>
-            <h5>Job Title 1</h5>
-            <p>Description of Job 1</p>
-          </li>
-          <li>
-            <h5>Job Title 1</h5>
-            <p>Description of Job 1</p>
-          </li>
+            @endforeach
         </ul>
     </div><br>
     <div class="divider"></div>

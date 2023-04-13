@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\SavedJob;
 use App\Models\Search;
 use Illuminate\Auth\Access\Gate;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -149,6 +150,10 @@ class JobController extends Controller
         $category = $request->input('category');
         $employment = $request->input('employment');
         $country = $request->input('country');
+        
+        Session::put('category', $category);
+        Session::put('employment', $employment);
+        Session::put('country', $country);
 
         $query = Job::query();
 
