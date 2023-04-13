@@ -101,7 +101,7 @@
         </div>
         <!-- Our Services End -->
         <!-- Online CV Area Start -->
-        
+        @guest
          <div class="online-cv cv-bg section-overly pt-90 pb-120"  data-background="assets/img/gallery/cv_bg.jpg">
             <div class="container">
                 <div class="row justify-content-center">
@@ -109,30 +109,32 @@
                         <div class="cv-caption text-center">
                             <p class="pera1">FEATURED TOURS Packages</p>
                             <p class="pera2"> Make a Difference with Your Online Resume!</p>
-                            <a href="#" class="border-btn2 border-btn4">Upload your cv</a>
+                            <a href="{{ route('login') }} " class="border-btn2 border-btn4">Upload your cv</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Online CV Area End-->
-        <!-- Featured_job_start -->
-        <section class="featured-job-area feature-padding">
+        @else
+         @if(Auth::user()->role=='person' )
+        <div class="online-cv cv-bg section-overly pt-90 pb-120"  data-background="assets/img/gallery/cv_bg.jpg">
             <div class="container">
-                <!-- Section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle text-center">
-                            <span>Recent Job</span>
-                            <h2>Featured Jobs</h2>
+                <div class="row justify-content-center">
+                    <div class="col-xl-10">
+                        <div class="cv-caption text-center">
+                            <p class="pera1">FEATURED TOURS Packages</p>
+                            <p class="pera2"> Make a Difference with Your Online Resume!</p>
+                            <a href="/cv" class="border-btn2 border-btn4">Upload your cv</a>
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-xl-10">
-                        <!-- single-job-content -->
-                        
-        </section>
+            </div>
+        </div>
+         @endif
+         @endguest
+        <!-- Online CV Area End-->
+        <!-- Featured_job_start -->
+     
         <!-- Featured_job_end -->
         <!-- How  Apply Process Start-->
         <div class="apply-process-area apply-bg pt-150 pb-150" data-background="assets/img/gallery/how-applybg.png">

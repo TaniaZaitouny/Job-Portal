@@ -40,9 +40,9 @@
                     <div class="job-items">
                 
                         <div class="job-tittle">
-                            <a href="#">
+                         
                                 <h4>{{$job->title}}</h4>
-                            </a>
+                          
                             <ul>
                                 <li>Company Name</li>
                                 <li><i class="fas fa-map-marker-alt"></i>{{$job->location}}</li>
@@ -93,9 +93,11 @@
                       <li>Job nature : <span>{{$job->employment}}</span></li>
                       <li>Salary :  <span>{{$job->salary *12}}$ yearly</span></li>
                   </ul>
+                @if(Auth::user()->role == 'person')
                  <div class="apply-btn2">
                     <a href="#" class="btn">Apply Now</a>
                  </div>
+                 @endif
                  <br/>
                  <div class="apply-btn2">
                     <form method="POST" action="{{ route('jobs.save', ['job' => $job->id]) }}">

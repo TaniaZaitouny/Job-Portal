@@ -92,7 +92,7 @@
   @include('Partials.header')
 
 <br> <br> 
-<form method="POST" action="/addCv">
+<form method="POST" action="/addcv">
 @csrf
 
 @if(isset($cv))

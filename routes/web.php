@@ -44,7 +44,7 @@ Route::post('/jobs/search/save', [SearchController::class, 'store'])->name('sear
 Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save');
 
 Route::post('/addCv', [CvController::class, 'store']);
-Route::get('/Cv', function () {
+Route::get('/cv', function () {
   return view('cv');});
 
 
