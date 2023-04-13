@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class CvController extends Controller
 {
+
+    public function create() 
+    {
+        $this->authorize('create', Information::class);
+        return view('cv');
+    }
+
     public function store(Request $request)
     {
         $userId = Auth::user()->id;
@@ -26,6 +33,7 @@ class CvController extends Controller
         $information->last_name = $request->input('last_name');
         $information->birthday = $request->input('birthday');
         $information->gender = $request->input('gender');
+        $information->experience = $request->input('experience');
         $information->user_id = $userId;
         $information->save();
 

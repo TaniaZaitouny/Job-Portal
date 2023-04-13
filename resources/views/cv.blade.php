@@ -22,13 +22,19 @@
             <div class="col-md-6">
                 <div class="form-group app-label">
                     <label for="certificate" class="text-muted">Degree/Certificate</label>
-                    <input id="certificate" type="text" name="education[${education_index}][certificate_name]" class="form-control resume">
+                    <input id="certificate" type="text" name="education[${education_index}][certificate_name]" class="form-control resume" required>
+                    <div class="invalid-feedback">
+                        Please provide a title.
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group app-label">
                     <label for="year" class="text-muted">Year</label>
-                    <input id="year" type="text" name="education[${education_index}][year]" class="form-control resume">
+                    <input id="year" type="text" name="education[${education_index}][year]" class="form-control resume" required>
+                    <div class="invalid-feedback">
+                        Please provide a title.
+                    </div>
                 </div>
             </div>
         </div>`;
@@ -43,13 +49,19 @@
             <div class="col-md-6">
                 <div class="form-group app-label">
                     <label for="company-name" class="text-muted">Company Name</label>
-                    <input id="company-name" type="text" name="work[${work_index}][company_name]" class="form-control resume">
+                    <input id="company-name" type="text" name="work[${work_index}][company_name]" class="form-control resume" required>
+                    <div class="invalid-feedback">
+                        Please provide a title.
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group app-label">
                     <label for="job-position" class="text-muted">Job Position</label>
-                    <input id="job-position" type="text" name="work[${work_index}][position]" class="form-control resume">
+                    <input id="job-position" type="text" name="work[${work_index}][position]" class="form-control resume" required>
+                    <div class="invalid-feedback">
+                        Please provide a title.
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -57,13 +69,19 @@
                     <div class="col-md-6">
                         <div class="form-group app-label">
                             <label for="date-from" class="text-muted">Year From</label>
-                            <input id="date-from" type="text" name="work[${work_index}][start_year]" class="form-control resume">
+                            <input id="date-from" type="text" name="work[${work_index}][start_year]" class="form-control resume" required>
+                            <div class="invalid-feedback">
+                                Please provide a title.
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group app-label">
                             <label for="date-to" class="text-muted">Year To</label>
-                            <input id="date-to" type="text" name="work[${work_index}][end_year]" class="form-control resume">
+                            <input id="date-to" type="text" name="work[${work_index}][end_year]" class="form-control resume" required>
+                            <div class="invalid-feedback">
+                                Please provide a title.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,7 +98,10 @@
             <div class="col-lg-12">
                 <div class="form-group app-label">
                     <label for="skill" class="text-muted">Skill</label>
-                    <input id="add_skill" type="text" name="skill[${skill_index}][skill]" class="form-control resume">
+                    <input id="add_skill" type="text" name="skill[${skill_index}][skill]" class="form-control resume" required>
+                    <div class="invalid-feedback">
+                        Please provide a title.
+                    </div>
                 </div>
         </div>`;
         skill_container.appendChild(new_row);
@@ -92,7 +113,7 @@
   @include('Partials.header')
 
 <br> <br> 
-<form method="POST" action="{{route('cv.add')}}">
+<form method="POST" action="{{route('cv.add')}}" class="needs-validation" novalidate>
 @csrf
 
 @if(isset($cv))
@@ -115,7 +136,10 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="frist-name" class="text-muted">First Name</label>
-                                        <input id="frist-name" type="text" name="first_name" class="form-control resume" value="{{ isset($cv) ? $cv->first_name : '' }}">
+                                        <input id="frist-name" type="text" name="first_name" class="form-control resume" value="{{ isset($cv) ? $cv->first_name : '' }}" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a title.
+                                        </div>
                                     </div>
                                 </div>
 
@@ -129,14 +153,20 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="surname-name" class="text-muted">Last Name</label>
-                                        <input id="surname-name" type="text" name="last_name" class="form-control resume" value="{{ isset($cv) ? $cv->last_name : '' }}">
+                                        <input id="surname-name" type="text" name="last_name" class="form-control resume" value="{{ isset($cv) ? $cv->last_name : '' }}" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a title.
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="date-of-birth" class="text-muted">Date Of Birth</label>
-                                        <input id="date-of-birth" type="text" name="birthday" class="form-control resume" value="{{ isset($cv) ? $cv->birthday : '' }}">
+                                        <input id="date-of-birth" type="text" name="birthday" class="form-control resume" value="{{ isset($cv) ? $cv->birthday : '' }}" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a title.
+                                        </div>
                                     </div>
                                 </div>
 
@@ -150,6 +180,16 @@
                                                 <option value="other" {{ isset($cv) ? $cv->gender == "other" ? "selected" : '' : '' }}>Other</option>
                                                 <option value="prefer not to specify" {{ isset($cv) ? $cv->gender == "prefer not to specify" ? "selected" : '' : "selected" }}>Prefer not to specify</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group app-label">
+                                        <label for="years-of-experience" class="text-muted">Years of Experience</label>
+                                        <input id="years-of-experience" type="text" name="experience" class="form-control resume" value="{{ isset($cv) ? $cv->experience : '' }}" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a title.
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +213,10 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="country" class="text-muted">Country</label>
-                                        <input id="country" type="text" name="country" class="form-control resume" value="{{ isset($cv) ? $cv->country : '' }}">
+                                        <input id="country" type="text" name="country" class="form-control resume" value="{{ isset($cv) ? $cv->country : '' }}" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a title.
+                                        </div>
                                     </div>
                                 </div>
 
@@ -187,21 +230,30 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="city" class="text-muted">City</label>
-                                        <input id="city" type="text" name="city" class="form-control resume" value="{{ isset($cv) ? $cv->city : '' }}">
+                                        <input id="city" type="text" name="city" class="form-control resume" value="{{ isset($cv) ? $cv->city : '' }}" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a title.
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label for="phone" class="text-muted">Phone</label>
-                                        <input id="phone" type="text" name="phone" class="form-control resume" value="{{ isset($cv) ? $cv->phone : '' }}">
+                                        <input id="phone" type="text" name="phone" class="form-control resume" value="{{ isset($cv) ? $cv->phone : '' }}" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a title.
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="form-group app-label">
                                         <label for="address" class="text-muted">Address</label>
-                                        <input id="address" type="text" name="address" class="form-control resume" value="{{ isset($cv) ? $cv->address : '' }}">
+                                        <input id="address" type="text" name="address" class="form-control resume" value="{{ isset($cv) ? $cv->address : '' }}" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a title.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -228,14 +280,20 @@
                                         <div class="col-md-6">
                                             <div class="form-group app-label">
                                                 <label for="certificate" class="text-muted">Degree/Certificate</label>
-                                                <input id="certificate" name="education[{{$index}}][certificate_name]" type="text" class="form-control resume" value="{{$education->certificate_name}}">
+                                                <input id="certificate" name="education[{{$index}}][certificate_name]" type="text" class="form-control resume" value="{{$education->certificate_name}}" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a title.
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group app-label">
                                                 <label for="year" class="text-muted">Year</label>
-                                                <input id="year" type="text" name="education[{{$index}}][year]" class="form-control resume" value="{{$education->year}}">
+                                                <input id="year" type="text" name="education[{{$index}}][year]" class="form-control resume" value="{{$education->year}}" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a title.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>      
@@ -246,14 +304,20 @@
                                     <div class="col-md-6">
                                         <div class="form-group app-label">
                                             <label for="certificate" class="text-muted">Degree/Certificate</label>
-                                            <input id="certificate" type="text" name="education[0][certificate_name]" class="form-control resume">
+                                            <input id="certificate" type="text" name="education[0][certificate_name]" class="form-control resume" required>
+                                            <div class="invalid-feedback">
+                                                Please provide a title.
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group app-label">
                                             <label for="year" class="text-muted">Year</label>
-                                            <input id="year" type="text" name="education[0][year]" class="form-control resume">
+                                            <input id="year" type="text" name="education[0][year]" class="form-control resume" required>
+                                            <div class="invalid-feedback">
+                                                Please provide a title.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -287,14 +351,20 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group app-label">
                                                         <label for="company-name" class="text-muted">Company Name</label>
-                                                        <input id="company-name" type="text" name="work[{{$index}}][company_name]" class="form-control resume" value="{{$work->company_name}}">
+                                                        <input id="company-name" type="text" name="work[{{$index}}][company_name]" class="form-control resume" value="{{$work->company_name}}" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a title.
+                                                        </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-6">
                                                     <div class="form-group app-label">
                                                         <label for="job-position" class="text-muted">Job Position</label>
-                                                        <input id="job-position" type="text" name="work[{{$index}}][position]" class="form-control resume" value="{{$work->position}}">
+                                                        <input id="job-position" type="text" name="work[{{$index}}][position]" class="form-control resume" value="{{$work->position}}" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a title.
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -303,14 +373,20 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group app-label">
                                                                 <label for="date-from" class="text-muted">Year From</label>
-                                                                <input id="date-from" type="text" name="work[{{$index}}][start_year]" class="form-control resume" value="{{$work->start_year}}">
+                                                                <input id="date-from" type="text" name="work[{{$index}}][start_year]" class="form-control resume" value="{{$work->start_year}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Please provide a title.
+                                                                </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <div class="form-group app-label">
                                                                 <label for="date-to" class="text-muted">Year To</label>
-                                                                <input id="date-to" type="text" name="work[{{$index}}][end_year]" class="form-control resume" value="{{$work->end_year}}">
+                                                                <input id="date-to" type="text" name="work[{{$index}}][end_year]" class="form-control resume" value="{{$work->end_year}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Please provide a title.
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -323,14 +399,20 @@
                                             <div class="col-md-6">
                                                 <div class="form-group app-label">
                                                     <label for="company-name" class="text-muted">Company Name</label>
-                                                    <input id="company-name" type="text" name="work[0][company_name]" class="form-control resume">
+                                                    <input id="company-name" type="text" name="work[0][company_name]" class="form-control resume" required>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a title.
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group app-label">
                                                     <label for="job-position" class="text-muted">Job Position</label>
-                                                    <input id="job-position" type="text" name="work[0][position]" class="form-control resume">
+                                                    <input id="job-position" type="text" name="work[0][position]" class="form-control resume" required>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a title.
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -339,14 +421,20 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group app-label">
                                                             <label for="date-from" class="text-muted">Year From</label>
-                                                            <input id="date-from" type="text" name="work[0][start_year]" class="form-control resume">
+                                                            <input id="date-from" type="text" name="work[0][start_year]" class="form-control resume" required>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a title.
+                                                            </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <div class="form-group app-label">
                                                             <label for="date-to" class="text-muted">Year To</label>
-                                                            <input id="date-to" type="text" name="work[0][end_year]" class="form-control resume">
+                                                            <input id="date-to" type="text" name="work[0][end_year]" class="form-control resume" required>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a title.
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -382,7 +470,10 @@
                                             <div class="col-lg-12">
                                                 <div class="form-group app-label">
                                                     <label for="skill" class="text-muted">Skill</label>
-                                                    <input id="skill" type="text" name="skill[{{$index}}][skill]" class="form-control resume" value="{{$skill}}">
+                                                    <input id="skill" type="text" name="skill[{{$index}}][skill]" class="form-control resume" value="{{$skill}}" required>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a title.
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -393,7 +484,10 @@
                                         <div class="col-lg-12">
                                             <div class="form-group app-label">
                                                 <label for="skill" class="text-muted">Skill</label>
-                                                <input id="skill" type="text" name="skill[0][skill]" class="form-control resume">
+                                                <input id="skill" type="text" name="skill[0][skill]" class="form-control resume" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a title.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -420,5 +514,27 @@
         </div>
     </div>
 </form>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
 </body>
 </html>

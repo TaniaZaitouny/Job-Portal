@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
@@ -40,11 +41,10 @@ Route::get('jobs/category/{name}',[JobController::class, 'display_category'])->n
 Route::post('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
 Route::post('/jobs/search/save', [SearchController::class, 'store'])->name('search.save');
 Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save');
+Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('jobs.apply');
 
-Route::post('/addCv', [CvController::class, 'store']);
-Route::get('/cv', function () {
-    return view('cv');
-});
+Route::post('/addCv', [CvController::class, 'store'])->name('cv.add');
+Route::get('/cv', [CvController::class, 'create'])->name('cv.index');
 
 Route::get('/company', function() {
     return view('companyProfile');
