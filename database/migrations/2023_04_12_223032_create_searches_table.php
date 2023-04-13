@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('searches', function (Blueprint $table) {
             $table->id();
-            $table->string('search')->nullable();
-            $table->string('category')->nullable();
-            $table->string('employment')->nullable();
-            $table->string('location')->nullable();
+            $table->string('keyword');
+            $table->string('email');
             $table->timestamps();
         });
     }

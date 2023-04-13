@@ -1,9 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReviewController;
+use App\Mail\NewJobNotification;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +41,8 @@ Route::get('jobs/category/{name}',[JobController::class, 'display_category'])->n
 Route::post('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
 
 Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save');
+
+Route::post('jobs/search/save', [SearchController::class, 'store'])->name('search.save');
 
 Route::get('/addCv', function () {
     return view('cv');

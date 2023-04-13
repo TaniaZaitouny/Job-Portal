@@ -31,5 +31,5 @@ class Job extends Model
             return false;
         }
     }
-
+    
 }
