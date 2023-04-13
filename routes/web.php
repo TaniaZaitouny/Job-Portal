@@ -1,9 +1,15 @@
 <?php
 
 use App\Http\Controllers\CvController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReviewController;
+use App\Mail\NewJobNotification;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,8 +45,10 @@ Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save
 
 Route::post('/addCv', [CvController::class, 'store']);
 Route::get('/Cv', function () {
-  return view('cv');
-});
+  return view('cv');});
+Route::post('jobs/search/save', [SearchController::class, 'store'])->name('search.save');
+
+
 Route::post('/company/review/{id}', [ReviewController::class, 'store'])->name('review.add');
 Route::get('/company', function() {
     return view('companyProfile');

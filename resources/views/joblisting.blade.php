@@ -3,9 +3,14 @@
 @section('content')
 
 <body>
+    <script>
+        function copyData() {
+            document.getElementById('keyword').value = document.getElementById('search').value;
+        }
+    </script>
    
     <main>
-
+        
         <!-- Hero Area Start-->
         <div class="slider-area ">
             <div class="single-slider section-overly slider-height2 d-flex align-items-center" data-background="{{asset('assets/img/hero/about.jpg')}}">
@@ -25,6 +30,32 @@
         <div class="job-listing-area pt-120 pb-120">
             <div class="container">
                 <div class="row">
+                    <div class="col-xl-5 offset-md-2">
+                        <!-- form -->
+                        
+                        <form action="{{route('jobs.search')}}" method="POST" class="search-box">
+                            @csrf
+                            <div class="input-form" style="width:100%">
+                                <input type="text" placeholder="Job Title or keyword" id="search" name="search" oninput="copyData()" value="{{isset($search) ? $search : ''}}">
+                            </div>
+                            
+                            </div>
+                            <div class="search-form">
+                                <input type="submit" class="btn head-btn1" style="height:70px" value="Find a Job">
+                            </div>	
+                        </form>
+                        
+                        <form name="search-form" action="{{route('search.save')}}" method="POST">
+                            @csrf
+                            <div class="search-form">
+                                <input type="hidden" name="keyword" id="keyword"  value="{{isset($search) ? $search : ''}}">
+                                <input type="submit" class="btn head-btn1" style="height:70px" value="Save Keyword">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br/> <br/>
+                <div class="row">
                     <!-- Left content -->
                     <div class="col-xl-3 col-lg-3 col-md-4">
                         <div class="row">
@@ -42,9 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="{{route('jobs.search')}}" method="POST">
-                            @csrf
-                        <input type="hidden" name="search" value="{{isset($search) ? $search : ''}}">
+                        
                         <!-- Job Category Listing start -->
                         <div class="job-category-listing mb-50">
                             <!-- single one -->
@@ -74,7 +103,7 @@
                                     ?>
                                     @foreach($types as $type)
                                     <label class="container" >{{$type}}
-                                        <input type="checkbox" name="employment[]" @if(is_array(session('employment'))&& in_array($type, session('employment'))) checked @endif value={{$type}} >
+                                        <input type="checkbox" name="employment[]" value={{$type}}>
                                         <span class="checkmark"></span>
                                     </label>
                                     @endforeach
@@ -90,7 +119,7 @@
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
                                     <select name="country">
-                                       <option value="">Anywhere</option>
+                                       <option value="" selected="selected">Anywhere</option>
                                         @foreach($countries as $country)
                                             <option value="{{$country->country}}" @if(session('country')==$country->country)selected @endif>{{$country->country}}</option>
                                        @endforeach
@@ -103,8 +132,12 @@
                             <div >
                                 
                             <br>
+<<<<<<< HEAD
                              <input type ="submit" name="action" value="Filter">
                              <button type="submit" name="action" value="Clear">Clear</button>
+=======
+                             <input type ="submit" name="filter" value="filter" class="btn">
+>>>>>>> 4edfcbd61a4cff873533e7bbafef73f4ddaedbad
                             </div>
                         </div>
                   
@@ -112,11 +145,13 @@
                         <!-- Job Category Listing End -->
                     </div>
                     <!-- Right content -->
+                    
                     <div class="col-xl-9 col-lg-9 col-md-8">
                         <!-- Featured_job_start -->
                         <section class="featured-job-area">
                             <div class="container">
                                 <!-- Count of Job list Start -->
+                                
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="count-job mb-35">

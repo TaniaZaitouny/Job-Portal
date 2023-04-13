@@ -98,8 +98,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'job.portal.laravel.project@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Job Portal'),
     ],
 
     /*

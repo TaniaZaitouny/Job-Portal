@@ -1,15 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Session;
+
+use App\Mail\NewJobNotification;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Job;
 use App\Models\User;
 use App\Models\SavedJob;
+use App\Models\Search;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use PHPUnit\Framework\Constraint\Count;
 
@@ -20,9 +23,8 @@ class JobController extends Controller
      */
     public function index()
     {  
-        
-         $categories = Category::all();
-         $countries = Country::all();
+        $categories = Category::all();
+        $countries = Country::all();
         $jobs = Job::paginate(5);
         return view('joblisting', compact('jobs', 'categories', 'countries'));
     }
@@ -35,8 +37,28 @@ class JobController extends Controller
         $this->authorize('create', Job::class);
         $categories = Category::all();
         $countries = Country::all();
-        return view('jobposting_form', compact('categories', 'countries'));
-        
+
+        return view('jobposting_form', compact('categories', 'countries'));  
+    }
+
+    /**
+     * Create a list of all posible substrings from a string
+     */
+    public function getSubstrings($string) {
+        $specialChars = array(",", ":", ";", ".", "!", "?");
+        $words = explode(' ', $string);
+        $n = count($words);
+        $substrings = array();
+        for ($i = 0; $i < $n; $i++) {
+            $words[$i] = str_replace($specialChars, "", $words[$i]);
+            $substring = $words[$i];
+            $substrings[] = $substring;
+            for ($j = $i + 1; $j < $n; $j++) {
+                $substring .= ' ' . $words[$j];
+                $substrings[] = $substring;
+            }
+        }
+        return $substrings;
     }
 
     /**
@@ -57,6 +79,19 @@ class JobController extends Controller
         $job->category = $request->input('category');
         $job->salary = $request->input('salary');
         $job->save();
+
+        $titleSubstrings = $this->getSubstrings($request->input('title'));
+        $descriptionSubstrings = $this->getSubstrings($request->input('description'));
+        $requirementSubstrings = $this->getSubstrings($request->input('requirements'));
+        $substrings = $titleSubstrings + $descriptionSubstrings + $requirementSubstrings;
+
+        $searches = Search::whereIn('keyword', $substrings);
+        $url = route('jobs.show', ['job' => $job]);
+        
+        foreach ($searches as $search) {
+            Mail::to($search->email)->send(new NewJobNotification($url));
+        }
+
         return redirect()->route('jobs.index');
     }
  
@@ -110,6 +145,7 @@ class JobController extends Controller
      */
     public function search(Request $request)
     { 
+<<<<<<< HEAD
       
         $category = $request->input('category');
         $employment = $request->input('employment');
@@ -119,17 +155,38 @@ class JobController extends Controller
         Session::put('category',$category);
         Session::put('employment',$employment);
         Session::put('country',$country);
+=======
+        $search = $request->input('search');
+        $category = $request->input('category');
+        $employment = $request->input('employment');
+        $country = $request->input('country');
+
+>>>>>>> 4edfcbd61a4cff873533e7bbafef73f4ddaedbad
         $query = Job::query();
+
+        if ($search) {
+            $query->where(function($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                      ->orWhere('description', 'like', '%' . $search . '%')
+                      ->orWhere('requirements', 'like', '%' . $search . '%');
+            });
+        }
 
         if($category) {
             $query->where('category', $category);
         }
+<<<<<<< HEAD
      
 
         if($employment) {
             {
                 $query->whereIn('employment', $employment);
             } 
+=======
+        
+        if($employment) {
+            $query->whereIn('employment', $employment);
+>>>>>>> 4edfcbd61a4cff873533e7bbafef73f4ddaedbad
         }
 
         if($country) {
@@ -137,6 +194,7 @@ class JobController extends Controller
         }
       
 
+<<<<<<< HEAD
         if ($search) { $query->where(function($query) use ($search) {
             $query->where('title', 'like', '%' . $search . '%')
                     ->orWhere('description', 'like', '%' . $search . '%')
@@ -144,6 +202,8 @@ class JobController extends Controller
         });
     }
       
+=======
+>>>>>>> 4edfcbd61a4cff873533e7bbafef73f4ddaedbad
         $jobs = $query->paginate(5);
 
         $categories = Category::all();
