@@ -12,32 +12,40 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class CvController extends Controller
 {
+
+    public function create() 
+    {
+        $this->authorize('create', Information::class);
+        return view('cv');
+    }
+
     public function store(Request $request)
     {
         $userId = Auth::user()->id;
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'birthday' => 'required|date',
-            'gender' => 'required|in:male,female',
-            'country' => 'required|string|max:255',
-            'state' => 'nullable|string|max:255',
-            'city' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'education.*.certificate_name' => 'required|string|max:255',
-            'education.*.year' => 'required|integer|min:1900|max:' . date('Y'),
-            'work.*.company_name' => 'required|string|max:255',
-            'work.*.position' => 'required|string|max:255',
-            'work.*.start_year' => 'required|integer|min:1900|max:' . date('Y'),
-            'work.*.end_year' => 'nullable|integer|min:1900|max:' . date('Y'),
-            'skill.*.skill' => 'required|string|max:255',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'first_name' => 'required|string|max:255',
+        //     'middle_name' => 'nullable|string|max:255',
+        //     'last_name' => 'required|string|max:255',
+        //     'birthday' => 'required|string',
+        //     'gender' => 'required|in:male,female',
+        //     'experience' => 'nullable|integer',
+        //     'country' => 'required|string|max:255',
+        //     'state' => 'nullable|string|max:255',
+        //     'city' => 'required|string|max:255',
+        //     'phone' => 'required|string|max:255',
+        //     'address' => 'required|string|max:255',
+        //     'education.*.certificate_name' => 'required|string|max:255',
+        //     'education.*.year' => 'required|integer|min:1900|max:' . date('Y'),
+        //     'work.*.company_name' => 'required|string|max:255',
+        //     'work.*.position' => 'required|string|max:255',
+        //     'work.*.start_year' => 'required|integer|min:1900|max:' . date('Y'),
+        //     'work.*.end_year' => 'nullable|integer|min:1900|max:' . date('Y'),
+        //     'skill.*.skill' => 'required|string|max:255',
+        // ]);
     
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator);
+        // }
         
         $this->authorize('create', Information::class);
         $information = new Information();
@@ -48,6 +56,7 @@ class CvController extends Controller
         $information->last_name = $request->input('last_name');
         $information->birthday = $request->input('birthday');
         $information->gender = $request->input('gender');
+        $information->experience = $request->input('experience');
         $information->user_id = $userId;
         $information->save();
 

@@ -114,7 +114,8 @@
       
           <li>
             
-            <h5>{{$certificate->certificate_name}}</h5>
+            <h6>{{$certificate->certificate_name}}   -{{$certificate->year}}</h6>
+         
           </li>
           @endforeach
          
@@ -122,24 +123,35 @@
     </div>
     
     <div>
-      <h4 class="contact">Skills</h4>
+      <h4 class="contact">Experience</h4>
         <ul class="list-group experience-card">
           <li>
             @foreach($work as $experience)
             <h5>{{$experience->position}}</h5>
-            <p>at {{$experience->company_name}} years:</p>
+            <p>at {{$experience->company_name}} </p>
           </li>
             @endforeach
         </ul>
     </div><br>
+    <div>
+      <h4 class="contact">Skills</h4>
+        <ol class="list-group experience-card">
+          <li>
+            @foreach($skill as $skill)
+            <h5>{{$skill->skill}}</h5>
+          
+          </li>
+            @endforeach
+        </ol>
+    </div><br>
     <div class="divider"></div>
       <div class="contact">
         <h2>Contact</h2>
-          <ul>
-            <li><span>Website:</span> www.example.com</li>
-            <li><span>Email:</span> info@example.com</li>
-            <li><span>Phone:</span> (123) 456-7890</li>
-          </ul>
+          <ol>
+           
+            <li><span>Email:</span> {{Auth::user()->email}}</li>
+            <li><span>Phone:</span> {{$contact->phone}}</li>
+          </ol>
       </div>
    
   </body>

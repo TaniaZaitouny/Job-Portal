@@ -31,7 +31,7 @@ class ProfileController extends Controller
            else{
             
                 $information = Information::where('user_id', $userId)->first();
-                $contact = Contact::where('user_id', $userId)->get();
+                $contact = Contact::where('user_id', $userId)->first();
                 $education = Education::where('user_id', $userId)->get();
                 $skill = Skill::where('user_id', $userId)->get();
                 $work = Work::where('user_id', $userId)->get();

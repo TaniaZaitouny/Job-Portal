@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('birthday');
             $table->string('gender');
+            $table->integer('experience');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
