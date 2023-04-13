@@ -28,12 +28,12 @@ class ProfileController extends Controller
                 return view('companyProfile');
             }
             else
-            { $information = Information::find($userId);
-            $skill = Skill::find($userId);
-            $education = Education::find($userId);
-            $contact = Contact::find($userId);
+            { $information = Information::find($user->Id);
+            $skill = Skill::find($user->Id);
+            $education = Education::find($user->Id);
+            $contact = Contact::find($user->Id);
           
-            return view('userProfile',compact('info','skill','education','contact'));
+            return view('userProfile',compact('information','skill','education','contact'));
             }
        
     }
