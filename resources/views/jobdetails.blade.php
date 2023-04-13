@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="hero-cap text-center">
-                    <h2>{{$job->title}}</h2>
+                <a href="" <h2>company name of id{{$job->company_id}}</h2></a>
                 </div>
             </div>
         </div>
@@ -83,13 +83,7 @@
             <!-- Right Content -->
             <div class="col-xl-4 col-lg-4">
                 <div class="post-details3  mb-50">
-                    <!-- Small Section Tittle -->
                 
-                <!-- @if(Auth::user()->role == 'person')
-                 <div class="apply-btn2">
-                    <a href="" class="btn">Apply Now</a>
-                 </div>
-                 @endif -->
                  <br/>
                  <div class="apply-btn2">
                     <form method="POST" action="{{ route('jobs.save', ['job' => $job->id]) }}">

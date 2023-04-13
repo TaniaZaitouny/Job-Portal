@@ -15,7 +15,7 @@
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
-
+        
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
@@ -27,7 +27,7 @@
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
-
+        
         <!-- Confirm Password -->
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
@@ -38,7 +38,18 @@
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
+        <div class="mt-4">
+        <x-input-label for="is_company" :value="__('Are you a company?')" />
+        
+        <div class="flex flex-row space-x-8">
+            <div><input id="is_company_yes" type="radio" name="is_company" value="yes">
+            <label for="is_company_yes">Yes</label>
+</div>
+         <div>   <input id="is_company_no" type="radio" name="is_company" value="no" checked>
+            <label for="is_company_no">No</label></div>
+        </div>
 
+        <x-input-error :messages="$errors->get('is_company')" class="mt-2" />
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
@@ -48,5 +59,6 @@
                 {{ __('Register') }}
             </x-primary-button>
         </div>
+        
     </form>
 </x-guest-layout>

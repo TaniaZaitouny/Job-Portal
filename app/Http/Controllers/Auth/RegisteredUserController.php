@@ -41,7 +41,14 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
+        //set user role based on radiobutton selected
+        $isCompany = $request->input('is_company');
+        if ($isCompany === 'yes') {
+            $user->role = 'company';
+        } else {
+            $user->role = 'regular';
+        }
+        $user->save();
         event(new Registered($user));
 
         Auth::login($user);
