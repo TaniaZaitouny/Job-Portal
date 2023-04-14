@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Information;
 use App\Models\Skill;
 use Carbon\Carbon;
@@ -15,7 +16,7 @@ class CvController extends Controller
 
     public function create() 
     {
-        $this->authorize('create', Information::class);
+        // $this->authorize('create', Information::class);
         return view('cv');
     }
 
@@ -60,7 +61,7 @@ class CvController extends Controller
         $information->user_id = $userId;
         $information->save();
 
-        $this->authorize('create', Contact::class);
+        // $this->authorize('create', Contact::class);
         $contact = new Contact();
         $contact->country = $request->input('country');
         if($request->input('state')) {
@@ -72,7 +73,7 @@ class CvController extends Controller
         $contact->user_id = $userId;
         $contact->save();
 
-        $this->authorize('create', Education::class);
+        // $this->authorize('create', Education::class);
         $educations = $request->input('education');
         foreach($educations as $education) {
             $neweducation = new Education();
@@ -82,7 +83,7 @@ class CvController extends Controller
             $neweducation->save();
         }
 
-        $this->authorize('create', Work::class);
+        // $this->authorize('create', Work::class);
         $works = $request->input('work');
         foreach($works as $work) {
             $newwork = new Work();
@@ -94,7 +95,7 @@ class CvController extends Controller
             $newwork->save();
         }
 
-        $this->authorize('create', Skill::class);
+        // $this->authorize('create', Skill::class);
         $skills = $request->input('skill');
         foreach ($skills as $skill) {
             $newskill = new Skill();
@@ -156,7 +157,7 @@ class CvController extends Controller
         $oldinformation = Information::where('user_id', $userId)->first();
         $oldinformation->update($information);
 
-        //$this->authorize('update', Contact::class);
+        $this->authorize('update', Contact::class);
         $contact = array();
         $contact['country'] = $request->input('country');
         if($request->input('state')) {

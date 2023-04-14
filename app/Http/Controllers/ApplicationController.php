@@ -43,7 +43,7 @@ class ApplicationController extends Controller
 
     public function postApplicants(Request $request, Job $post) 
     {
-        $this->authorize('view', $post);
+        // $this->authorize('view', $post);
         $users = Application::where('job_id', $post->id)->get();
         $applicants = array();
 

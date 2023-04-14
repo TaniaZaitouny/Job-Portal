@@ -35,7 +35,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Job::class);
+        // $this->authorize('create', Job::class);
         $categories = Category::all();
         $countries = Country::all();
 
@@ -67,7 +67,7 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Job::class);
+        // $this->authorize('create', Job::class);
         $job = new Job();
         $job->company_id = Auth::user()->id;
         $job->title = $request->input('title');

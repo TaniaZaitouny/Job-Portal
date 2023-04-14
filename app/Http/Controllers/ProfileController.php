@@ -7,6 +7,7 @@ use App\Models\Contact;
 use App\Models\Education;
 use App\Models\User;
 use App\Models\Work;
+use App\Models\Review;
 use App\Models\Company;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
@@ -63,7 +64,8 @@ class ProfileController extends Controller
             if($user->role == 'company')
             {
                 $company = Company::where('company_id', $userId)->first();
-                return view('companyProfile', compact('company'));
+                $review = Review::where('company_id', $userId)->get();
+                return view('companyProfile', compact('company','review'));
             }
            else{
             
@@ -72,16 +74,20 @@ class ProfileController extends Controller
                 $education = Education::where('user_id', $userId)->get();
                 $skill = Skill::where('user_id', $userId)->get();
                 $work = Work::where('user_id', $userId)->get();
-               
+                
                 return view('userProfile',compact('information','contact','education','skill','work'));
            }
        
     }
 
-        public function viewCompanyofId($id)
+        public function viewUser($id)
         {
-            //get company information of this $id
-
+             $user = User::where('id',$id)->first();
+             if($user->role =='company')
+             {
+                $company = Company::where('company_id', $id)->first();
+                return view('companyProfile', compact('company'));
+             }
 
         }
         public function edit(Request $request): View
@@ -134,6 +140,15 @@ class ProfileController extends Controller
     $request->session()->regenerateToken();
   
     return redirect('/')->with('success', 'You have been signed out.');
+    }
+    public function addReview($id)
+    {
+        $review= new Review();
+        $review->content = $request->input('review');
+        $review->company_id = $id;
+        $review->user_id = Auth::user()->id;
+        $review->save();
+        return back();
     }
 
 }
