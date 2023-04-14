@@ -38,25 +38,26 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::resource('jobs', JobController::class);
+
 Route::get('jobs/category/{name}',[JobController::class, 'display_category'])->name('jobs.category');
 Route::post('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
 Route::post('/jobs/search/save', [SearchController::class, 'store'])->name('search.save');
 Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save');
 Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('jobs.apply');
 
+
 Route::post('/addCv', [CvController::class, 'store'])->name('cv.add');
 Route::get('/cv', [CvController::class, 'create'])->name('cv.index');
 Route::get('/cv/edit', [CvController::class, 'edit'])->name('cv.edit');
 Route::put('/cv/update', [CvController::class, 'update'])->name('cv.update');
 
-Route::post('/company/review/{id}', [ReviewController::class, 'store'])->name('review.add');
 
-Route::get('/signOut', [ProfileController::class,'signOut']);
-Route::get('/viewprofile/{user}',[ProfileController::class, 'viewCompanyofId'])->name('view.company');
-Route::get('/viewprofile', [ProfileController::class,'showProfile'])->name('profile.view');
-Route::get('/viewprofile/saved', [JobController::class,'showSaved'])->name('saved.view');
-Route::get('/editCompany', [ProfileController::class,'companyProfile'])->name('company.edit');
-Route::post('/saveprofile', [ProfileController::class,'storeCompany'])->name('company.save');
+Route::get('/signOut',[ProfileController::class,'signOut']);
+Route::post('/viewprofile/review/{id}', [ProfileController::class, 'addReview'])->name('add.review');
+Route::get('/viewprofile/{id}',[ProfileController::class, 'viewUser'])->name('view.user');
+Route::get('/viewprofile',[ProfileController::class,'showProfile'])->name('profile.view');
+Route::get('/editCompany',[ProfileController::class,'companyProfile'])->name('company.edit');
+Route::post('/saveprofile',[ProfileController::class,'storeCompany'])->name('company.save');
 
 Route::get('/posts', [JobController::class, 'companyPosts'])->name('posts.show');
 Route::get('/posts/{post}', [ApplicationController::class, 'postApplicants'])->name('applicants.show');

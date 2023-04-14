@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,6 +12,10 @@ class ReviewController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    public function index()
+    {
+        
+    }
     public function create()
     {
         $this->authorize('create', Review::class);
@@ -22,7 +26,7 @@ class ReviewController extends Controller
      */
     public function store(Request $request, User $company)
     {
-        $this->authorize('create', Review::class);
+        // $this->authorize('create', Review::class);
         $review= new Review();
         $review->content = $request->input('review');
         $review->company()->associate($company);

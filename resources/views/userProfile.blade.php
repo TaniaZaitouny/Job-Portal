@@ -97,13 +97,17 @@
 
     </style>
    <br>
-    
+    @if($information)
+
     <div class="about-us">
+    <div class="text-right ">
+       <a href="{{route('cv.index')}}" class="btn head-btn1">Edit Profile</a>
+     </div>
     <h2>
-  {{ $information->first_name }} 
-  {{$information->last_name}}
+       {{ $information->first_name }} 
+       {{$information->last_name}}
  </h2>
-    </div>
+    </div> 
   <br>
   
   <div>
@@ -153,6 +157,13 @@
             <li><span>Phone:</span> {{$contact->phone}}</li>
           </ol>
       </div>
-   
+ 
+   @else 
+   <div class="about-us"> <h2>update your profile!</h2><br><br><br><br><br><br>
+   <div class="text-right ">
+       <a href="{{route('cv.index')}}" class="btn head-btn1">Edit Profile</a>
+     </div> </div>
+   @endif
   </body>
+
 @endsection
