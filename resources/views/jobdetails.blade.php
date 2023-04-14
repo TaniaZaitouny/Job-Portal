@@ -102,6 +102,7 @@
                             </div>
                             <br/>
                         @endif
+                       
                         <div class="apply-btn2">
                             <button type="submit" class="btn">Apply Now</a>
                         </div>
