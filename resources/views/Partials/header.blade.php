@@ -32,6 +32,9 @@
                                     
                                 </div>
                                 @auth
+                                @if(Auth::user()->role=='company')
+                                <a href={{ route('jobs.create') }} class="btn head-btn1">Post a Job</a>
+                                @endif
                                 <div class = "row">
                                 
                                     <a class="nav-link" href="{{ route('profile.view') }}">
