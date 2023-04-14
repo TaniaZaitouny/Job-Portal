@@ -68,8 +68,8 @@ class ProfileController extends Controller
                 $review = Review::where('company_id', $userId)->get();
                 $reviews = array();
                 foreach($review as $current) {
-                    $user = User::where('id', $current->user_id)->get();
-                    $reviews[] = ['content' => $current->content, 'name' => $user->username, 'id' => $user->id];
+                    $userReview = User::where('id', $current->user_id)->first();
+                    $reviews[] = ['content' => $current->content, 'name' => $userReview->name, 'id' => $userReview->id];
                 }
                 return view('companyProfile', compact('company', 'user', 'reviews'));
             }

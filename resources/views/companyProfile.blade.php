@@ -118,14 +118,15 @@
       
       <div class="about-us" style=" max-width: 1000px;">
        <br><br>
-       
+       @auth
        @if(Auth::user()->id == $user->id)
-       <div class="text-right ">
+        <div class="text-right ">
         <a href="{{route('company.edit')}}" class="btn head-btn1">Edit Profile</a>
         <a href="{{route('posts.show')}}" class="btn head-btn1">View Posts</a>
         <a href="{{route('saved.view')}}" class="btn head-btn1">View Saved Jobs</a>
         </div>
         @endif
+        @endauth
         @if(isset($company))
         <div  class="text-left ">
         <h1 class="company-name">{{$company->company_name}}</h1>
@@ -156,7 +157,7 @@
 
     <div class="divider"></div>
       
-    
+          @auth
           @if(Auth::user()->role=='person')
           <form action="{{route('review.add', ['user' => $company->company_id])}}" method="POST">
           @csrf
@@ -169,6 +170,7 @@
             </div>
             </form>
           @endif
+          @endauth
 <br>
 <div class="contact">
 <h2>Contact</h2>
@@ -181,11 +183,15 @@
 
 
 @else
+    @auth
     @if(Auth::user()->id == $user->id)
         <div class="about-us"> <h2>Update your profile!</h2><br><br><br><br><br><br>
-    @else
-    <div class="about-us"> <h2>No data aailable</h2><br><br><br><br><br><br>
+    @else if(Auth::user()->id != $user->id)
+      <div class="about-us"> <h2>No data aailable</h2><br><br><br><br><br><br>
     @endif
+    @else 
+      <div class="about-us"> <h2>No data aailable</h2><br><br><br><br><br><br>
+    @endauth
 @endif
 
   </body>

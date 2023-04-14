@@ -29,14 +29,19 @@ class ApplicationController extends Controller
         $information = $information = Information::where('user_id',$user_id)->first();
         if($information)
         {
-        $application = new Application();
-        $application->user_id = Auth::user()->id;
-        $application->job_id = $job->id;
-        if($request->input('bid')) {
-            $application->bid = $request->input('bid');
+            $application = new Application();
+            $application->user_id = Auth::user()->id;
+            $application->job_id = $job->id;
+            if($request->input('bid')) {
+                $application->bid = $request->input('bid');
+            }
+            $application->save();
+
+            $categories = Category::all();
+            $countries = Country::all();
+            $jobs = Job::paginate(5);
+            return view('joblisting', compact('jobs', 'categories', 'countries'));
         }
-        $application->save();
-    }
         else return view('cv');
     }
 
@@ -93,9 +98,11 @@ class ApplicationController extends Controller
         $country = $request->input('country');
         $experience = $request->input('experience');
         $certificates = $request->input('certificate');
-        $certificates = array_filter($certificates, function($value) {
+        if($certificates) {
+            $certificates = array_filter($certificates, function($value) {
             return !is_null($value) && strlen($value) > 0;
         });
+    }
 
         if($country) {
             $countryIds = Contact::where('country', $country)->pluck('user_id')->toArray();

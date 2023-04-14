@@ -147,7 +147,7 @@
                                     <div class="single-job-items mb-30">
                                         <div class="job-items">
                                             <div class="job-tittle job-tittle2">
-                                                <a href="#">
+                                                <a href="{{route('view.user', ['user' => $applicant['id']])}}">
                                                     <h4>{{ $applicant['first_name'] }} {{ $applicant['last_name'] }}</h4>
                                                 </a>
                                                 <ul>
@@ -166,7 +166,7 @@
                                         </div>
 
                                         <div class="items-link items-link2 f-right">
-                                            <a href="#">See Profile</a>
+                                            <a href="{{route('view.user', ['user' => $applicant['id']])}}">See Profile</a>
                                         </div>
                                     </div>
                                 @empty

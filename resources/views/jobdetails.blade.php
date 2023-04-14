@@ -103,20 +103,24 @@
                             <br/>
                         @endif
                        
+                        @auth
                         @if(Auth::user()->role == 'person')
                             <div class="apply-btn2">
                                 <button type="submit" class="btn">Apply Now</a>
                             </div>
                         @endif
+                        @endauth
                         
                     </form>
                     <br/>
+                    @auth
                     <div class="apply-btn2">
                         <form method="POST" action="{{ route('jobs.save', ['job' => $job->id]) }}">
                             @csrf
                             <button type="submit" class="btn">{{$job->isSaved() ? 'Unsave Job' : 'Save Job'}}</button>
                         </form>
                     </div>
+                    @endauth
                 </div>
                
             </div>

@@ -40,7 +40,7 @@ Route::post('/jobs/search', [JobController::class, 'search'])->name('jobs.search
 Route::post('/jobs/search/save', [SearchController::class, 'store'])->name('search.save');
 Route::post('/jobs/{job}/save', [JobController::class, 'save'])->name('jobs.save');
 Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('jobs.apply');
-
+Route::get('/savedposts',[JobController::class,'showSaved'])->name('saved.view');
 
 Route::post('/addCv', [CvController::class, 'store'])->name('cv.add');
 Route::get('/cv', [CvController::class, 'create'])->name('cv.index');
@@ -50,7 +50,7 @@ Route::put('/cv/update', [CvController::class, 'update'])->name('cv.update');
 
 Route::get('/signOut',[ProfileController::class,'signOut']);
 Route::post('/viewprofile/{user}/review}', [ProfileController::class, 'addReview'])->name('review.add');
-Route::get('/viewprofile/saved',[JobController::class,'showSaved'])->name('saved.view');
+
 Route::get('/viewprofile/{user}',[ProfileController::class, 'viewUser'])->name('view.user');
 Route::get('/viewprofile',[ProfileController::class,'showProfile'])->name('profile.view');
 Route::get('/editCompany',[ProfileController::class,'companyProfile'])->name('company.edit');

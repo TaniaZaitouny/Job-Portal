@@ -97,16 +97,18 @@
 
     </style>
    <br>
-    @if($information)
+    
 
     <div class="about-us">
+      @auth
       @if (Auth::user()->id == $user->id)
           <div class="text-right ">
-            <a href="{{route('cv.index')}}" class="btn head-btn1">Edit Profile</a>
+            <a href="{{route('cv.edit')}}" class="btn head-btn1">Edit Profile</a>
             <a href="{{route('saved.view')}}" class="btn head-btn1">View Saved Jobs</a>
           </div>
       @endif
-    
+      @endauth
+      @if($information)
     <h2>
        {{ $information->first_name }} 
        {{$information->last_name}}
@@ -156,17 +158,21 @@
       <div class="contact">
         <h2>Contact</h2>
           <ol>
-            <li><span>Email:</span> {{Auth::user()->email}}</li>
+            <li><span>Email:</span> {{$user->email}}</li>
             <li><span>Phone:</span> {{$contact->phone}}</li>
           </ol>
       </div>
  
    @else 
-   @if (Auth::user()->id == $user->id)
-       <div class="about-us"> <h2>Update your profile!</h2><br><br><br><br><br><br>
-    @else 
-    <div class="about-us"> <h2>No data available</h2><br><br><br><br><br><br>
-   @endif
+   @auth
+    @if (Auth::user()->id == $user->id)
+        <div class="about-us"> <h2>Update your profile!</h2><br><br><br><br><br><br>
+      @else if(Auth::user()->id != $user->id)
+        <div class="about-us"> <h2>No data available</h2><br><br><br><br><br><br>
+          @endif
+      @else 
+      <div class="about-us"> <h2>No data available</h2><br><br><br><br><br><br>
+   @endauth
    
    @endif
   </body>

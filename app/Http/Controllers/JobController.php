@@ -249,7 +249,8 @@ class JobController extends Controller
 
     public function showSaved(Request $request) {
         $user = Auth::user();
-        $jobs = SavedJob::where('user_id', $user->id)->paginate(5);
+        $ids = SavedJob::where('user_id', $user->id)->pluck('job_id')->toArray();
+        $jobs = Job::whereIn('id', $ids)->paginate(5);
 
         $saved = true;
         

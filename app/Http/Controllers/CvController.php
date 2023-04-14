@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Category;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Information;
 use App\Models\Skill;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Contact;
+use App\Models\Country;
 use App\Models\Education;
+use App\Models\Job;
 use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +52,7 @@ class CvController extends Controller
         //     return redirect()->back()->withErrors($validator);
         // }
         
-        $this->authorize('create', Information::class);
+        //$this->authorize('create', Information::class);
         $information = new Information();
         $information->first_name = $request->input('first_name');
         if($request->input('middle_name')) {
@@ -103,7 +107,11 @@ class CvController extends Controller
             $newskill->user_id = $userId;
             $newskill->save();
         }
-
+        $jobs = Job::paginate(5);
+        $categories = Category::all();
+        $countries = Country::all();
+      
+        return view('joblisting', compact('jobs', 'categories', 'countries'));
     }
 
     public function edit(Request $request) 
@@ -157,7 +165,7 @@ class CvController extends Controller
         $oldinformation = Information::where('user_id', $userId)->first();
         $oldinformation->update($information);
 
-        $this->authorize('update', Contact::class);
+        //$this->authorize('update', Contact::class);
         $contact = array();
         $contact['country'] = $request->input('country');
         if($request->input('state')) {
