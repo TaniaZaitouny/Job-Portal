@@ -33,10 +33,6 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
 Route::resource('jobs', JobController::class);
 
 Route::get('jobs/category/{name}',[JobController::class, 'display_category'])->name('jobs.category');

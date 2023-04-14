@@ -103,9 +103,12 @@
                             <br/>
                         @endif
                        
-                        <div class="apply-btn2">
-                            <button type="submit" class="btn">Apply Now</a>
-                        </div>
+                        @if(Auth::user()->role == 'person')
+                            <div class="apply-btn2">
+                                <button type="submit" class="btn">Apply Now</a>
+                            </div>
+                        @endif
+                        
                     </form>
                     <br/>
                     <div class="apply-btn2">

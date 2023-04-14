@@ -33,9 +33,9 @@
                                 <h2>24k Talented people are getting Jobs</h2>
                             </div>
                             <div class="support-caption">
-                                <p class="pera-top">Mollit anim laborum duis au dolor in voluptate velit ess cillum dolore eu lore dsu quality mollit anim laborumuis au dolor in voluptate velit cillum.</p>
-                                <p>Mollit anim laborum.Duis aute irufg dhjkolohr in re voluptate velit esscillumlore eu quife nrulla parihatur. Excghcepteur signjnt occa cupidatat non inulpadeserunt mollit aboru. temnthp incididbnt ut labore mollit anim laborum suis aute.</p>
-                                <a href="about.html" class="btn post-btn">Post a job</a>
+                                <p class="pera-top">Our website allows job seekers to find jobs they need and companies to find their ideal candidates.</p>
+                                <p>Our high quality searching algorithm and partnerships with many important companies guarantees you will find a job.</p>
+                                <a href="{{route('index')}}" class="btn post-btn">Search for a job</a>
                             </div>
                         </div>
                     </div>
