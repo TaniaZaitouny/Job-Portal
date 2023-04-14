@@ -9,3 +9,7 @@ To install this project:<br>
 and that should work!<br>
 <br>
 github repo for this project: https://github.com/TaniaZaitouny/project.git 
+
+Students:
+Tania Zaitouny 102117
+Tracy Matta 101714
