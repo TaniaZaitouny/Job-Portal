@@ -242,5 +242,11 @@ class JobController extends Controller
 
         return redirect()->back();
     }
+
+    public function companyPosts(Request $request) {
+        $posts = Job::where('company_id', Auth::user()->id)
+                    ->paginate(5);
+        return view('posts', compact('posts'));
+    }
    
 }

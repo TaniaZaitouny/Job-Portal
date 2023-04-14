@@ -34,6 +34,14 @@ class JobPolicy
     }
 
     /**
+     * Determine whether the user can view the model.
+     */
+    public function view(User $user): bool
+    {
+        return $user->role === 'company';
+    }
+
+    /**
      * Determine whether the user can restore the model.
      */
     public function restore(User $user, Job $job): bool

@@ -3,11 +3,6 @@
 @section('content')
 
 <body>
-    <script>
-        function copyData() {
-            document.getElementById('keyword').value = document.getElementById('search').value;
-        }
-    </script>
    
     <main>
         
@@ -18,7 +13,7 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="hero-cap text-center">
-                                <h2>Get your job</h2>
+                                <h2>{{ $post->title }}</h2>
                             </div>
                         </div>
                     </div>
@@ -29,32 +24,6 @@
         <!-- Job List Area Start -->
         <div class="job-listing-area pt-120 pb-120">
             <div class="container">
-                <div class="row">
-                    <div class="col-xl-5 offset-md-2">
-                        <!-- form -->
-                        
-                        <form action="{{route('jobs.search')}}" method="POST" class="search-box">
-                            @csrf
-                            <div class="input-form" style="width:100%">
-                                <input type="text" placeholder="Job Title or keyword" id="search" name="search" oninput="copyData()" value="{{isset($search) ? $search : ''}}">
-                            </div>
-                            
-                            </div>
-                            <div class="search-form">
-                                <input type="submit" class="btn head-btn1" style="height:70px" value="Find a Job">
-                            </div>	
-                        </form>
-                        
-                        <form name="search-form" action="{{route('search.save')}}" method="POST">
-                            @csrf
-                            <div class="search-form">
-                                <input type="hidden" name="keyword" id="keyword"  value="{{isset($search) ? $search : ''}}">
-                                <input type="submit" class="btn head-btn1" style="height:70px" value="Save Keyword">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <br/> <br/>
                 <div class="row" style="margin:5px">
                     <!-- Left content -->
                     <div class="col-xl-3 col-lg-3 col-md-4">
@@ -145,51 +114,37 @@
                         <!-- Featured_job_start -->
                         <section class="featured-job-area">
                             <div class="container">
-                                <!-- Count of Job list Start -->
-                                
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="count-job mb-35">
-                                            <?php $count = count($jobs);?>
-                                            
-                                            @if($count==1)
-                                            <span>{{$count}} job found</span>
-                                            @else
-                                            <span>{{$count}} jobs found</span>
-                                            @endif
-                                            <!-- Select job items start -->
-                                          
-                                            <!--  Select job items End-->
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Count of Job list End -->
                                 <!-- single-job-content -->
                                
-                                @forelse($jobs as $job)
-                                <div class="single-job-items mb-30">
-                                    <div class="job-items">
-            
-                                        <div class="job-tittle job-tittle2">
-                                            <a href="{{ route('jobs.show', ['job' => $job->id]) }}">
-                                                <h4>{{$job->title }}</h4>
-                                            </a>
-                                            <ul>
-                                                <li><a style="color:#808080" href="{{route('view.company',['id'=>$job->company_id])}}">Company Name</a></li>
-                                                <li><i class="fas fa-map-marker-alt"></i>{{$job->location}}</li>
-                                                <li>{{$job->salary}}</li>
-                                            </ul>
+                                @forelse($applicants as $applicant)
+                                    <div class="single-job-items mb-30">
+                                        <div class="job-items">
+                                            <div class="job-tittle job-tittle2">
+                                                <a href="#">
+                                                    <h4>{{ $applicant['first_name'] }} {{ $applicant['last_name'] }}</h4>
+                                                </a>
+                                                <ul>
+                                                    @if ($applicant['experience'] == 1)
+                                                        <li>{{ $applicant['experience'] }} year of experience</li>
+                                                    @else
+                                                        <li>{{ $applicant['experience'] }} years of experience</li>
+                                                    @endif
+                                                    <li><i class="fas fa-map-marker-alt"></i>{{ $applicant['country'] }}</li>
+                                                    @if ($post->employment === 'freelance')
+                                                        <li> {{ $applicant['bid'] }}</li>
+                                                    @endif
+                                                    
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="items-link items-link2 f-right">
+                                            <a href="#">See Profile</a>
                                         </div>
                                     </div>
-
-                                    <div class="items-link items-link2 f-right">
-                                        <a href="{{ route('jobs.show', ['job' => $job->id]) }}">{{$job->employment}}</a>
-                                      
-                                    </div>
-                                </div>
                                 @empty
                                     <p> no jobs found </p>
-                                    @endforelse
+                                @endforelse
                                 <!-- single-job-content -->
                                
                         <!-- Featured_job_end -->
@@ -198,15 +153,6 @@
             </div>
         </div>
         <!-- Job List Area End -->
-        <!--Pagination Start  -->
-     
-      
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-             {{ $jobs->links() }}
-             </ul>
-</nav>
-        <!--Pagination End  -->
         
     </main>
    
