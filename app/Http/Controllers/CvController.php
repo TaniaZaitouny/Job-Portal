@@ -15,7 +15,7 @@ class CvController extends Controller
 
     public function create() 
     {
-        $this->authorize('create', Information::class);
+        //$this->authorize('create', Information::class);
         return view('cv');
     }
 

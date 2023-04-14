@@ -37,6 +37,7 @@
                             @csrf
                             <div class="input-form" style="width:100%">
                                 <input type="text" placeholder="Job Title or keyword" id="search" name="search" oninput="copyData()" value="{{isset($search) ? $search : ''}}">
+                                @if(isset($saved)) <input type="hidden" name="saved" value="true"> @endif
                             </div>
                             
                             </div>
@@ -189,7 +190,7 @@
                                 </div>
                                 @empty
                                     <p> no jobs found </p>
-                                    @endforelse
+                                @endforelse
                                 <!-- single-job-content -->
                                
                         <!-- Featured_job_end -->
@@ -203,15 +204,13 @@
       
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-             {{ $jobs->links() }}
-             </ul>
-</nav>
+                {{ $jobs->links() }}
+            </ul>
+        </nav>
         <!--Pagination End  -->
         
     </main>
-   
-	
-        
+    
 </body>
 
 @endsection

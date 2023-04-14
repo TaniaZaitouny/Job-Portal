@@ -45,7 +45,7 @@ class ApplicationController extends Controller
 
     public function postApplicants(Request $request, Job $post) 
     {
-        $this->authorize('view', $post);
+        //$this->authorize('view', $post);
         $users = Application::where('job_id', $post->id)->get();
         $applicants = array();
 
@@ -166,28 +166,9 @@ class ApplicationController extends Controller
 
         $countries = Country::all();
 
-        if($experience && $country && $certificates) {
-            return view('applicants', compact('post', 'certificates', 'country', 'experience', 'applicants', 'countries'));
-        }
-        else if($experience && $country) {
-            return view('applicants', compact('post', 'country', 'experience', 'applicants', 'countries'));   
-        }
-        else if($country && $certificates) {
-            return view('applicants', compact('post', 'certificates', 'country', 'applicants', 'countries'));
-        }
-        else if($experience && $certificates) {
-            return view('applicants', compact('post', 'certificates', 'experience', 'applicants', 'countries'));
-        }
-        else if($experience) {  
-            return view('applicants', compact('post', 'experience', 'applicants', 'countries'));   
-        }
-        else if($country) {  
-            return view('applicants', compact('post', 'country', 'applicants', 'countries'));   
-        }
-        else if($certificates) {  
-            return view('applicants', compact('post', 'certificates', 'applicants', 'countries'));   
-        }
-
-        return view('applicants', compact('post', 'applicants', 'countries'));
+        return view('applicants', compact('post', 'applicants', 'countries',
+                                        isset($experience) ? 'experience' : '',
+                                        isset($country) ? 'country' : '',
+                                        isset($certificates) ? 'certificates' : ''));
     }
 }

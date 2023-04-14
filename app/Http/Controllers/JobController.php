@@ -152,12 +152,14 @@ class JobController extends Controller
         $category = $request->input('category');
         $employment = $request->input('employment');
         $country = $request->input('country');
+        $saved = $request->input('saved');
         
-        Session::put('category', $category);
-        Session::put('employment', $employment);
-        Session::put('country', $country);
-
         $query = Job::query();
+
+        if($saved) {
+            $savedjobs = SavedJob::where('user_id', Auth::user()->id)->pluck('job_id')->toArray();
+            $query->whereIn('job_id', $savedjobs);
+        }
 
         if ($search) {
             $query->where(function($query) use ($search) {
@@ -185,12 +187,13 @@ class JobController extends Controller
         $categories = Category::all();
         $countries = Country::all();
       
-        if($search) {
-           
-            return view('joblisting', compact('search', 'jobs', 'categories', 'countries'));
-        }
-      
-        return view('joblisting', compact('jobs', 'categories', 'countries'));
+        return view('joblisting', compact('jobs', 'categories', 'countries',
+                                            isset($search) ? 'search' : '',
+                                            isset($category) ? 'category' : '',
+                                            isset($employment) ? 'employment' : '',
+                                            isset($country) ? 'country' : '',
+                                            isset($saved) ? 'saved' : ''
+                                        ));
     }
 
     /** 
@@ -244,9 +247,22 @@ class JobController extends Controller
     }
 
     public function companyPosts(Request $request) {
-        $posts = Job::where('company_id', Auth::user()->id)
+        $user = Auth::user();
+        $posts = Job::where('company_id', $user->id)
                     ->paginate(5);
         return view('posts', compact('posts'));
+    }
+
+    public function showSaved(Request $request) {
+        $user = Auth::user();
+        $savedjobs = SavedJob::where('user_id', $user->id)->paginate(5);
+
+        $saved = true;
+        
+        $categories = Category::all();
+        $countries = Country::all();
+      
+        return view('joblisting', compact('jobs', 'categories', 'countries', 'saved'));
     }
    
 }
