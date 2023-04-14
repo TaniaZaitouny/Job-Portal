@@ -7,6 +7,7 @@ use App\Models\Contact;
 use App\Models\Education;
 use App\Models\User;
 use App\Models\Work;
+use App\Models\Company;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +20,41 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
+    public function storeCompany(Request $request)
+    {
+        $user = Auth::user();
+        $company = Company::where('company_id', $user->id)->first();
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'about_us' => 'nullable|string',
+            'website' => 'nullable|string'
+        ]);
+        if($company)
+        {
+            $company->company_name = $request->input('name');
+            $company->description = $request->input('description');
+            $company->about_us = $request->input('about_us');
+            $company->website = $request->input('website');
+            $company->save();
+        }
+        else{
+        $company = new Company();
+        $company->company_name = $request->input('name');
+        $company->description = $request ->input('description');
+        $company->about_us = $request->input('about_us');
+        $company->website = $request->input('website');
+        $company->company_id = $user->id; 
+        $company->save();
+        }
+        return redirect('/viewprofile');
+        
+    }
+    
+    public function companyProfile()
+    {
+        return view('editProfile');
+    }
     public function showProfile()
     {
         
@@ -26,7 +62,8 @@ class ProfileController extends Controller
             $userId = Auth::user()->id;
             if($user->role == 'company')
             {
-                return view('companyProfile');
+                $company = Company::where('company_id', $userId)->first();
+                return view('companyProfile', compact('company'));
             }
            else{
             
@@ -44,6 +81,7 @@ class ProfileController extends Controller
         public function viewCompanyofId($id)
         {
             //get company information of this $id
+
 
         }
         public function edit(Request $request): View
