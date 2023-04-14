@@ -63,14 +63,15 @@ class ProfileController extends Controller
             $userId = Auth::user()->id;
             if($user->role == 'company')
             {
+                $user = User::where('id', $userId)->first();
                 $company = Company::where('company_id', $userId)->first();
                 $review = Review::where('company_id', $userId)->get();
                 $reviews = array();
                 foreach($review as $current) {
                     $user = User::where('id', $current->user_id)->get();
-                    $reviews[] = ['content' => $current->content, 'name' => $user->username];
+                    $reviews[] = ['content' => $current->content, 'name' => $user->username, 'id' => $user->id];
                 }
-                return view('companyProfile', compact('company','reviews'));
+                return view('companyProfile', compact('company', 'user', 'reviews'));
             }
            else{
             
@@ -80,19 +81,32 @@ class ProfileController extends Controller
                 $skill = Skill::where('user_id', $userId)->get();
                 $work = Work::where('user_id', $userId)->get();
                 
-                return view('userProfile',compact('information','contact','education','skill','work'));
+                return view('userProfile',compact('user', 'information','contact','education','skill','work'));
            }
        
     }
 
-        public function viewUser($id)
+        public function viewUser(Request $request, User $user)
         {
-             $user = User::where('id',$id)->first();
-             if($user->role =='company')
-             {
-                $company = Company::where('company_id', $id)->first();
-                return view('companyProfile', compact('company'));
-             }
+            if($user->role =='company') {
+                $company = Company::where('company_id', $user->id)->first();
+                $review = Review::where('company_id', $user->id)->get();
+                $reviews = array();
+                foreach($review as $current) {
+                    $reviewer = User::where('id', $current->user_id)->first();
+                    $reviews[] = ['content' => $current->content, 'name' => $reviewer->name, 'id' => $reviewer->id];
+                }
+                return view('companyProfile', compact('company', 'user', 'reviews'));
+            }
+            else {
+                $information = Information::where('user_id', $user->id)->first();
+                $contact = Contact::where('user_id', $user->id)->first();
+                $education = Education::where('user_id', $user->id)->get();
+                $skill = Skill::where('user_id', $user->id)->get();
+                $work = Work::where('user_id', $user->id)->get();
+                
+                return view('userProfile',compact('user', 'information','contact','education','skill','work'));
+            }
 
         }
         public function edit(Request $request): View
@@ -147,11 +161,11 @@ class ProfileController extends Controller
         return redirect('/')->with('success', 'You have been signed out.');
     }
 
-    public function addReview(Request $request, User $company)
+    public function addReview(Request $request, User $user)
     {
         $review= new Review();
         $review->content = $request->input('review');
-        $review->company_id = $company->id;
+        $review->company_id = $user->id;
         $review->user_id = Auth::user()->id;
         $review->save();
 

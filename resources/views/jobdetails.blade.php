@@ -44,7 +44,7 @@
                                 <h4>{{$job->title}}</h4>
                           
                             <ul>
-                                <li><a style="color:#808080" href="{{route('view.user',['id'=>$job->company_id])}}">Company Name</a></li>
+                                <li><a style="color:#808080" href="{{route('view.user',['user' => $job->company_id])}}">hello</a></li>
                                 <li><i class="fas fa-map-marker-alt"></i>{{$job->location}}</li>
                                 <li>{{$job->salary}}$</li>
                             </ul>

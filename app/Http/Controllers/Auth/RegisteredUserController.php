@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
         if ($isCompany === 'yes') {
             $user->role = 'company';
         } else {
-            $user->role = 'regular';
+            $user->role = 'person';
         }
         $user->save();
         event(new Registered($user));

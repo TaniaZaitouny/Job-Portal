@@ -114,16 +114,19 @@
     </style>
 
     
-     @if(isset($company))
+     
       
       <div class="about-us" style=" max-width: 1000px;">
        <br><br>
        
-       @if(Auth::user()->role=='company')
+       @if(Auth::user()->id == $user->id)
        <div class="text-right ">
-       <a href="{{route('company.edit')}}" class="btn head-btn1">Edit Profile</a>
-       <a href="{{route('posts.show')}}" class="btn head-btn1">View Posts</a>
-        </div>@endif
+        <a href="{{route('company.edit')}}" class="btn head-btn1">Edit Profile</a>
+        <a href="{{route('posts.show')}}" class="btn head-btn1">View Posts</a>
+        <a href="{{route('saved.view')}}" class="btn head-btn1">View Saved Jobs</a>
+        </div>
+        @endif
+        @if(isset($company))
         <div  class="text-left ">
         <h1 class="company-name">{{$company->company_name}}</h1>
         <p class="description">{{$company->description}}</p>
@@ -142,7 +145,7 @@
         <div class="review-card">
       <div class="review-card-content">
         <p>{{$review['content']}}</p>
-        <p>- {{$review['name']}}</p>
+        <a href="{{route('view.user', ['user' => $review['id']])}}"><p>- {{$review['name']}}</p><a>
       </div>
     </div>
     @endforeach
@@ -154,8 +157,8 @@
     <div class="divider"></div>
       
     
-          @if(Auth::user()->role=='regular')
-          <form action="{{route('review.add')}}" method="POST">
+          @if(Auth::user()->role=='person')
+          <form action="{{route('review.add', ['user' => $company->company_id])}}" method="POST">
           @csrf
             <div class="col-md-3 mb-3 align-center">
                 <label for="text"><h5>Leave a review</h5></label>
@@ -171,29 +174,19 @@
 <h2>Contact</h2>
 <ul>
 <li><span>Website:</span> {{$company->website}}</li>
-<li><span>Email:</span> {{Auth::user()->email}}</li>
+<li><span>Email:</span> {{$user->email}}</li>
 
 </ul>
 </div>
 
 
 @else
-  <div class="about-us"> <h2>update your profile!</h2><br><br><br><br><br><br>
+    @if(Auth::user()->id == $user->id)
+        <div class="about-us"> <h2>Update your profile!</h2><br><br><br><br><br><br>
+    @else
+    <div class="about-us"> <h2>No data aailable</h2><br><br><br><br><br><br>
+    @endif
 @endif
 
-
-  <div class="text-right ">
-    <a href="{{route('company.edit')}}" class="btn head-btn1">Edit Profile</a>
-  </div>
-  <br/>
-  <div class="text-right ">
-  <a href="{{route('saved.view')}}" class="btn head-btn1">View Saved Jobs</a>
-  </div>
-  <br/>
-  <div class="text-right ">
-    <a href="{{route('posts.show')}}" class="btn head-btn1">View Posts</a>
-    </div>
-  <br/>
- </div>
   </body>
 @endsection

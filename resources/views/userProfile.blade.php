@@ -100,9 +100,13 @@
     @if($information)
 
     <div class="about-us">
-    <div class="text-right ">
-       <a href="{{route('cv.index')}}" class="btn head-btn1">Edit Profile</a>
-     </div>
+      @if (Auth::user()->id == $user->id)
+          <div class="text-right ">
+            <a href="{{route('cv.index')}}" class="btn head-btn1">Edit Profile</a>
+            <a href="{{route('saved.view')}}" class="btn head-btn1">View Saved Jobs</a>
+          </div>
+      @endif
+    
     <h2>
        {{ $information->first_name }} 
        {{$information->last_name}}
@@ -158,14 +162,12 @@
       </div>
  
    @else 
-   <div class="about-us"> <h2>update your profile!</h2><br><br><br><br><br><br>
-   <div class="text-right ">
-       <a href="{{route('cv.index')}}" class="btn head-btn1">Edit Profile</a>
-     </div>
-     <br/>
-     <div class="text-right ">
-      <a href="{{route('saved.view')}}" class="btn head-btn1">View Saved Jobs</a>
-    </div> </div>
+   @if (Auth::user()->id == $user->id)
+       <div class="about-us"> <h2>Update your profile!</h2><br><br><br><br><br><br>
+    @else 
+    <div class="about-us"> <h2>No data available</h2><br><br><br><br><br><br>
+   @endif
+   
    @endif
   </body>
 
