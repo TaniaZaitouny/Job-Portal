@@ -117,15 +117,18 @@
      
       
       <div class="about-us" style=" max-width: 1000px;">
-        <h1 class="company-name">Company Name</h1>
-        <h2 class="sub-title">Sub Title</h2>
-        <p class="description">A little description about the company goes here.</p>
+       <br><br>
+       <div class="text-right ">
+       <a href="{{route('company.edit')}}" class="btn head-btn1">Edit Profile</a>
+     </div>
+        <h1 class="company-name">{{$company->company_name}}</h1>
+     
+        <p class="description">{{$company->description}}</p>
       </div>
     </div><br>
     <div class="about-us">
       <h2>About Us</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat faucibus purus, ac ultrices diam lacinia sit amet. Nam eu lorem nec sapien dignissim malesuada in quis felis. Maecenas vel vestibulum risus. Quisque non leo a quam consequat scelerisque. Nulla facilisi. Nulla ac sollicitudin elit. Vestibulum eu ultricies tellus. Fusce blandit volutpat dolor, eu venenatis libero tempor id. Sed at velit malesuada, aliquam tellus vel, scelerisque lorem.</p>
-      <p>Nunc pulvinar justo vitae neque porttitor, at volutpat lacus sollicitudin. Praesent elementum accumsan augue, in mollis
+     <p> {{$company->about_us}}
     </p>
     </div>
     <div class="reviews ">
@@ -143,6 +146,7 @@
     <div class="divider"></div>
       <form action="" method="POST">
         @csrf
+          @if(Auth::user()->role=='person')
             <div class="col-md-3 mb-3 align-center">
                 <label for="text"><h5>Leave a review</h5></label>
                 <textarea class="form-control"  name="review" hint="Enter Your Review" style="width:500px;height:100px;"> </textarea>
@@ -150,14 +154,14 @@
                 <input type="submit" value="Add Review" style="background: #fb246a; border:none;color:white;height:45px;width:150px"/>
             </div>
             </div>
-
+          @endif
 </form><br>
 <div class="contact">
 <h2>Contact</h2>
 <ul>
-<li><span>Website:</span> www.example.com</li>
-<li><span>Email:</span> info@example.com</li>
-<li><span>Phone:</span> (123) 456-7890</li>
+<li><span>Website:</span> {{$company->website}}</li>
+<li><span>Email:</span> {{Auth::user()->email}}</li>
+
 </ul>
 </div>
 

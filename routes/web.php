@@ -51,6 +51,10 @@ Route::post('/company/review/{id}', [ReviewController::class, 'store'])->name('r
 Route::get('/signOut',[ProfileController::class,'signOut']);
 Route::get('/viewprofile/company/{id}',[ProfileController::class, 'viewCompanyofId'])->name('view.company');
 Route::get('/viewprofile',[ProfileController::class,'showProfile'])->name('profile.view');
+Route::get('/editCompany',[ProfileController::class,'companyProfile'])->name('company.edit');
+Route::post('/saveprofile',[ProfileController::class,'storeCompany'])->name('company.save');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
