@@ -114,7 +114,7 @@
     </style>
 
     
-     
+     @if(isset($company))
       
       <div class="about-us" style=" max-width: 1000px;">
        <br><br>
@@ -137,13 +137,17 @@
     </div>
     <div class="reviews ">
   <h2>Reviews</h2>
-  
-  <div class="review-card">
-    <div class="review-card-content">
-      <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
-      <p>- John Doe</p>
+  @if(isset($reviews))
+    @foreach ($reviews as $review)
+        <div class="review-card">
+      <div class="review-card-content">
+        <p>{{$review['content']}}</p>
+        <p>- {{$review['name']}}</p>
+      </div>
     </div>
-  </div>
+    @endforeach
+  
+  @endif
  
 
 
@@ -151,7 +155,7 @@
       
     
           @if(Auth::user()->role=='regular')
-          <form action="" method="POST">
+          <form action="{{route('review.add')}}" method="POST">
           @csrf
             <div class="col-md-3 mb-3 align-center">
                 <label for="text"><h5>Leave a review</h5></label>
@@ -172,5 +176,24 @@
 </ul>
 </div>
 
+
+@else
+  <div class="about-us"> <h2>update your profile!</h2><br><br><br><br><br><br>
+@endif
+
+
+  <div class="text-right ">
+    <a href="{{route('company.edit')}}" class="btn head-btn1">Edit Profile</a>
+  </div>
+  <br/>
+  <div class="text-right ">
+  <a href="{{route('saved.view')}}" class="btn head-btn1">View Saved Jobs</a>
+  </div>
+  <br/>
+  <div class="text-right ">
+    <a href="{{route('posts.show')}}" class="btn head-btn1">View Posts</a>
+    </div>
+  <br/>
+ </div>
   </body>
 @endsection

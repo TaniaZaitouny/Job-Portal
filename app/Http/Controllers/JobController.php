@@ -187,13 +187,7 @@ class JobController extends Controller
         $categories = Category::all();
         $countries = Country::all();
       
-        return view('joblisting', compact('jobs', 'categories', 'countries',
-                                            isset($search) ? 'search' : '',
-                                            isset($category) ? 'category' : '',
-                                            isset($employment) ? 'employment' : '',
-                                            isset($country) ? 'country' : '',
-                                            isset($saved) ? 'saved' : ''
-                                        ));
+        return view('joblisting', compact('jobs', 'categories', 'countries', 'search', 'category', 'employment', 'country', 'saved'));
     }
 
     /** 
@@ -255,7 +249,7 @@ class JobController extends Controller
 
     public function showSaved(Request $request) {
         $user = Auth::user();
-        $savedjobs = SavedJob::where('user_id', $user->id)->paginate(5);
+        $jobs = SavedJob::where('user_id', $user->id)->paginate(5);
 
         $saved = true;
         

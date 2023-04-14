@@ -78,6 +78,7 @@
                         <form action="{{route('jobs.search')}}" method="POST">
                             @csrf 
                             <input type="hidden" name="search" value="{{isset($search) ? $search : ''}}">
+                            @if(isset($saved)) <input type="hidden" name="saved" value="true"> @endif
                         <!-- Job Category Listing start -->
                         <div class="job-category-listing mb-50">
                             <!-- single one -->
@@ -91,7 +92,7 @@
                                         <option value="">All Categories</option>
                                        
                                         @foreach($categories as $current_category)
-                                            <option value="{{$current_category->category}}" @if(isset($category) && $category == $current_category->category)selected @endif>{{$current_category->category}}</option>
+                                            <option value="{{$current_category->category}}" @if(isset($category) && $category == $current_category->category) selected @endif>{{$current_category->category}}</option>
                                         @endforeach
                                        
                                     </select>
@@ -125,7 +126,7 @@
                                     <select name="country">
                                        <option value="" selected="selected">Anywhere</option>
                                         @foreach($countries as $current_country)
-                                            <option value="{{$current_country->country}}" @if(isset('country') && $country == $current_country->country)selected @endif>{{$current_country->country}}</option>
+                                            <option value="{{$current_country->country}}" @if(isset($country) && $country == $current_country->country)selected @endif>{{$current_country->country}}</option>
                                        @endforeach
                                     </select>
                                 </div>
@@ -149,25 +150,7 @@
                         <!-- Featured_job_start -->
                         <section class="featured-job-area">
                             <div class="container">
-                                <!-- Count of Job list Start -->
-                                
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="count-job mb-35">
-                                            <?php $count = count($jobs);?>
-                                            
-                                            @if($count==1)
-                                            <span>{{$count}} job found</span>
-                                            @else
-                                            <span>{{$count}} jobs found</span>
-                                            @endif
-                                            <!-- Select job items start -->
-                                          
-                                            <!--  Select job items End-->
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Count of Job list End -->
+                
                                 <!-- single-job-content -->
                                
                                 @forelse($jobs as $job)
@@ -192,7 +175,7 @@
                                     </div>
                                 </div>
                                 @empty
-                                    <p> no jobs found </p>
+                                    <p> 0 Results </p>
                                 @endforelse
                                 <!-- single-job-content -->
                                

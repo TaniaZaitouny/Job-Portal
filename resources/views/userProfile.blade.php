@@ -162,6 +162,7 @@
    <div class="text-right ">
        <a href="{{route('cv.index')}}" class="btn head-btn1">Edit Profile</a>
      </div>
+     <br/>
      <div class="text-right ">
       <a href="{{route('saved.view')}}" class="btn head-btn1">View Saved Jobs</a>
     </div> </div>

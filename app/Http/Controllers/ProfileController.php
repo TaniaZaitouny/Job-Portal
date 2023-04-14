@@ -65,7 +65,12 @@ class ProfileController extends Controller
             {
                 $company = Company::where('company_id', $userId)->first();
                 $review = Review::where('company_id', $userId)->get();
-                return view('companyProfile', compact('company','review'));
+                $reviews = array();
+                foreach($review as $current) {
+                    $user = User::where('id', $current->user_id)->get();
+                    $reviews[] = ['content' => $current->content, 'name' => $user->username];
+                }
+                return view('companyProfile', compact('company','reviews'));
             }
            else{
             
@@ -135,19 +140,21 @@ class ProfileController extends Controller
     }
     public function signOut(Request $request)
     {
-    Auth::logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-  
-    return redirect('/')->with('success', 'You have been signed out.');
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+    
+        return redirect('/')->with('success', 'You have been signed out.');
     }
-    public function addReview($id)
+
+    public function addReview(Request $request, User $company)
     {
         $review= new Review();
         $review->content = $request->input('review');
-        $review->company_id = $id;
+        $review->company_id = $company->id;
         $review->user_id = Auth::user()->id;
         $review->save();
+
         return back();
     }
 

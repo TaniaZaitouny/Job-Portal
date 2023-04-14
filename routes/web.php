@@ -53,10 +53,10 @@ Route::put('/cv/update', [CvController::class, 'update'])->name('cv.update');
 
 
 Route::get('/signOut',[ProfileController::class,'signOut']);
-Route::post('/viewprofile/review/{id}', [ProfileController::class, 'addReview'])->name('add.review');
+Route::post('/viewprofile/{id}/review}', [ProfileController::class, 'addReview'])->name('review.add');
+Route::get('/viewprofile/saved',[JobController::class,'showSaved'])->name('saved.view');
 Route::get('/viewprofile/{id}',[ProfileController::class, 'viewUser'])->name('view.user');
 Route::get('/viewprofile',[ProfileController::class,'showProfile'])->name('profile.view');
-Route::get('/viewprofile/saved',[JobController::class,'showSaved'])->name('saved.view');
 Route::get('/editCompany',[ProfileController::class,'companyProfile'])->name('company.edit');
 Route::post('/saveprofile',[ProfileController::class,'storeCompany'])->name('company.save');
 

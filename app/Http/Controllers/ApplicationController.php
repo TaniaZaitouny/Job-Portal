@@ -24,7 +24,7 @@ class ApplicationController extends Controller
      */
     public function store(Request $request, Job $job)
     {
-        $this->authorize('create', Application::class);
+        //$this->authorize('create', Application::class);
         $application = new Application();
         $application->user_id = Auth::user()->id;
         $application->job_id = $job->id;
@@ -39,7 +39,7 @@ class ApplicationController extends Controller
      */
     public function destroy(Application $application)
     {
-        $this->authorize('delete', $application);
+        //$this->authorize('delete', $application);
         $application->delete();
     }
 
@@ -166,9 +166,6 @@ class ApplicationController extends Controller
 
         $countries = Country::all();
 
-        return view('applicants', compact('post', 'applicants', 'countries',
-                                        isset($experience) ? 'experience' : '',
-                                        isset($country) ? 'country' : '',
-                                        isset($certificates) ? 'certificates' : ''));
+        return view('applicants', compact('post', 'applicants', 'countries', 'experience', 'country', 'certificates'));
     }
 }
