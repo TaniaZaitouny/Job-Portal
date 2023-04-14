@@ -75,6 +75,9 @@
                             </div>
                         </div>
                         
+                        <form action="{{route('jobs.search')}}" method="POST">
+                            @csrf 
+                            <input type="hidden" name="search" value="{{isset($search) ? $search : ''}}">
                         <!-- Job Category Listing start -->
                         <div class="job-category-listing mb-50">
                             <!-- single one -->
@@ -87,8 +90,8 @@
                                     <select name="category" >
                                         <option value="">All Categories</option>
                                        
-                                        @foreach($categories as $category)
-                                            <option value="{{$category->category}}" @if(session('category')==$category->category)selected @endif>{{$category->category}}</option>
+                                        @foreach($categories as $current_category)
+                                            <option value="{{$current_category->category}}" @if(isset($category) && $category == $current_category->category)selected @endif>{{$current_category->category}}</option>
                                         @endforeach
                                        
                                     </select>
@@ -104,7 +107,7 @@
                                     ?>
                                     @foreach($types as $type)
                                     <label class="container" >{{$type}}
-                                        <input type="checkbox" name="employment[]" value={{$type}}>
+                                        <input type="checkbox" name="employment[]" value={{$type}} @if(isset($employment) && in_array($type, $employment)) checked @endif>
                                         <span class="checkmark"></span>
                                     </label>
                                     @endforeach
@@ -121,8 +124,8 @@
                                 <div class="select-job-items2">
                                     <select name="country">
                                        <option value="" selected="selected">Anywhere</option>
-                                        @foreach($countries as $country)
-                                            <option value="{{$country->country}}" @if(session('country')==$country->country)selected @endif>{{$country->country}}</option>
+                                        @foreach($countries as $current_country)
+                                            <option value="{{$current_country->country}}" @if(isset('country') && $country == $current_country->country)selected @endif>{{$current_country->country}}</option>
                                        @endforeach
                                     </select>
                                 </div>

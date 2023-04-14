@@ -152,7 +152,6 @@
       <div class="contact">
         <h2>Contact</h2>
           <ol>
-           
             <li><span>Email:</span> {{Auth::user()->email}}</li>
             <li><span>Phone:</span> {{$contact->phone}}</li>
           </ol>
@@ -162,7 +161,10 @@
    <div class="about-us"> <h2>update your profile!</h2><br><br><br><br><br><br>
    <div class="text-right ">
        <a href="{{route('cv.index')}}" class="btn head-btn1">Edit Profile</a>
-     </div> </div>
+     </div>
+     <div class="text-right ">
+      <a href="{{route('saved.view')}}" class="btn head-btn1">View Saved Jobs</a>
+    </div> </div>
    @endif
   </body>
 
