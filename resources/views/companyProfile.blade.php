@@ -118,10 +118,12 @@
       
       <div class="about-us" style=" max-width: 1000px;">
        <br><br>
+       
+       @if(Auth::user()->role=='company')
        <div class="text-right ">
        <a href="{{route('company.edit')}}" class="btn head-btn1">Edit Profile</a>
        <a href="{{route('posts.show')}}" class="btn head-btn1">View Posts</a>
-        </div>
+        </div>@endif
         <div  class="text-left ">
         <h1 class="company-name">{{$company->company_name}}</h1>
         <p class="description">{{$company->description}}</p>
