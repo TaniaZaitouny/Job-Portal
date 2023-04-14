@@ -19,7 +19,12 @@
                                         <ul id="navigation">
                                             <li><a href={{ route('index') }}>Home</a></li>
                                             <li><a href={{ route('jobs.index') }}>Find a Job </a></li>
-                                            <li><a href={{ route('about') }}>About</a></li>                                       
+                                            <li><a href={{ route('about') }}>About</a></li>  
+                                            @auth   
+                                            @if(Auth::user()->role=='company')
+                                                <li><a href={{ route('jobs.create') }} >Post a Job</a> </li> 
+                                            @endif                               
+                                            @endauth
                                         </ul>
                                     </nav>
                                 </div>          
@@ -32,9 +37,7 @@
                                     
                                 </div>
                                 @auth
-                                @if(Auth::user()->role=='company')
-                                <a href={{ route('jobs.create') }} class="btn head-btn1">Post a Job</a>
-                                @endif
+            
                                 <div class = "row">
                                 
                                     <a class="nav-link" href="{{ route('profile.view') }}">
