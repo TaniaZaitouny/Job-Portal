@@ -6,6 +6,17 @@
    
     <main>
         
+        <script>
+            let certificate_index = 0;
+            function add_certificate_row() {
+                var certificate_container = document.getElementById("certificates");
+                var new_row = document.createElement("div");
+                
+                new_row.innerHTML = `<input type="text" name="certificate[${certificate_index}]" class="form-control"><br/>`;
+                certificate_container.appendChild(new_row);
+                certificate_index += 1;
+            }
+        </script>
         <!-- Hero Area Start-->
         <div class="slider-area ">
             <div class="single-slider section-overly slider-height2 d-flex align-items-center" data-background="{{asset('assets/img/hero/about.jpg')}}">
@@ -42,59 +53,75 @@
                                 </div>
                             </div>
                         </div>
-                        
+                        <form action="{{route('applicants.filter', ['post' => $post->id])}}" method = "POST">
+                            @csrf
                         <!-- Job Category Listing start -->
                         <div class="job-category-listing mb-50">
                             <!-- single one -->
                             <div class="single-listing">
                                <div class="small-section-tittle2">
-                                     <h4>Job Category</h4>
+                                     <h4>Applicant Certificates</h4>
                                </div>
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
-                                    <select name="category" >
-                                        <option value="">All Categories</option>
-                                       
-                                        @foreach($categories as $category)
-                                            <option value="{{$category->category}}" @if(session('category')==$category->category)selected @endif>{{$category->category}}</option>
-                                        @endforeach
-                                       
-                                    </select>
+                                        
+                                            <script> certificate_index += 1; </script>
+                                            <div class="form-group" id="certificates">
+                                                <label class="text-muted">Certificates</label>
+                                                @if (isset($certificates))
+                                                    @foreach ($certificates as $index => $certificate)
+                                                    <script> certificate_index += 1; </script>
+                                                    <div>
+                                                        <input type="text" name="certificate[{{$index}}]" class="form-control" value="{{$certificate}}"><br/>
+                                                    </div>
+                                                    @endforeach
+                                                @else 
+                                                    <div>
+                                                        <input type="text" name="certificate[0]" class="form-control"><br/>
+                                                    </div>
+                                                @endif
+                                                
+                                            </div>
+                                        
+                                            <button type="button" id="add_certificate" class="btn btn-light" onclick="add_certificate_row()">Add Row</button>
                                 </div>
                          
                                 <!--  Select job items End-->
                                 <!-- select-Categories start -->
                                 <div class="select-Categories pt-80 pb-50">
                                     <div class="small-section-tittle2">
-                                        <h4>Job Type</h4>
+                                        <h4>Applicant Experience</h4>
                                     </div>
-                                    <?php $types = ['full-time','part-time','freelance'];
-                                    ?>
-                                    @foreach($types as $type)
-                                    <label class="container" >{{$type}}
-                                        <input type="checkbox" name="employment[]" value={{$type}}>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    @endforeach
+                                    <div class="select-job-items2">
+                                        <select name="experience" >
+                                            <option value="">Years of Experience</option>
+                                                @for($i = 1; $i <= 25; $i += 1) 
+                                                    <option @if(isset($experience) && $experience == $i) selected @endif value="{{$i}}">{{$i}} @if($i == 1) year @else years @endif </option>
+                                                @endfor
+                                            ?>
+                                        
+                                        </select>
+                                    </div>
                                 </div>
                                 <!-- select-Categories End -->
-                            </div>
-                            <!-- single two -->
-                           
-                            <div class="single-listing">
-                               <div class="small-section-tittle2">
-                                     <h4>Job Location</h4>
-                               </div>
-                                <!-- Select job items start -->
-                                <div class="select-job-items2">
-                                    <select name="country">
-                                       <option value="" selected="selected">Anywhere</option>
-                                        @foreach($countries as $country)
-                                            <option value="{{$country->country}}" @if(session('country')==$country->country)selected @endif>{{$country->country}}</option>
-                                       @endforeach
-                                    </select>
+                            
+                                <br/>
+                                <!-- single two -->
+                                <div class="single-listing">
+                                <div class="small-section-tittle2">
+                                        <h4>Applicant Location</h4>
                                 </div>
-                                <br><br>
+                                    <!-- Select job items start -->
+                                    <div class="select-job-items2">
+                                        <select name="country">
+                                        <option value="" selected="selected">Anywhere</option>
+                                            @foreach($countries as $current_country)
+                                                <option value="{{$current_country->country}}" @if(isset($country) && $country == $current_country->country)selected @endif>{{$current_country->country}}</option>
+                                        @endforeach
+                                        </select>
+                                    </div>
+                                    <br><br>
+                                </div>
                         </div>
                      
                             

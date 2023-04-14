@@ -10,9 +10,11 @@ use App\Models\Education;
 use App\Models\Information;
 use App\Models\Job;
 use App\Models\Skill;
+use App\Models\User;
 use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ApplicationController extends Controller
 {
@@ -73,5 +75,119 @@ class ApplicationController extends Controller
         $countries = Country::all();
 
         return view('applicants', compact('post', 'applicants', 'categories', 'countries'));
+    }
+
+    public function filter(Request $request, Job $post) {
+        $applicantIds = Application::where('job_id', $post->id)->pluck('user_id')->toArray();
+        $applicants = array();
+
+        $country = $request->input('country');
+        $experience = $request->input('experience');
+        $certificates = $request->input('certificate');
+        $certificates = array_filter($certificates, function($value) {
+            return !is_null($value) && strlen($value) > 0;
+        });
+
+        if($country) {
+            $countryIds = Contact::where('country', $country)->pluck('user_id')->toArray();
+        }
+        
+        if($experience) {
+            $experienceIds = Information::where('experience', $experience)->pluck('user_id')->toArray();
+        }
+        
+        if($certificates) {
+            $certificateIds = DB::table('users')
+                    ->select('id')
+                    ->where(function($query) use ($certificates) {
+                                foreach ($certificates as $certificate) {
+                                    $query->whereExists(function($query) use ($certificate) {
+                                        $query->select(DB::raw(1))
+                                        ->from('education')
+                                        ->whereRaw('education.user_id = users.id')
+                                        ->where('education.certificate_name', '=', $certificate);
+                                    });
+                                }
+                    })
+                    ->get()
+                    ->pluck('id')
+                    ->toArray();
+        }
+
+        if($country && $experience && $certificates) {
+            $ids = array_intersect($applicantIds, $countryIds, $experienceIds, $certificateIds);
+        }
+        else if($country && $experience) {
+            $ids = array_intersect($applicantIds, $countryIds, $experienceIds);
+        }
+        else if($experience && $certificates) {
+            $ids = array_intersect($applicantIds, $experienceIds, $certificateIds);
+        }
+        else if($country && $certificates) {
+            $ids = array_intersect($applicantIds, $countryIds, $certificateIds);
+        }
+        else if($country) {
+            $ids = array_intersect($applicantIds, $countryIds);
+        }
+        else if($experience) {
+            $ids = array_intersect($applicantIds, $experienceIds);
+        }
+        else if($certificates) {
+            $ids = array_intersect($applicantIds, $certificateIds);
+        }
+        else {
+            $ids = $applicantIds;
+        }
+        
+
+        $users = User::whereIn('id', $ids)->get();
+
+        foreach($users as $user) {
+            $applicant = array();
+
+            $applicant['id'] = $user->user_id;
+            if($user->bid) {
+                $applicant['bid'] = $user->bid;
+            }
+            else {
+                $applicant['bid'] = 0;
+            }
+
+            $information = Information::where('user_id', $user->id)->first();
+            $applicant['first_name'] = $information->first_name;
+            $applicant['last_name'] = $information->last_name;
+            $applicant['experience'] = $information->experience;
+
+            $contact = Contact::where('user_id', $user->id)->first();
+            $applicant['country'] = $contact->country;
+
+            $applicants[] = $applicant;
+        }
+
+        $countries = Country::all();
+
+        if($experience && $country && $certificates) {
+            return view('applicants', compact('post', 'certificates', 'country', 'experience', 'applicants', 'countries'));
+        }
+        else if($experience && $country) {
+            return view('applicants', compact('post', 'country', 'experience', 'applicants', 'countries'));   
+        }
+        else if($country && $certificates) {
+            return view('applicants', compact('post', 'certificates', 'country', 'applicants', 'countries'));
+        }
+        else if($experience && $certificates) {
+            return view('applicants', compact('post', 'certificates', 'experience', 'applicants', 'countries'));
+        }
+        else if($experience) {  
+            return view('applicants', compact('post', 'experience', 'applicants', 'countries'));   
+        }
+        else if($country) {  
+            return view('applicants', compact('post', 'country', 'applicants', 'countries'));   
+        }
+        else if($certificates) {  
+            return view('applicants', compact('post', 'certificates', 'applicants', 'countries'));   
+        }
+
+        return view('applicants', compact('post', 'applicants', 'countries'));
     }
 }

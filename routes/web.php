@@ -57,6 +57,7 @@ Route::get('/viewprofile',[ProfileController::class,'showProfile'])->name('profi
 
 Route::get('/posts', [JobController::class, 'companyPosts'])->name('posts.show');
 Route::get('/posts/{post}', [ApplicationController::class, 'postApplicants'])->name('applicants.show');
+Route::post('/posts/{post}/filter', [ApplicationController::class, 'filter'])->name('applicants.filter');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

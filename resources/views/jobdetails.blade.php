@@ -83,13 +83,8 @@
             <!-- Right Content -->
             <div class="col-xl-4 col-lg-4">
                 <div class="post-details3  mb-50">
-                    <!-- Small Section Tittle -->
-                
-              
-                 <br/>
-                 <div class="apply-btn2">
-                    <form method="POST" action="{{ route('jobs.save', ['job' => $job->id]) }}">
-                    </div>
+                    <!-- Small Section Tittle --> 
+                    <br/>
                     <ul>
                         <li>Posted date : <span>{{$date}}</span></li>
                         <li>Location : <span>{{$job->location}}</span></li>
@@ -104,10 +99,9 @@
                             <input type="text" class="form-control" name="bid" id="bid" required>
                             <div class="invalid-feedback">
                                 Please provide a title.
-                              </div>
+                            </div>
                             <br/>
                         @endif
-                        <div class="row">
                         <div class="apply-btn2">
                             <button type="submit" class="btn">Apply Now</a>
                         </div>
@@ -119,8 +113,7 @@
                             <button type="submit" class="btn">{{$job->isSaved() ? 'Unsave Job' : 'Save Job'}}</button>
                         </form>
                     </div>
-                       </div>
-               </div>
+                </div>
                
             </div>
         </div>

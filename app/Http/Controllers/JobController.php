@@ -84,10 +84,10 @@ class JobController extends Controller
         $titleSubstrings = $this->getSubstrings($request->input('title'));
         $descriptionSubstrings = $this->getSubstrings($request->input('description'));
         $requirementSubstrings = $this->getSubstrings($request->input('requirements'));
-        $substrings = $titleSubstrings + $descriptionSubstrings + $requirementSubstrings;
+        $substrings = array_merge($titleSubstrings, array_merge($descriptionSubstrings ,$requirementSubstrings));
 
-        $searches = Search::whereIn('keyword', $substrings);
-        $url = route('jobs.show', ['job' => $job]);
+        $searches = Search::whereIn('keyword', $substrings)->get();
+        $url = route('jobs.show', ['job' => $job->id]);
         
         foreach ($searches as $search) {
             Mail::to($search->email)->send(new NewJobNotification($url));
