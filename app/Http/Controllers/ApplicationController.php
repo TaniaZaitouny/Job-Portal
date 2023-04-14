@@ -25,6 +25,10 @@ class ApplicationController extends Controller
     public function store(Request $request, Job $job)
     {
         //$this->authorize('create', Application::class);
+        $user_id = Auth::user()->id;
+        $information = $information = Information::where('user_id',$user_id)->first();
+        if($information)
+        {
         $application = new Application();
         $application->user_id = Auth::user()->id;
         $application->job_id = $job->id;
@@ -32,6 +36,8 @@ class ApplicationController extends Controller
             $application->bid = $request->input('bid');
         }
         $application->save();
+    }
+        else return view('cv');
     }
 
     /**
@@ -47,6 +53,7 @@ class ApplicationController extends Controller
     {
         //$this->authorize('view', $post);
         $users = Application::where('job_id', $post->id)->get();
+
         $applicants = array();
 
         foreach($users as $user) {
@@ -61,6 +68,7 @@ class ApplicationController extends Controller
             }
 
             $information = Information::where('user_id', $user->user_id)->first();
+            
             $applicant['first_name'] = $information->first_name;
             $applicant['last_name'] = $information->last_name;
             $applicant['experience'] = $information->experience;
@@ -75,6 +83,7 @@ class ApplicationController extends Controller
         $countries = Country::all();
 
         return view('applicants', compact('post', 'applicants', 'categories', 'countries'));
+    
     }
 
     public function filter(Request $request, Job $post) {
